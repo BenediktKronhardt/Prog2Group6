@@ -10,4 +10,5 @@ public class Demo6Application {
         SpringApplication.run(Demo6Application.class, args);
     }
     //Das ist ein Test zum pushen
+    //Coole Aufgabe
 }
