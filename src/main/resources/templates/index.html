@@ -11,6 +11,12 @@
 <!--        ${greeting} greift auf die Variable greeting zu, th:text="${greeting}" setzt den Textinhalt des h1, th:if zeigt Element nur an, wenn die Bedingung erfüllt ist-->
         <h1 th:if="${greeting != null}" th:text="${greeting}"></h1>
     </div>
+    <div class="mt-4">
+        <form action="/hello" method="post" class="form-inline">
+            <input name="name" type="text" class="form-control"/>
+            <button type="submit" class="btn btn-primary">Abschicken</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
