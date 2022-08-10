@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Hello, world!</title>
@@ -7,7 +7,9 @@
 <body>
 <div class="container">
     <div class="mt-4">
-        <h1>Hello, world!</h1>
+<!--        Hier wird auf die Model Variable greeting zugegriffen, auch wenn es zwar hier als Fehler angezeigt wird, wird die Variable gefunden-->
+<!--        ${greeting} greift auf die Variable greeting zu, th:text="${greeting}" setzt den Textinhalt des h1, th:if zeigt Element nur an, wenn die Bedingung erfüllt ist-->
+        <h1 th:if="${greeting != null}" th:text="${greeting}"></h1>
     </div>
 </div>
 </body>
