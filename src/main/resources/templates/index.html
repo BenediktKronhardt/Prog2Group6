@@ -2,15 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hello, world!</title>
+    <title>Evaluationsbogen</title>
 </head>
 <body>
 <div class="container">
     <div class="mt-4">
         <h1>Evaluationsbögen</h1>
     </div>
-    <div>Hier gibt es noch einen Fehler!</div>
+
+    <div>
+<!--    Wenn es bereits Questions gibt (evaluationForm nicht leer ist), werden diese in einer Tabelle angezeigt-->
+        <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
+            <tr>
+                <th>ID</th>
+                <th>Frage</th>
+            </tr>
+<!--        Von jeder Question werden die ID und der Text in einer separaten Zeile angezeigt, für jedde Question gibt es eine eigene Zeile-->
+            <tr th:each="question : ${evaluationForm.questions}">
+                <td th:text="${question.id}"></td>
+                <td th:text="${question.text}"></td>
+            </tr>
+        </table>
+
+
+    </div>
 
 </div>
+
 </body>
 </html>

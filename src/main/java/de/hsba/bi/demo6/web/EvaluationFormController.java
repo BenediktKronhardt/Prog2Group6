@@ -6,29 +6,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
-public class EvaluationController {
+public class EvaluationFormController {
 
     private EvaluationForm evaluationForm;
 
-    public EvaluationController(){
+    public EvaluationFormController(){
+//  Variable evaluationForm vom Typ evaluationForm wird erstellt
         evaluationForm= new EvaluationForm();
-//  Ein paar Bögen zum testen hinzufügen
+//  Ein paar Fragen zum testen hinzufügen
         evaluationForm.getQuestions().add(new Question(1,"Wie hat dir der Kurs gefallen?"));
-        evaluationForm.getQuestions().add(new Question(2,"Wiehat dir der Dozent gefallen ?"));
+        evaluationForm.getQuestions().add(new Question(2,"Wie hat dir der Dozent gefallen ?"));
     }
 
+//  In der Methode "show" wird ein Model erstellt, welches evaluationForm heißt. In dieses wird die vorher erstellte Variable evaluationForm hinzugefügt
     @GetMapping("/")
     public String show(Model model){
         model.addAttribute("evaluationForm", evaluationForm);
         return "index";
     }
 
-    @PostMapping("/")
-    public String addQuestion(Question question){
-        evaluationForm.getQuestions().add(question);
-
-        return "redirect:/";
-    }
 }
