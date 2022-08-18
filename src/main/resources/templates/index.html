@@ -2,21 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hello, world!</title>
+    <title>Evaluationsbogen</title>
 </head>
 <body>
 <div class="container">
-    <div class="mt-4">
-<!--        Hier wird auf die Model Variable greeting zugegriffen, auch wenn es zwar hier als Fehler angezeigt wird, wird die Variable gefunden-->
-<!--        ${greeting} greift auf die Variable greeting zu, th:text="${greeting}" setzt den Textinhalt des h1, th:if zeigt Element nur an, wenn die Bedingung erfüllt ist-->
-        <h1 th:if="${greeting != null}" th:text="${greeting}"></h1>
+
+    <div>
+<!--    Wenn es bereits Questions gibt (evaluationForm nicht leer ist), werden diese in einer Tabelle angezeigt-->
+        <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
+            <tr>
+                <th>ID</th>
+                <th>Frage</th>
+            </tr>
+<!--        Von jeder Question werden die ID und der Text in einer separaten Zeile angezeigt, für jedde Question gibt es eine eigene Zeile-->
+            <tr th:each="question : ${evaluationForm.questions}">
+                <td th:text="${question.id}"></td>
+                <td th:text="${question.text}"></td>
+            </tr>
+        </table>
+
+
     </div>
-    <div class="mt-4">
-        <form action="/hello" method="post" class="form-inline">
-            <input name="name" type="text" class="form-control"/>
-            <button type="submit" class="btn btn-primary">Abschicken</button>
-        </form>
-    </div>
+
 </div>
+
 </body>
 </html>
