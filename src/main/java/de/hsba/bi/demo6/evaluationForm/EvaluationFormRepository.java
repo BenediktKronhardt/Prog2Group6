@@ -1,0 +1,36 @@
+package de.hsba.bi.demo6.evaluationForm;
+
+import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@Repository
+class EvaluationFormRepository {
+
+    private Map<Integer, EvaluationForm> store = new TreeMap<>();
+    private AtomicInteger sequence = new AtomicInteger();
+
+//  Ein EvaluationForm Objekt wird in der Map "store" gespeichert.
+//  Durch "sequence.incrementAndGet()" wird eine neue ID vom Typ Integer automatisch generiert.
+//  In store.put wird das neue evaluationForm Objekt der Map zugeordnet mit der vorher generierten ID
+    EvaluationForm save(EvaluationForm evaluationForm) {
+        int id = sequence.incrementAndGet();
+        evaluationForm.setId(id);
+        store.put(id, evaluationForm);
+        return evaluationForm;
+    }
+
+//  Einzelne EvaluationForms per ID finden
+    Optional<EvaluationForm> findById(Integer id) {
+        return Optional.ofNullable(store.get(id));
+    }
+
+//  Alle Einträge der Map "store" (alle Evaluationsbögen) finden
+    Collection<EvaluationForm> findAll(){
+        return store.values();
+    }
+}

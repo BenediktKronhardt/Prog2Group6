@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <div class="my-4">
+        <h1>Evaluationsbogen</h1>
+    </div>
+
+<!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
+    <ul class="list-unstyled">
+        <li th:each="evaluationForm : ${evaluationForm}">
+            <a th:href="${'/evaluationForms/' + evaluationForm.id}" th:text="${evaluationForm.name}"></a>
+        </li>
+    </ul>
+
+<!--Neue Evaluationsbögen anlegen-->
+    <form action="/evaluationForms" method="post" class="form-inline">
+        <input name="name" type="text" placeholder="Name" class="form-control mr-2">
+        <button type="submit" class="btn btn-primary">Anlegen</button>
+    </form>
+</div>
+</body>
+</html>

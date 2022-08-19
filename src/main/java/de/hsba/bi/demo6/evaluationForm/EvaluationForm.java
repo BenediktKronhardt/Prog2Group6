@@ -1,11 +1,23 @@
 package de.hsba.bi.demo6.evaluationForm;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class EvaluationForm {
-//  Attribute von EvaluationForm
+
+//  id zur eindeutigen Identifikation
+    @Getter
+    @Setter
     private int id;
+
+//  Name des Fragebogens
+    @Getter
+    @Setter
+    private String name;
+
 //  Liste von Questions
     private List<Question> questions;
 
