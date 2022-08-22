@@ -4,10 +4,9 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
 @Component
 public class TestDataCreator {
+
 
     private final EvaluationFormRepository evaluationFormRepository;
 
@@ -21,10 +20,11 @@ public class TestDataCreator {
 //  hinzufügen von Beispielen zum testen
 //  Hier muss ID noch automatisch generiert werden
 //  TODO: ID automatisch generieren
+
         EvaluationForm evaluationForm = new EvaluationForm();
         evaluationForm.setName("20A-BI2-PROG2");
-        evaluationForm.getQuestions().add(new Question(new Integer(15),"Wie war die Struktur des Moduls?"));
-        evaluationForm.getQuestions().add(new Question(new Integer(16),"Wie war der Dozent?"));
+        evaluationForm.getQuestions().add(new Question(1,"Wie war die Struktur des Moduls?"));
+        evaluationForm.getQuestions().add(new Question(2,"Wie war der Dozent?"));
 
         evaluationFormRepository.save(evaluationForm);
     }

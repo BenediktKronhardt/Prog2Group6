@@ -43,7 +43,7 @@ public class EvaluationFormController {
 
 //  Ein Question-Objekt zu EvaluationForm hinzufügen
     @PostMapping(path="/{id}")
-    public String addEntry(@PathVariable("id") int id, Question question) {
+    public String addQuestion(@PathVariable("id") int id, Question question) {
         EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
         evaluationFormService.addQuestion(evaluationForm, question);
         return "redirect:/evaluationForms/" +id;
