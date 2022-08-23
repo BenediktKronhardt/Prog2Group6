@@ -1,32 +1,51 @@
 package de.hsba.bi.demo6.web;
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
+import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
 import de.hsba.bi.demo6.evaluationForm.Question;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@RequestMapping("/evaluationForms")
 public class EvaluationFormController {
 
-    private EvaluationForm evaluationForm;
+    private final EvaluationFormService evaluationFormService;
 
-    public EvaluationFormController(){
-//  Variable evaluationForm vom Typ evaluationForm wird erstellt
-        evaluationForm= new EvaluationForm();
-//  Ein paar Fragen zum testen hinzufügen
-        evaluationForm.getQuestions().add(new Question(1,"Wie hat dir der Kurs gefallen?"));
-        evaluationForm.getQuestions().add(new Question(2,"Wie hat dir der Dozent gefallen ?"));
+//  Abhängigkeit zu EvaluationFormService deklarieren
+    public EvaluationFormController(EvaluationFormService evaluationFormService){
+        this.evaluationFormService = evaluationFormService;
     }
 
-//  In der Methode "show" wird ein Model erstellt, welches evaluationForm heißt. In dieses wird die vorher erstellte Variable evaluationForm hinzugefügt
-    @GetMapping("/")
-    public String show(Model model){
-        model.addAttribute("evaluationForm", evaluationForm);
-        return "index";
+    //  In der Methode "show" wird ein Model erstellt, welches evaluationForm heißt
+    //  In dieses wird der EvaluationFormService hinzugefügt. Die Methode getAll() zeigt alle vorhandenen EvaluationForms an.
+    @GetMapping
+    public String index(Model model){
+        model.addAttribute("evaluationForm", evaluationFormService.getAll());
+        return "evaluationForms/index";
     }
 
+    // Ein neues EvaluationForm-Objekt anlegen. Danach Weiterleitung auf die Seite des neuen Objektes
+    @PostMapping
+    public String create(String name){
+        EvaluationForm evaluationForm = evaluationFormService.createEvaluationForm(name);
+        return "redirect:/evaluationForms/" + evaluationForm.getId();
+    }
+
+//  Seite eines bestimmten EvaluationForm-Objektes anzeigen lassen
+    @GetMapping(path="/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("evaluationForm", evaluationFormService.getEvaluationForm(id));
+        return "evaluationForms/show";
+    }
+
+//  Ein Question-Objekt zu EvaluationForm hinzufügen
+    @PostMapping(path="/{id}")
+    public String addQuestion(@PathVariable("id") int id, Question question) {
+        EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
+        evaluationFormService.addQuestion(evaluationForm, question);
+        return "redirect:/evaluationForms/" +id;
+    }
 }

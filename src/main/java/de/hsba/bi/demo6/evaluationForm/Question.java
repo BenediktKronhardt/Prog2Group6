@@ -1,30 +1,18 @@
 package de.hsba.bi.demo6.evaluationForm;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+//Getter, Setter und Konstruktoren automatisch von lombok erzeugen lassen
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Question {
-//  Attribute der Klasse "Question"
+    //  Attribute der Klasse "Question"
     private int id;
     private String text;
 
-//  Konstruktor -> es werden immer eine id und ein String (text) benötigt
-    public Question(int id, String text){
-        this.id=id;
-        this.text=text;
-    };
-
-//  Methoden - Getter und Setter
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 }

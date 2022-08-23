@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <div class="my-4">
+<!--    Evaluationsbogen mit Namen anzeigen-->
+        <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
+    </div>
+
+<!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
+    <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
+        <tr>
+            <th>ID<th>
+            <th>Frage</th>
+        </tr>
+<!--        Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
+        <tr th:each="question : ${evaluationForm.questions}">
+            <td th:text="${evaluationForm.id} + '-' +  ${question.id}"></td>
+            <td th:text="${question.text}"></td>
+        </tr>
+    </table>
+
+    <div>
+        <hr />
+<!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
+        <h2>Neue Frage</h2>
+        <form th:action="${'/evaluationForms/' + evaluationForm.id}" method="post" class="form-inline">
+            <input name="text" type="text" placeholder="Frage" class="form-control mr-2">
+            <button type="submit" class="btn btn-primary">Eintragen</button>
+        </form>
+    </div>
+
+    <hr />
+    <p class="small">
+<!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
+        <a href="/evaluationForms/">Index</a>
+    </p>
+</div>
+</body>
+</html>
