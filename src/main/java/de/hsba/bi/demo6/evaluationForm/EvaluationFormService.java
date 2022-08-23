@@ -3,7 +3,6 @@ package de.hsba.bi.demo6.evaluationForm;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Collections;
 
 @Service
 public class EvaluationFormService {
@@ -28,7 +27,7 @@ public class EvaluationFormService {
     }
 
 //  Frage zu EvaluationForm hinzufügen
-    public void addQuestion(EvaluationForm evaluationForm, Question question) {
+    public EvaluationForm addQuestion(EvaluationForm evaluationForm, Question question) {
 //   Variable i zum Bestimmen der Id der Question
      int i=0;
 
@@ -42,11 +41,22 @@ public class EvaluationFormService {
             i=evaluationForm.getQuestions().size()+1;
         }
 
-        evaluationForm.getQuestions().add(question);
 
 //      Hier wird i als ID gesetzt
         question.setId(i);
 
+//      Damit nicht die ID als Wert genommen wird, wird "i" zu "j"
+        int j = 0;
+        j=i;
+
+//      Es kann eine maximale Grenze erstellt werden
+        if (j <= 4){
+
+            evaluationForm.getQuestions().add(question);
+        }
+
+//      Gibt den Bogen zurück damit er ausgelesen werden kann
+        return evaluationForm;
     }
 
 //  Alle Evaluationsbögen anzeigen lassen
