@@ -33,4 +33,12 @@ class EvaluationFormRepository {
     Collection<EvaluationForm> findAll(){
         return store.values();
     }
+
+//  EvaluationForm Element aus der Map "store" löschen
+    void deleteById(Integer id){
+        store.remove(id);
+    }
+
 }
+
+

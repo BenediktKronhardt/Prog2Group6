@@ -54,6 +54,11 @@ public class EvaluationFormService {
         return repository.findAll();
     }
 
+//  Evaluationsbogen mit bestimmter id löschen
+    public void delete(Integer id){
+        repository.deleteById(id);
+    }
+
 
 }
 
