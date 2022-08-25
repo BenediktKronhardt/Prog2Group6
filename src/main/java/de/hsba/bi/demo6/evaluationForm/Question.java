@@ -1,18 +1,38 @@
 package de.hsba.bi.demo6.evaluationForm;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//Getter, Setter und Konstruktoren automatisch von lombok erzeugen lassen
+import javax.persistence.*;
+
+//Getter, Setter und NoArgsKonstruktor automatisch von lombok erzeugen lassen
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@Entity
 public class Question {
-    //  Attribute der Klasse "Question"
-    private int id;
+    @Setter(AccessLevel.NONE)
+    @Id
+    @GeneratedValue
+    private Long id;
+
+//  invers zu EvaluationForm
+    @ManyToOne(optional = false)
+    private EvaluationForm evaluationForm;
+
+//  optional=false: muss gesetzt werden
+    @Basic(optional = false)
+    private Integer countQuestion;
+
+//  optional=false: muss gesetzt werden
+    @Basic(optional = false)
     private String text;
 
+//  Konstruktor mit Args
+    public Question(final int countQuestion,final String text){
+        this.countQuestion=countQuestion;
+        this.text=text;
+    }
 }
