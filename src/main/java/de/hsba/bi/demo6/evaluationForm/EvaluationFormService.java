@@ -3,7 +3,6 @@ package de.hsba.bi.demo6.evaluationForm;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Collections;
 
 @Service
 public class EvaluationFormService {
@@ -30,29 +29,33 @@ public class EvaluationFormService {
 //  Frage zu EvaluationForm hinzufügen
     public void addQuestion(EvaluationForm evaluationForm, Question question) {
 //   Variable i zum Bestimmen der Id der Question
-     int i=0;
+        int i = 0;
+
+//  Maximale Anzahl an Fragen die gestellt werden können
+        if (evaluationForm.getQuestions().size() < 10) {
+
 
 //     Wenn es noch keine Questions gibt, wird i=1 gesetzt
-        if(evaluationForm.getQuestions().isEmpty()){
-            i=1;
-        }
+            if (evaluationForm.getQuestions().isEmpty()) {
+                i = 1;
+            }
 
 //      Ansonsten ist i um den Wert 1 größer als die Anzahl der Questions
-        else{
-            i=evaluationForm.getQuestions().size()+1;
-        }
+            else {
+                i = evaluationForm.getQuestions().size() + 1;
+            }
 
-        evaluationForm.getQuestions().add(question);
 
 //      Hier wird i als ID gesetzt
-        question.setId(i);
+            question.setId(i);
 
+            evaluationForm.getQuestions().add(question);
+        }
     }
-
 //  Alle Evaluationsbögen anzeigen lassen
     public Collection<EvaluationForm> getAll() {
-        return repository.findAll();
-    }
+            return repository.findAll();
+        }
 
 
 }
