@@ -36,32 +36,23 @@ public class EvaluationFormService {
 //  Frage zu EvaluationForm hinzufügen
     public void addQuestion(EvaluationForm evaluationForm, Question question) {
 
-//   Variable i zum Bestimmen des Atrributes countQuestion der Question
-     int i=0;
-
-
 //  Maximale Anzahl an Fragen die gestellt werden können
         if (evaluationForm.getQuestions().size() < 10) {
 
-
-//     Wenn es noch keine Questions gibt, wird i=1 gesetzt
+//     Wenn es noch keine Questions gibt, wird countQuestion=1 gesetzt
             if (evaluationForm.getQuestions().isEmpty()) {
-                i = 1;
+                question.setCountQuestion(1);
             }
 
-//      Ansonsten ist i um den Wert 1 größer als die Anzahl der Questions
+//      Ansonsten ist countQuestion um den Wert 1 größer als die Anzahl der Questions
             else {
-                i = evaluationForm.getQuestions().size() + 1;
+                question.setCountQuestion(evaluationForm.getQuestions().size() + 1);
             }
 
-
-//      Hier wird i als countQuestion gesetzt
+//      Der Evaluationsbogen wird zu der Frage gesetzt und die Frage wird hinzugefügt
         question.setEvaluationForm(evaluationForm);
-        question.setCountQuestion(i);
-
-            evaluationForm.getQuestions().add(question);
+        evaluationForm.getQuestions().add(question);
         }
-
     }
 //  Alle Evaluationsbögen anzeigen lassen
     public Collection<EvaluationForm> getAll() {

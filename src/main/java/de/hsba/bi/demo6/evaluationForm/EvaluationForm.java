@@ -13,7 +13,8 @@ public class EvaluationForm {
 //  Id zur eindeutigen Identifikation
     @Getter
     @Id
-    @GeneratedValue
+//  generator, damit die ID's nicht aufeinander aufbauen, sondern nur für EvaluationForm-Objekte gezählt werden
+    @GeneratedValue(generator = "EvaluationForm_ID")
     private long id;
 
 //  Name des Fragebogens

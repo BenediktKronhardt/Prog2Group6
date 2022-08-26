@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class Question {
     @Setter(AccessLevel.NONE)
     @Id
-    @GeneratedValue
+//  generator, damit die ID's nicht aufeinander aufbauen, sondern nur für Question-Objekte gezählt werden
+    @GeneratedValue(generator = "Question_ID")
     private Long id;
 
 //  invers zu EvaluationForm
