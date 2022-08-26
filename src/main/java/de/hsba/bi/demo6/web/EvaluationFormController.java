@@ -51,7 +51,7 @@ public class EvaluationFormController {
 
 //  Ein EvaluationForm-Objekt löschen, danach erfolgt eine Weiterleitung zur index-Seite
     @PostMapping(path="{id}/delete")
-    public String delete(@PathVariable("id") Integer id){
+    public String delete(@PathVariable("id") Long id){
         evaluationFormService.delete(id);
         return "redirect:/evaluationForms/";
     }
