@@ -5,6 +5,10 @@
     <div class="my-4">
 <!--    Evaluationsbogen mit Namen anzeigen-->
         <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
+<!--    Button zum Löschen hinzufügen (auf Höhe des Namens)-->
+        <form th:action="${'/evaluationForms/' + evaluationForm.id + '/delete'}" method="post" class="form">
+            <button type="submit" class="btn btn-danger">Löschen</button>
+        </form>
     </div>
 
 <!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->

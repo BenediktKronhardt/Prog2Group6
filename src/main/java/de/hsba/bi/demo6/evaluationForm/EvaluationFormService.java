@@ -56,8 +56,19 @@ public class EvaluationFormService {
     }
 //  Alle Evaluationsbögen anzeigen lassen
     public Collection<EvaluationForm> getAll() {
+
+        return repository.findAll();
+    }
+
+//  Evaluationsbogen mit bestimmter id löschen
+    public void delete(Integer id){
+        repository.deleteById(id);
+    }
+
+
             return repository.findAll();
         }
+
 
 }
 
