@@ -36,14 +36,14 @@ public class EvaluationFormController {
 
 //  Seite eines bestimmten EvaluationForm-Objektes anzeigen lassen
     @GetMapping(path="/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") long id, Model model) {
         model.addAttribute("evaluationForm", evaluationFormService.getEvaluationForm(id));
         return "evaluationForms/show";
     }
 
 //  Ein Question-Objekt zu EvaluationForm hinzufügen
     @PostMapping(path="/{id}")
-    public String addQuestion(@PathVariable("id") int id, Question question) {
+    public String addQuestion(@PathVariable("id") long id, Question question) {
         EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
         evaluationFormService.addQuestion(evaluationForm, question);
         return "redirect:/evaluationForms/" +id;

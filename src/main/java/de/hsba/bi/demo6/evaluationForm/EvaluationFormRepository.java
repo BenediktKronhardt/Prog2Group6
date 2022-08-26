@@ -1,12 +1,8 @@
 package de.hsba.bi.demo6.evaluationForm;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicInteger;
+interface EvaluationFormRepository extends JpaRepository<EvaluationForm, Long>{
 
 @Repository
 class EvaluationFormRepository {
@@ -38,6 +34,7 @@ class EvaluationFormRepository {
     void deleteById(Integer id){
         store.remove(id);
     }
+
 
 }
 

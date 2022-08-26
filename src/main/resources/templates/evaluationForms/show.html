@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div layout:fragment="content">
+<div>
     <div class="my-4">
 <!--    Evaluationsbogen mit Namen anzeigen-->
         <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
@@ -21,7 +19,7 @@
         </tr>
 <!--        Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
         <tr th:each="question : ${evaluationForm.questions}">
-            <td th:text="${evaluationForm.id} + '-' +  ${question.id}"></td>
+            <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
             <td th:text="${question.text}"></td>
         </tr>
     </table>
