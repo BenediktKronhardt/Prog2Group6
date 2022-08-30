@@ -3,6 +3,8 @@ package de.hsba.bi.demo6.web;
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
 import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
 import de.hsba.bi.demo6.evaluationForm.Question;
+import de.hsba.bi.demo6.lecture.Lecture;
+import de.hsba.bi.demo6.lecture.LectureService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class EvaluationFormController {
 
     private final EvaluationFormService evaluationFormService;
+    private final LectureService lectureService;
 
 //  Abhängigkeit zu EvaluationFormService deklarieren
-    public EvaluationFormController(EvaluationFormService evaluationFormService){
+    public EvaluationFormController(EvaluationFormService evaluationFormService, LectureService lectureService){
         this.evaluationFormService = evaluationFormService;
+        this.lectureService = lectureService;
     }
 
     //  In der Methode "show" wird ein Model erstellt, welches evaluationForm heißt
@@ -24,14 +28,16 @@ public class EvaluationFormController {
     @GetMapping
     public String index(Model model){
         model.addAttribute("evaluationForm", evaluationFormService.getAll());
+        model.addAttribute("lecture", lectureService.getAll());
         return "evaluationForms/index";
     }
 
-    // Ein neues EvaluationForm-Objekt anlegen. Danach Weiterleitung auf die Seite des neuen Objektes
+    // Ein neues evaluationForm-Objekt, sowie lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
     @PostMapping
-    public String create_evaluationForm(String name){
-        EvaluationForm evaluationForm = evaluationFormService.createEvaluationForm(name);
-        return "redirect:/evaluationForms/" + evaluationForm.getId();
+    public String create_evaluationForm(String name, String lecture_name){
+        evaluationFormService.createEvaluationForm(name);
+        lectureService.createLecture(lecture_name);
+        return "redirect:/evaluationForms/";
     }
 
 //  Seite eines bestimmten EvaluationForm-Objektes anzeigen lassen
