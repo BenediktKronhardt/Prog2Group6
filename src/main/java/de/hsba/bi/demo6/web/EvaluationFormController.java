@@ -29,16 +29,16 @@ public class EvaluationFormController {
 
     // Ein neues EvaluationForm-Objekt anlegen. Danach Weiterleitung auf die Seite des neuen Objektes
     @PostMapping
-    public String create(String name){
+    public String create_evaluationForm(String name){
         EvaluationForm evaluationForm = evaluationFormService.createEvaluationForm(name);
         return "redirect:/evaluationForms/" + evaluationForm.getId();
     }
 
 //  Seite eines bestimmten EvaluationForm-Objektes anzeigen lassen
     @GetMapping(path="/{id}")
-    public String show(@PathVariable("id") long id, Model model) {
+    public String show_evaluationForm(@PathVariable("id") long id, Model model) {
         model.addAttribute("evaluationForm", evaluationFormService.getEvaluationForm(id));
-        return "evaluationForms/show";
+        return "evaluationForms/showEvaluationForm";
     }
 
 //  Ein Question-Objekt zu EvaluationForm hinzufügen
