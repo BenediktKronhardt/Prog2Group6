@@ -37,6 +37,8 @@ public class LectureService {
         return repository.findAll();
     }
 
-
+    public Lecture save(Lecture lecture) {
+        return repository.save(lecture);
+    }
 
 }

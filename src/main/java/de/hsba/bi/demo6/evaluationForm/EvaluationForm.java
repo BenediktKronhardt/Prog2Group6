@@ -34,7 +34,9 @@ public class EvaluationForm {
 
 // Beim speichern wird automatisch auch lecture gespeichert, wenn ein Evaluationsbogen gelöscht wird, wird nicht automatisch auch das Fach gelöscht
 // EvaluationForm ist der Eigentümer, damit nur eine Assoziation entsteht
-    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = false, optional=true, mappedBy = "evaluationForm")
+   @Getter
+   @Setter
+    @OneToOne(orphanRemoval = true, optional=true, mappedBy = "evaluationForm")
     private Lecture lecture;
 
 //  Methode "getQuestions" zur Ausgabe der Fragen, die einem EvaluationForm hinzugefügt wurden - falls keine hinzugefügt wurde, wird eine leere ArrayList erstellt
@@ -44,4 +46,5 @@ public class EvaluationForm {
         }
         return questions;
     }
+
 }

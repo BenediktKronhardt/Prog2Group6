@@ -31,9 +31,15 @@ public class Lecture {
     @Setter
     private String course;
 
+    @Getter
+    @Setter
     @OneToOne
     @JoinColumn(name="evaluationForm_id", referencedColumnName = "id")
     private EvaluationForm evaluationForm;
 
+    @Override
+    public String toString(){
+        return name;
+    }
 
 }
