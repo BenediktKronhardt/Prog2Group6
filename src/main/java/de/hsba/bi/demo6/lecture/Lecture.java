@@ -39,7 +39,7 @@ public class Lecture {
 
     @Override
     public String toString(){
-        return name;
+        return "Name: "+name+", Studienfach: "+course+", Jahrgang: "+startyear;
     }
 
 }
