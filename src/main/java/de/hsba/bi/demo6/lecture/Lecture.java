@@ -23,6 +23,8 @@ public class Lecture {
     @Setter
     private String name;
 
+// Erstellt das Int start year
+
     @Basic
     @Getter
     @Setter
@@ -33,6 +35,21 @@ public class Lecture {
     @Setter
     private String course;
 
+    @Basic
+    @Getter
+    @Setter
+    private Integer studentCount;
+
+    @Basic
+    @Getter
+    @Setter
+    private Integer contactHours;
+
+    @Basic
+    @Getter
+    @Setter
+    private String lecturerName;
+
     @Getter
     @Setter
     @OneToOne
@@ -41,7 +58,7 @@ public class Lecture {
 
     @Override
     public String toString(){
-        return "Name: "+name+", Studienfach: "+course+", Jahrgang: "+startyear;
+        return "Name: "+name+", Studienfach: "+course+", Jahrgang: "+startyear+", Kontaktstunden: "+contactHours+", Studententenanzahl: "+studentCount+", Dozent: "+lecturerName;
     }
 
 

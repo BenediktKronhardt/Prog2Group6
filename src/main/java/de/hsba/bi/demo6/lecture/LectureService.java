@@ -19,11 +19,14 @@ public class LectureService {
     }
 
 //  Neues Lecture-Objekt mit allen Attributen erstellen und im Repository speichern
-    public Lecture createLecture(String name, Integer startyear, String course) {
+    public Lecture createLecture(String name, Integer startyear, String course, Integer studentCount, Integer contactHours, String lecturerName) {
         Lecture lecture = new Lecture();
         lecture.setName(name);
         lecture.setStartyear(startyear);
         lecture.setCourse(course);
+        lecture.setStudentCount(studentCount);
+        lecture.setContactHours(contactHours);
+        lecture.setLecturerName(lecturerName);
         return repository.save(lecture);
     }
 
