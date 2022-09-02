@@ -3,7 +3,7 @@
 <body>
 <div>
     <div class="my-4">
-        <h1>Evaluationsbogen</h1>
+        <h1>Evaluationsbögen</h1>
     </div>
 
 <!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
@@ -16,6 +16,10 @@
 <!--Neue Evaluationsbögen anlegen-->
     <form action="/evaluationForms" method="post" class="form-inline">
         <input name="name" type="text" placeholder="Name" class="form-control mr-2">
+        <select>
+<!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
+            <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}"></option>
+        </select>
         <input name="lecture_name" type="text" placeholder="Name Studienfach" class="form-control mr-2">
         <button type="submit" class="btn btn-primary">Anlegen</button>
     </form>

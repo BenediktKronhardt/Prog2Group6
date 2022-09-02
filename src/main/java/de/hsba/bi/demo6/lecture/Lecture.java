@@ -1,11 +1,13 @@
 package de.hsba.bi.demo6.lecture;
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
 
 @Entity
 @Table(name="Lecture")
@@ -41,5 +43,7 @@ public class Lecture {
     public String toString(){
         return "Name: "+name+", Studienfach: "+course+", Jahrgang: "+startyear;
     }
+
+
 
 }
