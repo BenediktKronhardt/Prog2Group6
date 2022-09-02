@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name="Lecture")
 @NoArgsConstructor
 public class Lecture {
-
+    @Getter
     @Id
     @GeneratedValue(generator = "Lecture_id")
     private Long id;
