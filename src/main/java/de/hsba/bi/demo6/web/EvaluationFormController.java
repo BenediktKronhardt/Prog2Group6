@@ -32,10 +32,16 @@ public class EvaluationFormController {
         return "evaluationForms/index";
     }
 
-    // Ein neues evaluationForm-Objekt, sowie lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
+    // Ein neues evaluationForm-Objekt anlegen. Danach auf der gleichen Seite bleiben
     @PostMapping
-    public String create_evaluationForm(String name, String lecture_name){
+    public String create_evaluationForm(String name){
         evaluationFormService.createEvaluationForm(name);
+        return "redirect:/evaluationForms/";
+    }
+
+    // Ein neues lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
+    @PostMapping(path="/lecture")
+    public String create_lecture(String lecture_name){
         lectureService.createLecture(lecture_name);
         return "redirect:/evaluationForms/";
     }

@@ -20,7 +20,6 @@
 <!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
             <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}"></option>
         </select>
-        <input name="lecture_name" type="text" placeholder="Name Studienfach" class="form-control mr-2">
         <button type="submit" class="btn btn-primary">Anlegen</button>
     </form>
 
@@ -29,12 +28,18 @@
     <h1>Studienfächer</h1>
     </div>
 
-    <!--In einer Liste die verschiedenen Lectures anzeigen-->
+<!--In einer Liste die verschiedenen Lectures anzeigen-->
     <ul class="list-unstyled">
         <li th:each="lecture : ${lecture}">
             <p th:text="${lecture.name}"></p>
         </li>
     </ul>
+
+<!--Ein Lecture-Objekt anlegen-->
+    <form action="/evaluationForms/lecture" method="post" class="form-inline">
+        <input name="lecture_name" type="text" placeholder="Name Studienfach" class="form-control mr-2">
+        <button type="submit" class="btn btn-primary">Anlegen</button>
+    </form>
 
 </div>
 </body>
