@@ -1,0 +1,35 @@
+package de.hsba.bi.demo6.web;
+
+import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
+import de.hsba.bi.demo6.lecture.LectureService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/lectures")
+public class LecturesController {
+
+    private final LectureService lectureService;
+    private final EvaluationFormService evaluationFormService;
+
+    public LecturesController(EvaluationFormService evaluationFormService, LectureService lectureService){
+        this.evaluationFormService = evaluationFormService;
+        this.lectureService = lectureService;
+    }
+
+    @GetMapping
+    public String index(Model model){
+        return "lectures/index";
+    }
+
+
+    // Ein neues lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
+    @PostMapping
+    public String create_lecture(String lecture_name){
+        lectureService.createLecture(lecture_name);
+        return "redirect:/lectures/";
+    }
+}

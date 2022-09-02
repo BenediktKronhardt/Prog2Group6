@@ -42,12 +42,7 @@ public class EvaluationFormController {
         return "redirect:/evaluationForms/";
     }
 
-    // Ein neues lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
-    @PostMapping(path="/lecture")
-    public String create_lecture(String lecture_name){
-        lectureService.createLecture(lecture_name);
-        return "redirect:/evaluationForms/";
-    }
+
 
 //  Seite eines bestimmten EvaluationForm-Objektes anzeigen lassen
     @GetMapping(path="/{id}")
