@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Lecture")
-@NoArgsConstructor
 public class Lecture {
     @Getter
     @Id
@@ -50,17 +49,25 @@ public class Lecture {
     @Setter
     private String lecturerName;
 
+//  Bestimmt den Status der Lehrveranstaltung (Aktiv) ja/nein
+    @Basic
+    @Getter
+    @Setter
+    private Boolean status;
+
     @Getter
     @Setter
     @OneToOne
     @JoinColumn(name="evaluationForm_id", referencedColumnName = "id")
     private EvaluationForm evaluationForm;
 
-    @Override
-    public String toString(){
-        return "Name: "+name+", Studienfach: "+course+", Jahrgang: "+startyear+", Kontaktstunden: "+contactHours+", Studententenanzahl: "+studentCount+", Dozent: "+lecturerName;
+    public Lecture(){
+        this.status = true;
     }
 
-
+    @Override
+    public String toString(){
+        return "Name: "+name+", Studienfach: "+course+", Jahrgang: "+startyear+", Kontaktstunden: "+contactHours+", Studententenanzahl: "+studentCount+", Dozent: "+lecturerName+", Aktiv?: "+status;
+    }
 
 }
