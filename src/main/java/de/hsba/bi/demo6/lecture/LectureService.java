@@ -1,5 +1,6 @@
 package de.hsba.bi.demo6.lecture;
 
+import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -44,6 +45,16 @@ public class LectureService {
 
     public Lecture save(Lecture lecture) {
         return repository.save(lecture);
+    }
+
+//  Lecture nach Id suchen
+    public Lecture getLecture(long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+//  Evaluationsbogen zu lecture hinzufügen
+    public void addEvaluationForm(EvaluationForm evaluationForm, Lecture lecture){
+        lecture.setEvaluationForm(evaluationForm);
     }
 
 }

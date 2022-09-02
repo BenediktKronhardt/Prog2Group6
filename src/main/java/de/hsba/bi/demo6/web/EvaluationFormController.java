@@ -32,10 +32,13 @@ public class EvaluationFormController {
         return "evaluationForms/index";
     }
 
-    // Ein neues evaluationForm-Objekt anlegen. Danach auf der gleichen Seite bleiben
+//  Ein neues evaluationForm-Objekt anlegen. Danach auf der gleichen Seite bleiben
+//  Das ausgewählte Lecture-Objekt über das "select"-Element wird direkt dem Evaluationsbogen zugeprdnet (bzw. wird der Evaluationsbogen dem lecture-Objekt zugeordnet)
     @PostMapping
-    public String create_evaluationForm(String name){
-        evaluationFormService.createEvaluationForm(name);
+    public String create_evaluationForm(String name, Long lecture_id){
+        EvaluationForm evaluationForm = evaluationFormService.createEvaluationForm(name);
+        Lecture lecture = lectureService.getLecture(lecture_id);
+        lectureService.addEvaluationForm(evaluationForm, lecture);
         return "redirect:/evaluationForms/";
     }
 

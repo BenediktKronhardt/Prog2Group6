@@ -28,7 +28,7 @@ public class TestDataCreator {
 
         Lecture lecture = new Lecture();
         lecture.setName("Test-Lecture");
-        lecture.setEvaluationForm(evaluationForm);
+        lectureService.addEvaluationForm(evaluationForm, lecture);
         lectureService.save(lecture);
 
  }
