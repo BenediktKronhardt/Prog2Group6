@@ -28,8 +28,8 @@ public class LecturesController {
 
     // Ein neues lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
     @PostMapping
-    public String create_lecture(String lecture_name){
-        lectureService.createLecture(lecture_name);
+    public String create_lecture(String lecture_name, Integer startyear, String course, Integer countStudents,Integer contacthours, String teacher){
+        lectureService.createLecture(lecture_name, startyear,course,countStudents,contacthours,teacher);
         return "redirect:/lectures/";
     }
 }
