@@ -26,10 +26,8 @@ public class TestDataCreator {
         evaluationFormService.addQuestion(evaluationForm,new Question(2, "Wie war der Dozent?"));
         evaluationFormService.save(evaluationForm);
 
-        Lecture lecture = new Lecture();
-        lecture.setName("Test-Lecture");
-        lectureService.addEvaluationForm(evaluationForm, lecture);
+        Lecture lecture = lectureService.createLecture("Test-Lecture");
+        lectureService.addEvaluationForm(evaluationForm,lecture);
         lectureService.save(lecture);
-
  }
 }
