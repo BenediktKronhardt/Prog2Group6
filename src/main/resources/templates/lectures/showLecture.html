@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${lecture.name}"></title>
 </head>
 <body>
+<!--Lehrveransaltung mit Namen anzeigen-->
+<!--Ebenfalls wird der Status der Lehrveranstaltung angezeigt-->
+<h1 th:text="${lecture.name}"></h1><p th:if="${lecture.status==true}">Aktiv</p> <p th:if="${lecture.status!=true}">Inaktiv</p>
 
 </body>
 </html>
