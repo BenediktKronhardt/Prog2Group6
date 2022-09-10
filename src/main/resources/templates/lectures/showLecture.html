@@ -26,5 +26,11 @@
 <p>Kontaktstunden:</p>
 <p th:text="${lecture.contactHours}"></p>
 
+<!--Falls ein Evaluationsbogen zugeordnet ist, diesen anzeigen (die toString Methode von diesem)-->
+<p th:if="${lecture.evaluationForm != null}" th:text="${lecture.evaluationForm}"></p>
+
+<!--Falls kein Evaluationsbogen zugeordnet ist, die Nachricht "Es gibt keinen zugeordneten Evaluationsbogen" anzeigen-->
+<p th:if="${lecture.evaluationForm == null}">Es gibt keinen zugeordneten Evaluationsbogen</p>
+
 </body>
 </html>
