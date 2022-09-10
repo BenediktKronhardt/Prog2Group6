@@ -6,8 +6,25 @@
 </head>
 <body>
 <!--Lehrveransaltung mit Namen anzeigen-->
-<!--Ebenfalls wird der Status der Lehrveranstaltung angezeigt-->
-<h1 th:text="${lecture.name}"></h1><p th:if="${lecture.status==true}">Aktiv</p> <p th:if="${lecture.status!=true}">Inaktiv</p>
+<h1 th:text="${lecture.name}"></h1>
+
+<!--Den Status der Lehrveranstaltung anzeigen-->
+<p th:if="${lecture.status==true}">Aktiv</p> <p th:if="${lecture.status!=true}">Inaktiv</p>
+
+<p>Jahrgang:</p>
+<p th:text="${lecture.startyear}"></p>
+
+<p>Studienfach:</p>
+<p th:text="${lecture.course}"></p>
+
+<p>Studentenanzahl:</p>
+<p th:text="${lecture.studentCount}"></p>
+
+<p>Dozentname:</p>
+<p th:text="${lecture.lecturerName}"></p>
+
+<p>Kontaktstunden:</p>
+<p th:text="${lecture.contactHours}"></p>
 
 </body>
 </html>
