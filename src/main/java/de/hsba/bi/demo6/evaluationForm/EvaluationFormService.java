@@ -1,5 +1,6 @@
 package de.hsba.bi.demo6.evaluationForm;
 
+import de.hsba.bi.demo6.lecture.Lecture;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -54,6 +55,7 @@ public class EvaluationFormService {
         evaluationForm.getQuestions().add(question);
         }
     }
+
 //  Alle Evaluationsbögen anzeigen lassen
     public Collection<EvaluationForm> getAll() {
 

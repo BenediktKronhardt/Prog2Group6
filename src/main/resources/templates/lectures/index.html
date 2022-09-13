@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lehrveranstaltung anlegen</title>
+</head>
+<body>
+<h1>Lehrveranstaltung anlegen</h1>
+
+
+<div>
+
+    <!--Ein Lecture-Objekt anlegen-->
+    <form action="/lectures" method="post" class="form-inline">
+        <label for="lname">Name der Lehrveranstaltung</label><br>
+        <input id="lname" name="lecture_name" type="text" placeholder="Name der Lehrveranstaltung" class="form-control mr-2"><br>
+
+        <label for="startyear">Jahrgang</label><br>
+        <input id="startyear" name="startyear" type="number" placeholder="Jahrgang" class="form-control mr-2"><br>
+
+        <label for="course">Studienfach</label><br>
+        <input id="course" name="course" type="text" placeholder="Studienfach" class="form-control mr-2"><br>
+
+        <label for="countStudents">Studentenanzahl</label><br>
+        <input id="countStudents" name="countStudents" type="number" placeholder="Studentenanzahl" class="form-control mr-2"><br>
+
+        <label for="teacher">Dozentname</label><br>
+        <input id="teacher" name="teacher" type="text" placeholder="Dozentname" class="form-control mr-2"><br>
+
+        <label for="contacthours">Kontaktstunden</label><br>
+        <input id="contacthours" name="contacthours" type="number" placeholder="Kontaktstunden" class="form-control mr-2"><br>
+
+
+<!--        Hier muss noch das Freifeld für den Freitext hin-->
+        <button type="submit" class="btn btn-primary">Anlegen</button>
+    </form>
+
+    <p class="small">
+        <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
+        <a href="/evaluationForms/">Zurück zur Übersicht</a>
+    </p>
+
+
+</div>
+
+</body>
+</html>

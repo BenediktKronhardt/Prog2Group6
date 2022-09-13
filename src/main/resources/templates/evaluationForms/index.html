@@ -2,8 +2,23 @@
 <html   xmlns:th="http://www.thymeleaf.org">
 <body>
 <div>
+    <div>
+        <h1>Lehrveranstaltungen</h1>
+        <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
+        <a href="/lectures/">Lehrveranstaltung anlegen</a>
+    </div>
+
+    <!--In einer Liste die verschiedenen Lectures anzeigen-->
+    <ul class="list-unstyled">
+        <li th:each="lecture : ${lecture}">
+            <p th:text="${lecture.name}"></p>
+        </li>
+    </ul>
+
+    <hr>
+
     <div class="my-4">
-        <h1>Evaluationsbogen</h1>
+        <h1>Evaluationsbögen</h1>
     </div>
 
 <!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
@@ -16,8 +31,14 @@
 <!--Neue Evaluationsbögen anlegen-->
     <form action="/evaluationForms" method="post" class="form-inline">
         <input name="name" type="text" placeholder="Name" class="form-control mr-2">
+        <select name ="lecture_id">
+<!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
+            <option disabled="disabled" selected="selected">Studienfach</option>
+            <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
+        </select>
         <button type="submit" class="btn btn-primary">Anlegen</button>
     </form>
+
 </div>
 </body>
 </html>

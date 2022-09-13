@@ -1,5 +1,6 @@
 package de.hsba.bi.demo6.evaluationForm;
 
+import de.hsba.bi.demo6.lecture.Lecture;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="EvaluationForm")
 public class EvaluationForm {
 
 //  Id zur eindeutigen Identifikation
@@ -15,7 +17,7 @@ public class EvaluationForm {
     @Id
 //  generator, damit die ID's nicht aufeinander aufbauen, sondern nur für EvaluationForm-Objekte gezählt werden
     @GeneratedValue(generator = "EvaluationForm_ID")
-    private long id;
+    private Long id;
 
 //  Name des Fragebogens
     @Getter
@@ -30,6 +32,13 @@ public class EvaluationForm {
     @OrderBy
     private List<Question> questions;
 
+// Beim speichern wird automatisch auch lecture gespeichert, wenn ein Evaluationsbogen gelöscht wird, wird nicht automatisch auch das Fach gelöscht
+// EvaluationForm ist der Eigentümer, damit nur eine Assoziation entsteht
+   @Getter
+   @Setter
+    @OneToOne(orphanRemoval = true, optional=true, mappedBy = "evaluationForm")
+    private Lecture lecture;
+
 //  Methode "getQuestions" zur Ausgabe der Fragen, die einem EvaluationForm hinzugefügt wurden - falls keine hinzugefügt wurde, wird eine leere ArrayList erstellt
     public List<Question> getQuestions(){
         if (questions == null){
@@ -37,4 +46,5 @@ public class EvaluationForm {
         }
         return questions;
     }
+
 }
