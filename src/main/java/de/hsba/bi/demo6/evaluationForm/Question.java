@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import javax.validation.constraints.NotBlank;
 import javax.persistence.*;
 
 //Getter, Setter und NoArgsKonstruktor automatisch von lombok erzeugen lassen
@@ -36,4 +36,7 @@ public class Question {
         this.countQuestion=countQuestion;
         this.text=text;
     }
+
+
+
 }

@@ -17,12 +17,7 @@ public class EvaluationFormService {
         this.repository = repository;
     }
 
-//  Neues EvaluationForm Objekt erstellen und im repository speichern
-    public EvaluationForm createEvaluationForm(String name) {
-        EvaluationForm evaluationForm = new EvaluationForm();
-        evaluationForm.setName(name);
-        return repository.save(evaluationForm);
-    }
+
 
 //  evaluationsbogen abspeichern
     public EvaluationForm save(EvaluationForm evaluationForm) {

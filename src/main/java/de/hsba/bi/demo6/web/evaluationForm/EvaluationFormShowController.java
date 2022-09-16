@@ -1,4 +1,4 @@
-package de.hsba.bi.demo6.web;
+package de.hsba.bi.demo6.web.evaluationForm;
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
 import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/evaluationForms")
-public class EvaluationFormController {
+public class EvaluationFormShowController {
 
     private final EvaluationFormService evaluationFormService;
     private final LectureService lectureService;
 
 //  Abhängigkeit zu EvaluationFormService deklarieren
-    public EvaluationFormController(EvaluationFormService evaluationFormService, LectureService lectureService){
+    public EvaluationFormShowController(EvaluationFormService evaluationFormService, LectureService lectureService){
         this.evaluationFormService = evaluationFormService;
         this.lectureService = lectureService;
     }
