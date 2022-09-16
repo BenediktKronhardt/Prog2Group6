@@ -1,66 +1,57 @@
 package de.hsba.bi.demo6.web.evaluationForm;
 
-import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
-import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
-import de.hsba.bi.demo6.evaluationForm.Question;
-import de.hsba.bi.demo6.lecture.Lecture;
-import de.hsba.bi.demo6.lecture.LectureService;
+import java.util.List;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
+import de.hsba.bi.demo6.evaluationForm.Question;
+import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
+import de.hsba.bi.demo6.lecture.Lecture;
+import de.hsba.bi.demo6.lecture.LectureService;
+import lombok.RequiredArgsConstructor;
+
+
 @Controller
-@RequestMapping("/evaluationForms")
+@RequestMapping("/evaluationForms/{id}")
+@RequiredArgsConstructor
 public class EvaluationFormShowController {
 
     private final EvaluationFormService evaluationFormService;
     private final LectureService lectureService;
+    private EvaluationFormFormConverter formConverter;
 
-//  Abhängigkeit zu EvaluationFormService deklarieren
-    public EvaluationFormShowController(EvaluationFormService evaluationFormService, LectureService lectureService){
-        this.evaluationFormService = evaluationFormService;
-        this.lectureService = lectureService;
+
+
+
+    @ModelAttribute("evaluationForm")
+    public EvaluationForm getEvaluationForm(@PathVariable("id")Long id){
+        EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
+        return evaluationForm;
     }
 
-    //  In der Methode "show" wird ein Model erstellt, welches evaluationForm heißt
-    //  In dieses wird der EvaluationFormService hinzugefügt. Die Methode getAll() zeigt alle vorhandenen EvaluationForms an.
+// Nachher hier den Exceptionhandler einsetzen
+
     @GetMapping
-    public String index(Model model){
-        model.addAttribute("evaluationForm", evaluationFormService.getAll());
-        model.addAttribute("lecture", lectureService.getAll());
-        return "evaluationForms/index";
-    }
-
-//  Ein neues evaluationForm-Objekt anlegen. Danach auf der gleichen Seite bleiben
-//  Das ausgewählte Lecture-Objekt über das "select"-Element wird direkt dem Evaluationsbogen zugeprdnet (bzw. wird der Evaluationsbogen dem lecture-Objekt zugeordnet)
-    @PostMapping
-    public String create_evaluationForm(String name, Long lecture_id){
-        EvaluationForm evaluationForm = evaluationFormService.createEvaluationForm(name);
-        Lecture lecture = lectureService.getLecture(lecture_id);
-        lectureService.addEvaluationForm(evaluationForm, lecture);
-        return "redirect:/evaluationForms/";
-    }
-
-
-
-//  Seite eines bestimmten EvaluationForm-Objektes anzeigen lassen
-    @GetMapping(path="/{id}")
-    public String show_evaluationForm(@PathVariable("id") long id, Model model) {
-        model.addAttribute("evaluationForm", evaluationFormService.getEvaluationForm(id));
+    public String show(Model model){
+        model.addAttribute("evaluationFormEntryForm", new EvaluationFormEntryForm());
         return "evaluationForms/showEvaluationForm";
     }
 
-//  Ein Question-Objekt zu EvaluationForm hinzufügen
-    @PostMapping(path="/{id}")
-    public String addQuestion(@PathVariable("id") long id, Question question) {
-        EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
-        evaluationFormService.addQuestion(evaluationForm, question);
-        return "redirect:/evaluationForms/" +id;
+    @PostMapping
+    public String addEntry(@PathVariable("id") Long id,
+                           @ModelAttribute("evaluationFormEntryForm") EvaluationFormEntryForm entryForm){
+        EvaluationForm evaluationForm = getEvaluationForm(id);
+        evaluationFormService.addQuestion(evaluationForm, formConverter.update(new Question(), entryForm));
+        return "redirect:/evaluationForms/";
     }
 
 //  Ein EvaluationForm-Objekt löschen, danach erfolgt eine Weiterleitung zur index-Seite
-    @PostMapping(path="{id}/delete")
+    @PostMapping(path="/delete")
     public String delete(@PathVariable("id") Long id){
         evaluationFormService.delete(id);
         return "redirect:/evaluationForms/";
