@@ -11,7 +11,7 @@
     <!--In einer Liste die verschiedenen Lectures anzeigen-->
     <ul class="list-unstyled">
         <li th:each="lecture : ${lecture}">
-            <p th:text="${lecture.name}"></p>
+            <a th:href="${'/lectures/' + lecture.id}" th:text="${lecture.name}"></a>
         </li>
     </ul>
 

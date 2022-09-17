@@ -47,4 +47,10 @@ public class EvaluationForm {
         return questions;
     }
 
+//  toString-Methode zur Anzeige auf showLecture
+    @Override
+    public String toString(){
+        return "Evaluationsbogen: "+name;
+    }
+
 }
