@@ -3,6 +3,7 @@ package de.hsba.bi.demo6.web.evaluationForm;
 import java.util.List;
 
 
+import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,9 @@ public class EvaluationFormShowController {
     @ModelAttribute("evaluationForm")
     public EvaluationForm getEvaluationForm(@PathVariable("id")Long id){
         EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
+        if (evaluationForm == null){
+            throw new de.hsba.bi.demo6.web.NotFoundException();
+        }
         return evaluationForm;
     }
 
@@ -55,5 +59,10 @@ public class EvaluationFormShowController {
     public String delete(@PathVariable("id") Long id){
         evaluationFormService.delete(id);
         return "redirect:/evaluationForms/";
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public String notFound(){
+        return "/notFound/";
     }
 }
