@@ -23,7 +23,7 @@ public class EvaluationFormShowController {
 
     private final EvaluationFormService evaluationFormService;
     private final LectureService lectureService;
-    private EvaluationFormFormConverter formConverter;
+    private final EvaluationFormFormConverter formConverter;
 
 
 
@@ -47,7 +47,7 @@ public class EvaluationFormShowController {
                            @ModelAttribute("evaluationFormEntryForm") EvaluationFormEntryForm entryForm){
         EvaluationForm evaluationForm = getEvaluationForm(id);
         evaluationFormService.addQuestion(evaluationForm, formConverter.update(new Question(), entryForm));
-        return "redirect:/evaluationForms/";
+        return "redirect:/evaluationForms/{id}";
     }
 
 //  Ein EvaluationForm-Objekt löschen, danach erfolgt eine Weiterleitung zur index-Seite

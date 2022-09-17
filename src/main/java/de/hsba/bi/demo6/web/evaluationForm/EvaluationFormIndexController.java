@@ -35,6 +35,6 @@ public class EvaluationFormIndexController {
     @PostMapping
     public String create(@ModelAttribute("evaluationFormForm") EvaluationFormForm evaluationFormForm){
         EvaluationForm evaluationForm = evaluationFormService.save(formConverter.update(new EvaluationForm(), evaluationFormForm));
-        return "redirect:/journals/" + evaluationForm.getId();
+        return "redirect:/evaluationForms/" + evaluationForm.getId();
     }
 }

@@ -24,14 +24,15 @@ public class EvaluationFormFormConverter {
         form.setId(entry.getId());
         form.setEvaluationForm(entry.getEvaluationForm());
         form.setText(entry.getText());
-        form.setCountQuestion(entry.getCountQuestion());
+//        form.setCountQuestion(entry.getCountQuestion());
         return form;
     }
 
     Question update(Question entry, EvaluationFormEntryForm form){
         entry.setEvaluationForm(form.getEvaluationForm());
         entry.setText(form.getText());
-        entry.setCountQuestion(form.getCountQuestion());
+//        entry.setCountQuestion(form.getCountQuestion());
+//        entry.setId(form.getId());
         return entry;
     }
 }
