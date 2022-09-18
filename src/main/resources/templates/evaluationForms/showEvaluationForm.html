@@ -27,6 +27,16 @@
     <div>
         <hr />
 
+        <form method="post" th:action="${'/evaluationForms/' + evaluationForm.id}" th:object="${evaluationFormForm}">
+            <div class="form-group">
+                <label>Neuer Name</label>
+                <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Ändern</button>
+            </div>
+        </form>
+
         <table class="table">
             <tr>
 
@@ -40,7 +50,7 @@
 
         <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
         <h2>Neue Frage</h2>
-        <form th:action="${'/evaluationForms/' + evaluationForm.id}" method="post" class="form-inline">
+        <form th:action="${'/evaluationForms/' + evaluationForm.id + '/entries'}" method="post" class="form-inline">
             <input name="text" type="text" placeholder="Frage" class="form-control mr-2">
             <button type="submit" class="btn btn-primary">Eintragen</button>
         </form>

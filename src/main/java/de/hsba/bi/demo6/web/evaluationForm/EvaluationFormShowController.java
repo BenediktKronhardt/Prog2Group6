@@ -41,12 +41,20 @@ public class EvaluationFormShowController {
 // Nachher hier den Exceptionhandler einsetzen
 
     @GetMapping
-    public String show(Model model){
+    public String show(@PathVariable("id") Long id, Model model){
+        model.addAttribute("evaluationFormForm", formConverter.toForm(getEvaluationForm(id)));
         model.addAttribute("evaluationFormEntryForm", new EvaluationFormEntryForm());
         return "evaluationForms/showEvaluationForm";
     }
 
     @PostMapping
+    public String change(@PathVariable("id") Long id, @ModelAttribute("evaluationFormForm") EvaluationFormForm evaluationFormForm){
+        EvaluationForm evaluationForm = getEvaluationForm(id);
+        evaluationFormService.save(formConverter.update(evaluationForm, evaluationFormForm));
+        return "redirect:/evaluationForms/" +id;
+    }
+
+    @PostMapping(path = "/entries")
     public String addEntry(@PathVariable("id") Long id,
                            @ModelAttribute("evaluationFormEntryForm") EvaluationFormEntryForm entryForm){
         EvaluationForm evaluationForm = getEvaluationForm(id);
