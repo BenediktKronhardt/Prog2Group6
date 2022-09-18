@@ -40,6 +40,24 @@
 <!--Falls kein Evaluationsbogen zugeordnet ist, die Nachricht "Es gibt keinen zugeordneten Evaluationsbogen" anzeigen-->
 <p th:if="${lecture.evaluationForm == null}">Es gibt keinen zugeordneten Evaluationsbogen</p>
 
+<!-- Der nachfolgende Teil gilt vorerst nur der Übersicht -->
+
+<!-- Alle Evaluationsbögen bestimmen, welche vorhanden sind.-->
+<h1>Alle vorhandenen Evaluationsbögen:</h1>
+<ul class="list-unstyled">
+    <li th:each="evaluationForm : ${evaluationForm}">
+        <a th:href="${'/evaluationForms/' + evaluationForm.id}" th:text="${evaluationForm.name}"></a>
+    </li>
+</ul>
+<hr />
+
+<!-- Alle Evaluationsbögen anzeigen, welche kein lecture-Objekt haben -->
+<h1>Alle Evaluationsgögen, welche keine Lehrveranstaltung haben:</h1>
+<ul class="list-unstyled">
+    <li th:if="${evaluationForm.lecture == null}"  th:each="evaluationForm : ${evaluationForm}">
+        <a th:href="${'/evaluationForms/' + evaluationForm.id}" th:text="${evaluationForm.name}"></a>
+    </li>
+</ul>
 
 <hr />
 <p class="small">

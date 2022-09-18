@@ -38,6 +38,7 @@ public class LecturesController {
     @GetMapping(path="/{id}")
     public String show_lecture(@PathVariable("id") long id, Model model) {
         model.addAttribute("lecture", lectureService.getLecture(id));
+        model.addAttribute("evaluationForm", evaluationFormService.getAll());
         return "lectures/showLecture";
     }
 }
