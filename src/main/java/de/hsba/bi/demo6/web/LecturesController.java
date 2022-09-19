@@ -1,6 +1,8 @@
 package de.hsba.bi.demo6.web;
 
+import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
 import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
+import de.hsba.bi.demo6.lecture.Lecture;
 import de.hsba.bi.demo6.lecture.LectureService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,5 +42,15 @@ public class LecturesController {
         model.addAttribute("lecture", lectureService.getLecture(id));
         model.addAttribute("evaluationForm", evaluationFormService.getAll());
         return "lectures/showLecture";
+    }
+
+//  Hier kann ein EvaluationForm-Objekt, welches bisher noch keiner Lehrveranstaltung zugeordnet ist, einer Lehrveranstaltung zugeordnet werden.
+//  Zuerst wird das Lecture-Objekt über die Id in showLecture definiert, dann das EvaluationForm-Objekt über den Value im Form-Objekt definiert und dieses zu dem lecture-Objekt hinzugefügt
+    @PostMapping(path="/{id}")
+    public String addEvaluationFormToLecture(@PathVariable("id") Long id, Long evaluationFormId){
+        Lecture lecture = lectureService.getLecture(id);
+        EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(evaluationFormId);
+        lectureService.addEvaluationForm(evaluationForm, lecture);
+        return "redirect:/lectures/" +id;
     }
 }
