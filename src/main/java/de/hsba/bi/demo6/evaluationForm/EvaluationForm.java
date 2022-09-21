@@ -2,6 +2,7 @@ package de.hsba.bi.demo6.evaluationForm;
 
 import de.hsba.bi.demo6.lecture.Lecture;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
 @Table(name="EvaluationForm")
 public class EvaluationForm {
 
@@ -31,6 +33,10 @@ public class EvaluationForm {
     @OneToMany(cascade= CascadeType.ALL, orphanRemoval = true, mappedBy = "evaluationForm")
     @OrderBy
     private List<Question> questions;
+
+    public EvaluationForm(final String name){
+        this.name = name;
+    }
 
 // Beim speichern wird automatisch auch lecture gespeichert, wenn ein Evaluationsbogen gelöscht wird, wird nicht automatisch auch das Fach gelöscht
 // EvaluationForm ist der Eigentümer, damit nur eine Assoziation entsteht

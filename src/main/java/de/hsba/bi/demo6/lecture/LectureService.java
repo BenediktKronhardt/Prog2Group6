@@ -1,11 +1,13 @@
 package de.hsba.bi.demo6.lecture;
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
+import org.apache.catalina.LifecycleState;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @Service
@@ -57,5 +59,7 @@ public class LectureService {
     public void addEvaluationForm(EvaluationForm evaluationForm, Lecture lecture){
         lecture.setEvaluationForm(evaluationForm);
     }
+
+
 
 }
