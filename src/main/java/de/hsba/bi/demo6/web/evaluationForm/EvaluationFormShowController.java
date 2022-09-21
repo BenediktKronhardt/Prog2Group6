@@ -6,6 +6,7 @@ import java.util.List;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,6 +16,8 @@ import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
 import de.hsba.bi.demo6.lecture.Lecture;
 import de.hsba.bi.demo6.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -48,7 +51,13 @@ public class EvaluationFormShowController {
     }
 
     @PostMapping
-    public String change(@PathVariable("id") Long id, @ModelAttribute("evaluationFormForm") EvaluationFormForm evaluationFormForm){
+    public String change(Model model, @PathVariable("id") Long id, @ModelAttribute("evaluationFormForm") @Valid EvaluationFormForm evaluationFormForm, BindingResult evaluationFormBinding){
+       //Wenn der neue Name leer ist, kann der Name nicht geändert werden
+        if (evaluationFormBinding.hasErrors()){
+           model.addAttribute("evaluationFormEntryForm", new EvaluationFormEntryForm());
+           return "evaluationForms/showEvaluationForm";
+       }
+
         EvaluationForm evaluationForm = getEvaluationForm(id);
         evaluationFormService.save(formConverter.update(evaluationForm, evaluationFormForm));
         return "redirect:/evaluationForms/" +id;

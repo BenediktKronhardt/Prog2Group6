@@ -8,7 +8,10 @@ import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/evaluationForms")
@@ -33,7 +36,12 @@ public class EvaluationFormIndexController {
 
 
     @PostMapping
-    public String create(@ModelAttribute("evaluationFormForm") EvaluationFormForm evaluationFormForm){
+    // Wenn der eingegebene Name des Evaluationsbogens leer ist, passiert nichts und man wird auf die Startseite redirected
+    public String create(@ModelAttribute("evaluationFormForm") @Valid EvaluationFormForm evaluationFormForm, BindingResult evaluationFormBinding){
+        if (evaluationFormBinding.hasErrors()){
+            return "redirect:/evaluationForms";
+        }
+    // Wenn ein neues EvaluationForm-Objekt angelegt wird, wird man direkt auf die show Seite dieses weitergeleitet
         EvaluationForm evaluationForm = evaluationFormService.save(formConverter.update(new EvaluationForm(), evaluationFormForm));
         return "redirect:/evaluationForms/" + evaluationForm.getId();
     }
