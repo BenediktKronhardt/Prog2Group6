@@ -38,7 +38,29 @@
 <a th:if="${lecture.evaluationForm != null}" th:href="${'/evaluationForms/'+lecture.evaluationForm.id}" th:text="${lecture.evaluationForm}"></a>
 
 <!--Falls kein Evaluationsbogen zugeordnet ist, die Nachricht "Es gibt keinen zugeordneten Evaluationsbogen" anzeigen-->
-<p th:if="${lecture.evaluationForm == null}">Es gibt keinen zugeordneten Evaluationsbogen</p>
+<p th:if="${lecture.evaluationForm == null}">Es gibt keinen zugeordneten Evaluationsbogen. In der nachfolgenden Liste kann ein Evaluationsbogen ausgewählt werden:</p>
+
+<!-- Alle Evaluationsbögen anzeigen, welche kein lecture-Objekt haben -->
+<ul th:if="${lecture.evaluationForm == null}" class="list-unstyled">
+    <li th:if="${evaluationForm.lecture == null}"  th:each="evaluationForm : ${evaluationForm}">
+        <a th:href="${'/evaluationForms/' + evaluationForm.id}" th:text="${evaluationForm.name}"></a>
+    </li>
+</ul>
+
+<form th:if="${lecture.evaluationForm == null}" th:action="${'/lectures/' + lecture.id}" method="post" class="form-inline">
+    <select th:if="${lecture.evaluationForm == null}" name="evaluationFormId">
+        <!--Es werden alle Evaluationsbögen angezeigt, welchen noch kein Lecture-Objekt haben-->
+        <option disabled="disabled" selected="selected">Evaluationsbogen</option>
+        <option th:if="${evaluationForm.lecture==null}" th:each="evaluationForm : ${evaluationForm}" th:text="${evaluationForm.name}" th:value="${evaluationForm.id}"></option>
+    </select>
+    <button type="submit" class="btn btn-primary">Evaluationsbogen hinzufügen</button>
+</form>
+
+
+
+<div>
+
+</div>
 
 
 <hr />
