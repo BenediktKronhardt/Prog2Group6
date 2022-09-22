@@ -1,12 +1,17 @@
 package de.hsba.bi.demo6.web.lecture;
 
 
+import de.hsba.bi.demo6.lecture.Lecture;
 import de.hsba.bi.demo6.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LectureIndexController {
 
     private final LectureService lectureService;
+    private final LectureFormConverter formConverter;
 
 
     @GetMapping
@@ -25,8 +31,12 @@ public class LectureIndexController {
 
     // Ein neues lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
     @PostMapping
-    public String create(String lecture_name, Integer startyear, String course, Integer countStudents, Integer contacthours, String teacher){
-        lectureService.createLecture(lecture_name, startyear,course,countStudents,contacthours,teacher);
+    public String create(@ModelAttribute("lectureForm") @Valid LectureForm lectureForm, BindingResult lectureBinding){
+        if (lectureBinding.hasErrors()){
+            return "redirect:/lectures";
+        }
+        Lecture lecture = lectureService.save(formConverter.update(new Lecture(),lectureForm));
+        lectureService.save(lecture);
         return "redirect:/lectures/";
     }
 }
