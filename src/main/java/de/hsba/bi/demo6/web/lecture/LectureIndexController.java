@@ -1,34 +1,31 @@
-package de.hsba.bi.demo6.web;
+package de.hsba.bi.demo6.web.lecture;
 
-import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
+
 import de.hsba.bi.demo6.lecture.LectureService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 @RequestMapping("/lectures")
-public class LecturesController {
+@RequiredArgsConstructor
+public class LectureIndexController {
 
     private final LectureService lectureService;
-    private final EvaluationFormService evaluationFormService;
 
-    public LecturesController(EvaluationFormService evaluationFormService, LectureService lectureService){
-        this.evaluationFormService = evaluationFormService;
-        this.lectureService = lectureService;
-    }
 
     @GetMapping
-    public String index(Model model){
+    public String index(){
         return "lectures/index";
     }
 
 
     // Ein neues lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
     @PostMapping
-    public String create_lecture(String lecture_name, Integer startyear, String course, Integer countStudents,Integer contacthours, String teacher){
+    public String create(String lecture_name, Integer startyear, String course, Integer countStudents, Integer contacthours, String teacher){
         lectureService.createLecture(lecture_name, startyear,course,countStudents,contacthours,teacher);
         return "redirect:/lectures/";
     }

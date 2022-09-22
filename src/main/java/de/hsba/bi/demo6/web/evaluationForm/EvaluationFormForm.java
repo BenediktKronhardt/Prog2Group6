@@ -4,7 +4,6 @@ package de.hsba.bi.demo6.web.evaluationForm;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -19,4 +18,7 @@ public class EvaluationFormForm {
             @Size(max = 255, message = "Der Name darf nicht länger als 255 Zeichen sein")
     })
     private String name;
+
+// Wird zur Zuordnung der Lectures zu einem Bogen benötigt
+    private Long lecture_id;
 }
