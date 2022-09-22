@@ -2,18 +2,15 @@ package de.hsba.bi.demo6.web.evaluationForm;
 
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
-import de.hsba.bi.demo6.evaluationForm.Question;
-import de.hsba.bi.demo6.lecture.Lecture;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 
-public class EvaluationFormEntryForm {
+public class QuestionForm {
 
     private Long id;
 
@@ -21,6 +18,8 @@ public class EvaluationFormEntryForm {
 
     private Integer countQuestion;
 
+// Der Text in der Frage darf im "QuestionForm" nicht leer sein.
+    @NotBlank(message = "Bitte eine Frage eingeben")
     private String text;
 
 }
