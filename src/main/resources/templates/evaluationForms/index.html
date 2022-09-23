@@ -31,7 +31,7 @@
 <!--Neue Evaluationsbögen anlegen-->
     <!-- Durch th:object wird das evaluationFormForm verknüpft -->
     <form action="/evaluationForms" method="post" class="form-inline" th:object="${evaluationFormForm}">
-        <input name="name" type="text" placeholder="Name" class="form-control mr-2">
+        <input th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
         <select name ="lecture_id">
 <!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
             <option disabled="disabled" selected="selected">Lehrveranstaltung</option>

@@ -13,25 +13,25 @@
     <!--Ein Lecture-Objekt anlegen-->
     <form action="/lectures" method="post" class="form-inline" th:object="${lectureForm}">
         <label for="name">Name der Lehrveranstaltung</label><br>
-        <input id="name" name="name" type="text" placeholder="Name der Lehrveranstaltung" class="form-control mr-2"><br>
+        <input id="name" th:field="*{name}" type="text" placeholder="Name der Lehrveranstaltung" class="form-control mr-2"><br>
 
         <label for="startyear">Jahrgang</label><br>
-        <input id="startyear" name="startyear" type="number" placeholder="Jahrgang" class="form-control mr-2"><br>
+        <input id="startyear" th:field="*{startyear}" type="number" placeholder="Jahrgang" class="form-control mr-2"><br>
 
         <label for="course">Studienfach</label><br>
-        <input id="course" name="course" type="text" placeholder="Studienfach" class="form-control mr-2"><br>
+        <input id="course" th:field="*{course}" type="text" placeholder="Studienfach" class="form-control mr-2"><br>
 
-        <label for="countStudents">Studentenanzahl</label><br>
-        <input id="countStudents" name="countStudents" type="number" placeholder="Studentenanzahl" class="form-control mr-2"><br>
+        <label for="studentCount">Studentenanzahl</label><br>
+        <input id="studentCount" th:field="*{studentCount}" type="number" placeholder="Studentenanzahl" class="form-control mr-2"><br>
 
-        <label for="teacher">Dozentname</label><br>
-        <input id="teacher" name="teacher" type="text" placeholder="Dozentname" class="form-control mr-2"><br>
+        <label for="lecturerName">Dozentname</label><br>
+        <input id="lecturerName" th:field="*{lecturerName}" type="text" placeholder="Dozentname" class="form-control mr-2"><br>
 
-        <label for="contacthours">Kontaktstunden</label><br>
-        <input id="contacthours" name="contacthours" type="number" placeholder="Kontaktstunden" class="form-control mr-2"><br>
-
+        <label for="contactHours">Kontaktstunden</label><br>
+        <input id="contactHours" th:field="*{contactHours}" type="number" placeholder="Kontaktstunden" class="form-control mr-2"><br>
 
 <!--        Hier muss noch das Freifeld für den Freitext hin-->
+
         <button type="submit" class="btn btn-primary">Anlegen</button>
     </form>
 

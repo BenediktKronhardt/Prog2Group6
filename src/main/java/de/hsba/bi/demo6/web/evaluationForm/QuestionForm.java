@@ -12,14 +12,7 @@ import javax.validation.constraints.NotBlank;
 
 public class QuestionForm {
 
-    private Long id;
-
-    private EvaluationForm evaluationForm;
-
-    private Integer countQuestion;
-
 // Der Text in der Frage darf im "QuestionForm" nicht leer sein.
     @NotBlank(message = "Bitte eine Frage eingeben")
-    private String text;
-
+    private String name;
 }

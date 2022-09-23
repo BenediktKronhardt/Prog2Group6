@@ -1,10 +1,10 @@
 package de.hsba.bi.demo6.web.lecture;
 
-import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
+
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.validation.constraints.Size;
+
 
 @Getter
 @Setter

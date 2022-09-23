@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 
 public class EvaluationFormForm {
 
-
 // Es müssen mindestens 3 Zeichen eingegeben werden um den Namen des EF zu ändern (max 255 Zeichen)
     @Size.List({
             @Size(min = 3, message = "Bitte mindestens 3 Zeichen eingeben"),

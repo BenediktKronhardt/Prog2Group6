@@ -50,8 +50,8 @@
 
         <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
         <h2>Neue Frage</h2>
-        <form th:action="${'/evaluationForms/' + evaluationForm.id + '/questions'}" method="post" class="form-inline">
-            <input name="text" type="text" placeholder="Frage" class="form-control mr-2">
+        <form th:action="${'/evaluationForms/' + evaluationForm.id + '/questions'}" method="post" class="form-inline" th:object="${questionForm}">
+            <input th:field="*{name}" type="text" placeholder="Frage" class="form-control mr-2">
             <button type="submit" class="btn btn-primary">Eintragen</button>
         </form>
     </div>
