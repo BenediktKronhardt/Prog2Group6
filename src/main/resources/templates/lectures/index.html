@@ -11,9 +11,9 @@
 <div>
 
     <!--Ein Lecture-Objekt anlegen-->
-    <form action="/lectures" method="post" class="form-inline">
-        <label for="lname">Name der Lehrveranstaltung</label><br>
-        <input id="lname" name="lecture_name" type="text" placeholder="Name der Lehrveranstaltung" class="form-control mr-2"><br>
+    <form action="/lectures" method="post" class="form-inline" th:object="${lectureForm}">
+        <label for="name">Name der Lehrveranstaltung</label><br>
+        <input id="name" name="name" type="text" placeholder="Name der Lehrveranstaltung" class="form-control mr-2"><br>
 
         <label for="startyear">Jahrgang</label><br>
         <input id="startyear" name="startyear" type="number" placeholder="Jahrgang" class="form-control mr-2"><br>
