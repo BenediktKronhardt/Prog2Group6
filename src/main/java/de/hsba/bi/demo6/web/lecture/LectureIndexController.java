@@ -33,7 +33,7 @@ public class LectureIndexController {
     public String create(@ModelAttribute("lectureForm") @Valid LectureForm lectureForm, BindingResult lectureBinding){
         //Wenn Fehler vorhanden sind, dann passiert nichts (Validierung). Man bleibt auf gleicher Seite ohne Meldung
         if (lectureBinding.hasErrors()){
-            return "redirect:/lectures";
+            return "lectures/index";
         }
         Lecture lecture = lectureService.save(formConverter.update(new Lecture(),lectureForm));
         return "redirect:/lectures/" + lecture.getId();

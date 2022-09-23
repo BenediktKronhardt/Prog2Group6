@@ -39,7 +39,7 @@ public class EvaluationFormIndexController {
     // Wenn der eingegebene Name des Evaluationsbogens leer ist, passiert nichts und man wird auf die Startseite redirected
     public String create(@ModelAttribute("evaluationFormForm") @Valid EvaluationFormForm evaluationFormForm, BindingResult evaluationFormBinding){
         if (evaluationFormBinding.hasErrors()){
-            return "redirect:/evaluationForms";
+            return "evaluationForms/index";
         }
         // Wenn ein neues EvaluationForm-Objekt angelegt wird, wird man direkt auf die show Seite dieses weitergeleitet
         EvaluationForm evaluationForm = evaluationFormService.save(formConverter.update(new EvaluationForm(), evaluationFormForm));

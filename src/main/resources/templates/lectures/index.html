@@ -31,7 +31,12 @@
         <input id="contactHours" th:field="*{contactHours}" type="number" placeholder="Kontaktstunden" class="form-control mr-2"><br>
 
 <!--        Hier muss noch das Freifeld für den Freitext hin-->
-
+        <p th:errors="*{name}"></p>
+        <p th:errors="*{startyear}"></p>
+        <p th:errors="*{course}"></p>
+        <p th:errors="*{studentCount}"></p>
+        <p th:errors="*{lecturerName}"></p>
+        <p th:errors="*{contactHours}"></p>
         <button type="submit" class="btn btn-primary">Anlegen</button>
     </form>
 

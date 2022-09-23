@@ -37,6 +37,7 @@
             <option disabled="disabled" selected="selected">Lehrveranstaltung</option>
             <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
         </select>
+        <span class="text-danger" th:errors="*{name}"/>
         <button type="submit" class="btn btn-primary">Anlegen</button>
     </form>
 
