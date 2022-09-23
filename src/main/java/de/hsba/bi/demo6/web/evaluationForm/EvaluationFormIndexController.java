@@ -8,10 +8,12 @@ import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/evaluationForms")
@@ -49,6 +51,7 @@ public class EvaluationFormIndexController {
             Lecture lecture = lectureService.getLecture(evaluationFormForm.getLecture_id());
             lectureService.addEvaluationForm(evaluationForm, lecture);
         }
+
         return "redirect:/evaluationForms/" + evaluationForm.getId();
     }
 }

@@ -4,12 +4,16 @@ package de.hsba.bi.demo6.web.evaluationForm;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import javax.validation.constraints.Size;
+
+
 
 @Getter
 @Setter
 
 public class EvaluationFormForm {
+
 
 // Es müssen mindestens 3 Zeichen eingegeben werden um den Namen des EF zu ändern (max 255 Zeichen)
     @Size.List({
@@ -20,4 +24,5 @@ public class EvaluationFormForm {
 
 // Wird zur Zuordnung der Lectures zu einem Bogen benötigt
     private Long lecture_id;
+
 }

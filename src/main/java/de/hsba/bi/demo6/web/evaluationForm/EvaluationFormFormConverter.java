@@ -19,8 +19,10 @@ public class EvaluationFormFormConverter {
         return evaluationForm;
     }
 
+
     QuestionForm toForm(Question entry){
         QuestionForm form = new QuestionForm();
+
         form.setId(entry.getId());
         form.setEvaluationForm(entry.getEvaluationForm());
         form.setText(entry.getText());
@@ -28,7 +30,9 @@ public class EvaluationFormFormConverter {
         return form;
     }
 
+
     Question update(Question entry, QuestionForm form){
+
         entry.setEvaluationForm(form.getEvaluationForm());
         entry.setText(form.getText());
 //        entry.setCountQuestion(form.getCountQuestion());
