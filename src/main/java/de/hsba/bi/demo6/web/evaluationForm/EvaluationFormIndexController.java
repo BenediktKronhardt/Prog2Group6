@@ -44,8 +44,11 @@ public class EvaluationFormIndexController {
     // Wenn ein neues EvaluationForm-Objekt angelegt wird, wird man direkt auf die show Seite dieses weitergeleitet
         EvaluationForm evaluationForm = evaluationFormService.save(formConverter.update(new EvaluationForm(), evaluationFormForm));
         // Ordnet das Lecture Objekt zu einem Bogen über die lecture_id hinzu
-        Lecture lecture = lectureService.getLecture(evaluationFormForm.getLecture_id());
-        lectureService.addEvaluationForm(evaluationForm, lecture);
+        // Wenn Lecture Objekt ausgewählt ist (lecture_id != null), dann Lecture Object zu EVF hinzufügen
+        if (evaluationFormForm.getLecture_id() != null){
+            Lecture lecture = lectureService.getLecture(evaluationFormForm.getLecture_id());
+            lectureService.addEvaluationForm(evaluationForm, lecture);
+        }
         return "redirect:/evaluationForms/" + evaluationForm.getId();
     }
 }

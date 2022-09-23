@@ -19,14 +19,12 @@ public class TestDataCreator {
     public void init(){
 //  hinzufügen von Beispielen zum testen
 
-        EvaluationForm evaluationForm = new EvaluationForm();
-        evaluationForm.setName("Test-EvaluationFormMitLecture");
+        EvaluationForm evaluationForm = new EvaluationForm("Test-EvaluationFormMitLecture");
         evaluationFormService.addQuestion(evaluationForm,new Question(1, "Wie war das Modul?"));
         evaluationFormService.addQuestion(evaluationForm,new Question(2, "Wie war der Dozent?"));
         evaluationFormService.save(evaluationForm);
 
-        EvaluationForm evaluationForm2 = new EvaluationForm();
-        evaluationForm2.setName("Test-EvaluationFormOhneLecture");
+        EvaluationForm evaluationForm2 = new EvaluationForm("Test-EvaluationFormOhneLecture");
         evaluationFormService.addQuestion(evaluationForm2,new Question(1, "Wie war das Modul?"));
         evaluationFormService.addQuestion(evaluationForm2,new Question(2, "Wie war der Dozent?"));
         evaluationFormService.save(evaluationForm2);

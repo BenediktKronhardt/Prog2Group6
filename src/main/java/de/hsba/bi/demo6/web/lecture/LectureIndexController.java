@@ -32,11 +32,11 @@ public class LectureIndexController {
     // Ein neues lecture-Objekt anlegen. Danach auf der gleichen Seite bleiben
     @PostMapping
     public String create(@ModelAttribute("lectureForm") @Valid LectureForm lectureForm, BindingResult lectureBinding){
+        //Wenn Fehler vorhanden sind, dann passiert nichts (Validierung). Man bleibt auf gleicher Seite ohne Meldung
         if (lectureBinding.hasErrors()){
             return "redirect:/lectures";
         }
-        Lecture lecture = lectureService.save(formConverter.update(new Lecture(),lectureForm));
-        lectureService.save(lecture);
-        return "redirect:/lectures/";
+        Lecture lecture = lectureService.save(formConverter.updateFull(new Lecture(),lectureForm));
+        return "redirect:/lectures/" + lecture.getId();
     }
 }

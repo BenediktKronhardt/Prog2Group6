@@ -6,17 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class LectureFormConverter {
 
-// stezt nur den Namen des Lectures
-    LectureForm toForm(Lecture lecture){
-        LectureForm form = new LectureForm();
-        form.setName(lecture.getName());
-        return form;
-    }
-
-    Lecture update(Lecture lecture, LectureForm form){
-        lecture.setName(form.getName());
-        return lecture;
-    }
 
 // Setzt alle Attribute gemeinsam
     LectureForm toFormFull(Lecture lecture){
