@@ -1,18 +1,18 @@
 package de.hsba.bi.demo6.web.evaluationForm;
 
 
-import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-
 public class QuestionForm {
 
-// Der Text in der Frage darf im "QuestionForm" nicht leer sein.
-    @NotBlank(message = "Bitte eine Frage eingeben")
+// Es müssen mindestens 3 Zeichen eingegeben werden um den Namen des EF zu ändern (max 255 Zeichen)
+    @Size.List({
+            @Size(min = 3, message = "Bitte mindestens 3 Zeichen eingeben"),
+            @Size(max = 255, message = "Der Name darf nicht länger als 255 Zeichen sein")
+    })
     private String name;
 }
