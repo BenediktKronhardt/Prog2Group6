@@ -11,26 +11,27 @@
     <!--In einer Liste die verschiedenen Lectures anzeigen-->
     <ul class="list-unstyled">
         <li th:each="lecture : ${lecture}">
-            <a th:href="${'/lectures/' + lecture.id}" th:text="${lecture.name}"></a>
+            <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
         </li>
     </ul>
 
     <hr>
 
     <div class="my-4">
+            <div th:replace="layout/menu :: menu"></div>
         <h1>Evaluationsbögen</h1>
     </div>
 
 <!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
     <ul class="list-unstyled">
         <li th:each="evaluationForm : ${evaluationForm}">
-            <a th:href="${'/evaluationForms/' + evaluationForm.id}" th:text="${evaluationForm.name}"></a>
+            <a th:href="@{/evaluationForms/{id}(id=${evaluationForm.id})" th:text="${evaluationForm.name}"></a>
         </li>
     </ul>
 
 <!--Neue Evaluationsbögen anlegen-->
     <!-- Durch th:object wird das evaluationFormForm verknüpft -->
-    <form action="/evaluationForms" method="post" class="form-inline" th:object="${evaluationFormForm}">
+    <form th:action="@{/evaluationForms}" method="post" class="form-inline" th:object="${evaluationFormForm}">
         <input th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
         <select name ="lecture_id">
 <!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->

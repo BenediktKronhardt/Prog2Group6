@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="menu">
+    <form class="float-right" method="post" th:action="@{/logout}">
+        <button class="btn btn-sm btn-link" type="submit">
+            <span th:text="${#httpServletRequest.remoteUser}" />
+            abmelden
+        </button>
+    </form>
+</th:block>
+</body>
+</html>
