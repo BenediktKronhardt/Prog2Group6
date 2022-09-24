@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org">
+<body>
+<div>
+    <div>
+        <h1>Login</h1>
+
+    </div>
+
+    <!--Neue Evaluationsbögen anlegen-->
+    <!-- Durch th:object wird das evaluationFormForm verknüpft -->
+    <form action="/login" method="post" class="form-inline" th:object="${LoginForm}">
+        <input th:field="*{userName}" type="text" placeholder="Name" class="form-control mr-2">
+
+        <button type="submit" class="btn btn-primary">Anlegen</button>
+    </form>
+
+</div>
+</body>
+</html>
