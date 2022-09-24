@@ -6,9 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LectureFormConverter {
 
-
 // Setzt alle Attribute gemeinsam
-    LectureForm toFormFull(Lecture lecture){
+    LectureForm toForm(Lecture lecture){
         LectureForm form = new LectureForm();
         form.setName(lecture.getName());
         form.setCourse(lecture.getCourse());
@@ -19,7 +18,7 @@ public class LectureFormConverter {
         return form;
     }
 
-    Lecture updateFull(Lecture lecture, LectureForm form){
+   public Lecture update(Lecture lecture, LectureForm form){
         lecture.setName(form.getName());
         lecture.setCourse(form.getCourse());
         lecture.setContactHours(form.getContactHours());

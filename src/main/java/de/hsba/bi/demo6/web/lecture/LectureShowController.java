@@ -1,17 +1,16 @@
 package de.hsba.bi.demo6.web.lecture;
 
+
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
 import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
 import de.hsba.bi.demo6.lecture.Lecture;
 import de.hsba.bi.demo6.lecture.LectureService;
-import de.hsba.bi.demo6.web.evaluationForm.EvaluationFormFormConverter;
-import de.hsba.bi.demo6.web.evaluationForm.QuestionForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-// todo: Wird erstellt wenn lecture.show gemerged ist
+
 @Controller
 @RequestMapping("/lectures")
 @RequiredArgsConstructor
@@ -34,13 +33,13 @@ public class LectureShowController {
     // Zeigt das Lecture
     @GetMapping(path = "/{id}")
     public String show(@PathVariable("id") Long id, Model model){
-        model.addAttribute("lectureForm", formConverter.toFormFull(getLecture(id)));
+        model.addAttribute("lectureForm", formConverter.toForm(getLecture(id)));
         model.addAttribute("evaluationForm", evaluationFormService.getAll());
         return "lectures/showLecture";
     }
 
     //  Hier kann ein EvaluationForm-Objekt, welches bisher noch keiner Lehrveranstaltung zugeordnet ist, einer Lehrveranstaltung zugeordnet werden.
-//  Zuerst wird das Lecture-Objekt über die Id in showLecture definiert, dann das EvaluationForm-Objekt über den Value im Form-Objekt definiert und dieses zu dem lecture-Objekt hinzugefügt
+    //  Zuerst wird das Lecture-Objekt über die Id in showLecture definiert, dann das EvaluationForm-Objekt über den Value im Form-Objekt definiert und dieses zu dem lecture-Objekt hinzugefügt
     @PostMapping(path = "/{id}")
     public String addEvaluationFormToLecture(@PathVariable("id") Long id, Long evaluationFormId){
         Lecture lecture = lectureService.getLecture(id);
