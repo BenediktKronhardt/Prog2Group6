@@ -37,8 +37,11 @@ public class EvaluationFormIndexController {
     //  Das ausgewählte Lecture-Objekt über das "select"-Element wird direkt dem Evaluationsbogen zugeprdnet (bzw. wird der Evaluationsbogen dem lecture-Objekt zugeordnet)
     @PostMapping
     // Wenn der eingegebene Name des Evaluationsbogens leer ist, passiert nichts und man wird auf die Startseite redirected
-    public String create(@ModelAttribute("evaluationFormForm") @Valid EvaluationFormForm evaluationFormForm, BindingResult evaluationFormBinding){
+    public String create(Model model, @ModelAttribute("evaluationFormForm") @Valid EvaluationFormForm evaluationFormForm, BindingResult evaluationFormBinding){
+//      Damit die verschiedenen Lecture- und EvaluationForm-Objekte angezeigt werden, müssen diese durch model.addAttribute hinzugefügt werden
         if (evaluationFormBinding.hasErrors()){
+            model.addAttribute("evaluationForm", evaluationFormService.getAll());
+            model.addAttribute("lecture", lectureService.getAll());
             return "evaluationForms/index";
         }
         // Wenn ein neues EvaluationForm-Objekt angelegt wird, wird man direkt auf die show Seite dieses weitergeleitet
