@@ -3,6 +3,8 @@ package de.hsba.bi.demo6.web.evaluationForm;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -14,5 +16,6 @@ public class QuestionForm {
             @Size(min = 3, message = "Bitte mindestens 3 Zeichen eingeben"),
             @Size(max = 255, message = "Der Name darf nicht länger als 255 Zeichen sein")
     })
+    @Pattern(regexp = ".*\\b[?]", message = "Bitte die Frage mit einem Fragezeichen beenden")
     private String name;
 }
