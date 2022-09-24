@@ -29,7 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/h2-console/**");
+   //     web.ignoring().antMatchers("/h2-console/**");
+        web.ignoring().antMatchers("/");
+
     }
 
     @Bean
@@ -41,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .password("su")
                         .roles("ADMIN")
                         .build();
-
 
         return new InMemoryUserDetailsManager(admin);
     }
