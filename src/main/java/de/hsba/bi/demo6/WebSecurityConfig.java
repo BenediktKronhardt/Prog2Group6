@@ -1,6 +1,9 @@
 package de.hsba.bi.demo6;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity
+@Configuration
+@Order(SecurityProperties.BASIC_AUTH_ORDER - 10)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -24,8 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+                .and();
     }
+
 
     @Override
     public void configure(WebSecurity web) {
@@ -44,7 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .roles("ADMIN")
                         .build();
 
-        return new InMemoryUserDetailsManager(admin);
-    }
+        UserDetails testUser =
+                User.withDefaultPasswordEncoder()
+                        .username("testUser")
+                        .password("su")
+                        .roles("USER")
+                        .build();
 
+        return new InMemoryUserDetailsManager(admin, testUser);
+    }
 }

@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class IndexController {
 
-
+    @GetMapping
     public String index() {
-
         return "redirect:/evaluationForms/";
     }
 

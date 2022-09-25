@@ -42,7 +42,7 @@
 
 
 <!--    Im Select Element können alle EvaluationsBögen ohne verknüpftes Lecture Objekt ausgewählt und zu angezeigtem Lecture Objekt hinzugefügt werden -->
-<form th:if="${lecture.evaluationForm == null}" th:action="${'/lectures/' + lecture.id}" method="post" class="form-inline">
+<form th:if="${lecture.evaluationForm == null}" th:action="@{/lectures/{id}(id=${lecture.id})}" method="post" class="form-inline">
     <select th:if="${lecture.evaluationForm == null}" name="evaluationFormId">
         <!--Es werden alle Evaluationsbögen angezeigt, welchen noch kein Lecture-Objekt haben-->
         <option disabled="disabled" selected="selected">Evaluationsbogen</option>
