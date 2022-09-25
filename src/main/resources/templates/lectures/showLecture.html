@@ -8,6 +8,11 @@
 <!--Lehrveransaltung mit Namen anzeigen-->
 <h1 th:text="${lecture.name}"></h1>
 
+<!--    Button zum Löschen hinzufügen-->
+<form th:action="${'/lectures/' + lecture.id + '/delete'}" method="post" class="form">
+    <button type="submit" class="btn btn-danger">Löschen</button>
+</form>
+
 <!--Den Status der Lehrveranstaltung anzeigen-->
 <p th:if="${lecture.status==true}">Aktiv</p> <p th:if="${lecture.status!=true}">Inaktiv</p>
 

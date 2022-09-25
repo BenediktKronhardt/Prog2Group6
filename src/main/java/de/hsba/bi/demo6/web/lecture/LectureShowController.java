@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/lectures")
+@RequestMapping("/lectures/{id}")
 @RequiredArgsConstructor
 public class LectureShowController {
 
@@ -31,7 +31,7 @@ public class LectureShowController {
     }
 
     // Zeigt das Lecture
-    @GetMapping(path = "/{id}")
+    @GetMapping
     public String show(@PathVariable("id") Long id, Model model){
         model.addAttribute("lectureForm", formConverter.toForm(getLecture(id)));
         model.addAttribute("evaluationForm", evaluationFormService.getAll());
@@ -40,12 +40,19 @@ public class LectureShowController {
 
     //  Hier kann ein EvaluationForm-Objekt, welches bisher noch keiner Lehrveranstaltung zugeordnet ist, einer Lehrveranstaltung zugeordnet werden.
     //  Zuerst wird das Lecture-Objekt über die Id in showLecture definiert, dann das EvaluationForm-Objekt über den Value im Form-Objekt definiert und dieses zu dem lecture-Objekt hinzugefügt
-    @PostMapping(path = "/{id}")
+    @PostMapping
     public String addEvaluationFormToLecture(@PathVariable("id") Long id, Long evaluationFormId){
         Lecture lecture = lectureService.getLecture(id);
         EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(evaluationFormId);
         lectureService.addEvaluationForm(evaluationForm, lecture);
         return "redirect:/lectures/" +id;
+    }
+
+//  Ein Lecture-Objekt löschen, danach erfolgt eine Weiterleitung zur index-Seite der Evaluationsbögen
+    @PostMapping(path="/delete")
+    public String delete(@PathVariable("id") Long id){
+        lectureService.delete(id);
+        return "redirect:/evaluationForms/";
     }
 
 }

@@ -60,6 +60,11 @@ public class LectureService {
         lecture.setEvaluationForm(evaluationForm);
     }
 
+//  Lehrveranstaltung mit bestimmter id löschen
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
 
 
 }
