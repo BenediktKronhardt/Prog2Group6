@@ -13,6 +13,18 @@
     <button type="submit" class="btn btn-danger">Löschen</button>
 </form>
 
+<!--    Namen ändern    -->
+<form method="post" th:action="${'/lectures/' + lecture.id + '/changeName'}" th:object="${lectureForm}">
+    <div class="form-group">
+        <label>Neuer Name</label>
+        <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
+    </div>
+    <div class="form-group">
+        <p th:errors="*{name}"></p>
+        <button class="btn btn-primary" type="submit">Ändern</button>
+    </div>
+</form>
+
 <!--Den Status der Lehrveranstaltung anzeigen-->
 <p th:if="${lecture.status==true}">Aktiv</p> <p th:if="${lecture.status!=true}">Inaktiv</p>
 
