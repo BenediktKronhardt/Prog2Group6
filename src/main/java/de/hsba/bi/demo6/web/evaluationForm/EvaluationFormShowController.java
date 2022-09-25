@@ -30,6 +30,7 @@ public class EvaluationFormShowController {
         return evaluationForm;
     }
 
+
     @GetMapping
     public String show(@PathVariable("id") Long id, Model model){
         model.addAttribute("evaluationFormForm", formConverter.toForm(getEvaluationForm(id)));
@@ -37,6 +38,7 @@ public class EvaluationFormShowController {
         return "evaluationForms/showEvaluationForm";
     }
 
+//  Den Namen eines Evaluationsbogens ändern
     @PostMapping
     public String change(Model model, @PathVariable("id") Long id, @ModelAttribute("evaluationFormForm") @Valid EvaluationFormForm evaluationFormForm, BindingResult evaluationFormBinding){
        //Wenn der neue Name leer ist, kann der Name nicht geändert werden
@@ -49,12 +51,30 @@ public class EvaluationFormShowController {
         return "redirect:/evaluationForms/" +id;
     }
 
+//  Den Namen eines Question-Objektes löschen
+    @PostMapping(path="/changeQuestion/{questionId}")
+    public String changeQuestion(Model model, @PathVariable("id") Long id, @PathVariable("questionId") int questionId, @ModelAttribute("questionForm") @Valid QuestionForm questionForm, BindingResult questionFormBinding){
+        EvaluationForm evaluationForm = getEvaluationForm(id);
+        //Wenn der neue Name leer ist oder kein Fragezeichen am Ende enthält, kann der Name nicht geändert werden
+        if (questionFormBinding.hasErrors()){
+            model.addAttribute("evaluationFormForm", formConverter.toForm(evaluationForm));
+            return "evaluationForms/showEvaluationForm";
+        }
+//      Ein neues Question-Objekt wird erstellt, indem es mit der entsprechenden Id gesucht wird
+        Question question = evaluationFormService.findQuestionById(evaluationForm, questionId);
+//      Das erstellte Question-Objekt wird geupdatet (Der Name)
+        formConverter.update(question, questionForm);
+//      Das Question-Objekt wird geändert
+        evaluationFormService.changeQuestion(evaluationForm, question);
+        return "redirect:/evaluationForms/" +id;
+    }
+
 // Eine Frage lästt sich zum EvaluationsBogen hinzufügen
     @PostMapping(path = "/questions")
-    public String addQuestion(Model model, @PathVariable("id") Long id, @ModelAttribute("questionForm") @Valid QuestionForm questionForm, BindingResult questionBinding){
+    public String addQuestion(Model model, @PathVariable("id") Long id, @ModelAttribute("questionForm") @Valid QuestionForm questionForm, BindingResult questionFormBinding){
         EvaluationForm evaluationForm = getEvaluationForm(id);
         // Wenn das Question Objekt einen Error wirft (keinen Inhalt), dann wird keine Frage hinzugefügt
-        if (questionBinding.hasErrors()){
+        if (questionFormBinding.hasErrors()){
             model.addAttribute("evaluationFormForm", formConverter.toForm(evaluationForm));
             return "evaluationForms/showEvaluationForm";
         }
