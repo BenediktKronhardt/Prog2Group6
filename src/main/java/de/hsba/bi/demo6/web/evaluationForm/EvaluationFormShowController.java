@@ -69,6 +69,14 @@ public class EvaluationFormShowController {
         return "redirect:/evaluationForms/";
     }
 
+//  Ein Question-Objekt löschen, danach auf der evaluationForm.show Seite bleiben. In der URL wird am Ende noch die Id des Question-Objektes mitgegeben
+    @PostMapping(path="/deleteQuestion/{questionId}")
+    public String deleteQuestion(@PathVariable("id") Long id, @PathVariable("questionId") int questionId){
+        EvaluationForm evaluationform = getEvaluationForm(id);
+        evaluationFormService.deleteQuestion(evaluationform,questionId);
+        return "redirect:/evaluationForms/"+id;
+    }
+
     @ExceptionHandler(NotFoundException.class)
     public String notFound(){
         return "/notFound/";

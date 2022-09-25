@@ -16,11 +16,16 @@
         <tr>
             <th>ID<th>
             <th>Frage</th>
+            <th></th>
         </tr>
 <!--        Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
         <tr th:each="question : ${evaluationForm.questions}">
             <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
             <td th:text="${question.text}"></td>
+            <td><!--    Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
+                <form th:action="${'/evaluationForms/' + evaluationForm.id +'/deleteQuestion/'+ question.id}" method="post" class="form">
+                    <button type="submit" class="btn btn-danger">Löschen</button>
+                </form></td>
         </tr>
     </table>
 
