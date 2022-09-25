@@ -2,6 +2,8 @@ package de.hsba.bi.demo6.evaluationForm;
 
 import de.hsba.bi.demo6.lecture.Lecture;
 import de.hsba.bi.demo6.lecture.LectureService;
+import de.hsba.bi.demo6.user.User;
+import de.hsba.bi.demo6.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
@@ -13,6 +15,7 @@ public class TestDataCreator {
 
    private final EvaluationFormService evaluationFormService;
    private final LectureService lectureService;
+   private final UserService userService;
 
 //  Soll automatisch nach dem Strat der Anwendung erledigt werden
     @EventListener(ApplicationStartedEvent.class)
@@ -34,5 +37,10 @@ public class TestDataCreator {
         Lecture lecture = lectureService.createLecture("Test-Lecture");
         lectureService.addEvaluationForm(evaluationForm,lecture);
         lectureService.save(lecture);
+
+
+        User admin = new User();
+        admin.setName("Admin");
+        userService.save(admin);
  }
 }
