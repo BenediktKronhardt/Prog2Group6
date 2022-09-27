@@ -1,6 +1,8 @@
 package de.hsba.bi.demo6.web.evaluationForm;
 
 
+import de.hsba.bi.demo6.user.User;
+import de.hsba.bi.demo6.user.UserService;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import de.hsba.bi.demo6.evaluationForm.Question;
 import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
 import lombok.RequiredArgsConstructor;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -20,6 +23,7 @@ public class EvaluationFormShowController {
 
     private final EvaluationFormService evaluationFormService;
     private final EvaluationFormFormConverter formConverter;
+    private final UserService userService;
 
     @ModelAttribute("evaluationForm")
     public EvaluationForm getEvaluationForm(@PathVariable("id")Long id){
@@ -28,6 +32,12 @@ public class EvaluationFormShowController {
             throw new de.hsba.bi.demo6.web.NotFoundException();
         }
         return evaluationForm;
+    }
+
+
+    @ModelAttribute("users")
+    public List<User> getUsers() {
+        return userService.findUsers();
     }
 
 

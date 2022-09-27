@@ -3,10 +3,12 @@
 <body>
 <div>
     <div class="my-4">
-<!--    Evaluationsbogen mit Namen anzeigen-->
+<!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
+        <div th:replace="layout/menu :: menu"></div>
+<!--    Evaluationsbogen mit Namen anzeigen -->
         <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
-<!--    Button zum Löschen hinzufügen (auf Höhe des Namens)-->
-        <form th:action="${'/evaluationForms/' + evaluationForm.id + '/delete'}" method="post" class="form">
+<!--    Button zum Löschen hinzufügen (auf Höhe des Namens) -->
+        <form th:action="@{/evaluationForms/{id}/delete(id=${evaluationForm.id})}" sec:authorize="hasRole('ADMIN')" method="post" class="form">
             <button type="submit" class="btn btn-danger">Löschen</button>
         </form>
     </div>
@@ -44,8 +46,12 @@
 
     <div>
         <hr />
+
 <!--    Den Namen eines Evaluationsbogens ändern-->
-        <form method="post" th:action="${'/evaluationForms/' + evaluationForm.id}" th:object="${evaluationFormForm}">
+        <form method="post" th:action="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:object="${evaluationFormForm}">
+
+
+
             <div class="form-group">
                 <label>Neuer Name</label>
                 <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
@@ -68,7 +74,7 @@
 
         <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
         <h2>Neue Frage</h2>
-        <form th:action="${'/evaluationForms/' + evaluationForm.id + '/questions'}" method="post" class="form-inline" th:object="${questionForm}">
+        <form th:action="@{/evaluationForms/{id}/questions(id=${evaluationForm.id})}" method="post" class="form-inline" th:object="${questionForm}">
             <input th:field="*{name}" type="text" placeholder="Frage" class="form-control mr-2">
             <p th:errors="*{name}"></p>
             <button type="submit" class="btn btn-primary">Eintragen</button>
@@ -81,5 +87,7 @@
         <a href="/evaluationForms/">Index</a>
     </p>
 </div>
+
+
 </body>
 </html>
