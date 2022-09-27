@@ -17,18 +17,40 @@
         <tr>
             <th>ID<th>
             <th>Frage</th>
+            <th></th>
+            <th></th>
         </tr>
 <!--        Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
         <tr th:each="question : ${evaluationForm.questions}">
             <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
             <td th:text="${question.text}"></td>
+            <td><!--    Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
+                <form th:action="${'/evaluationForms/' + evaluationForm.id +'/deleteQuestion/'+ question.id}" method="post" class="form">
+                    <button type="submit" class="btn btn-danger">Löschen</button>
+                </form></td>
+            <td>
+                <!--    Den Namen einer Frage ändern-->
+                <form method="post" th:action="${'/evaluationForms/' + evaluationForm.id + '/changeQuestion/'+ question.id}" th:object="${questionForm}">
+                    <div class="form-group">
+                        <label>Neuer Name</label>
+                        <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Ändern</button>
+                    </div>
+                </form>
+            </td>
         </tr>
     </table>
 
     <div>
         <hr />
 
+<!--    Den Namen eines Evaluationsbogens ändern-->
         <form method="post" th:action="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:object="${evaluationFormForm}">
+
+
+
             <div class="form-group">
                 <label>Neuer Name</label>
                 <input class="form-control form-control-sm" th:field="*{name}" type="text"/>

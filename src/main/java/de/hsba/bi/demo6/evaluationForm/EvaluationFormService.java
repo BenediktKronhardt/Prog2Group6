@@ -1,10 +1,13 @@
 package de.hsba.bi.demo6.evaluationForm;
 
-import de.hsba.bi.demo6.lecture.Lecture;
-import org.springframework.stereotype.Service;
 
+import de.hsba.bi.demo6.web.NotFoundException;
+import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -17,9 +20,7 @@ public class EvaluationFormService {
         this.repository = repository;
     }
 
-
-
-//  evaluationsbogen abspeichern
+//  Evaluationsbogen abspeichern
     public EvaluationForm save(EvaluationForm evaluationForm) {
         return repository.save(evaluationForm);
     }
@@ -31,20 +32,16 @@ public class EvaluationFormService {
 
 //  Frage zu EvaluationForm hinzufügen
     public void addQuestion(EvaluationForm evaluationForm, Question question) {
-
 //  Maximale Anzahl an Fragen die gestellt werden können
         if (evaluationForm.getQuestions().size() < 10) {
-
 //     Wenn es noch keine Questions gibt, wird countQuestion=1 gesetzt
             if (evaluationForm.getQuestions().isEmpty()) {
                 question.setCountQuestion(1);
             }
-
 //      Ansonsten ist countQuestion um den Wert 1 größer als die Anzahl der Questions
             else {
                 question.setCountQuestion(evaluationForm.getQuestions().size() + 1);
             }
-
 //      Der Evaluationsbogen wird zu der Frage gesetzt und die Frage wird hinzugefügt
         question.setEvaluationForm(evaluationForm);
         evaluationForm.getQuestions().add(question);
@@ -53,7 +50,6 @@ public class EvaluationFormService {
 
 //  Alle Evaluationsbögen anzeigen lassen
     public Collection<EvaluationForm> getAll() {
-
         return repository.findAll();
     }
 
@@ -62,10 +58,43 @@ public class EvaluationFormService {
         repository.deleteById(id);
     }
 
+//  Eine bestimmte Frage mithilfe der Id suchen
+    public Question findQuestionById(EvaluationForm evaluationForm, int questionId){
+        Question question = new Question();
+//      Durch jedes Question-Element in der ArrayList wird durchiteriert. Wenn die Id mit der mitgegebenen questionId übereinstimmt, wird das entsprechende Element aus der ArrayList in der neu erstellten Variable question gespeichert
+        for (int i=0; i<evaluationForm.getQuestions().size(); i++){
+            if (evaluationForm.getQuestions().get(i).getId()==questionId){
+                question= evaluationForm.getQuestions().get(i);
+            }
+
+        }
+       return question;
+    }
+
+//  Eine Frage löschen
+    public void deleteQuestion(EvaluationForm evaluationForm, int questionId){
+//      Durch jedes Question-Element in der ArrayList wird durchiteriert. Wenn die Id mit der mitgegebenen questionId übereinstimmt, wird das entsprechende Element aus der ArrayList gelöscht
+        for (int i=0; i<evaluationForm.getQuestions().size(); i++){
+              if (evaluationForm.getQuestions().get(i).getId()==questionId){
+                evaluationForm.getQuestions().remove(i);
+                }
+            }
+    }
+
+//  Den Namen einer Frage ändern
+    public void changeQuestion(EvaluationForm evaluationForm, Question question){
+//      Durch jedes Question-Element in der ArrayList wird durchiteriert. Wenn die Id mit der mitgegebenen questionId übereinstimmt, wird der Name des entsprechenden Elements aus der ArrayList geändert
+        for (int i=0; i<evaluationForm.getQuestions().size(); i++){
+            if (evaluationForm.getQuestions().get(i).getId()==question.getId()){
+                evaluationForm.getQuestions().get(i).setText(question.getText());
+            }
+        }
+    }
+
+    }
 
 
 
 
 
-}
 
