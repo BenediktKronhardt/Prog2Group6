@@ -3,10 +3,11 @@
 <body>
 <div>
     <div class="my-4">
+<!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
         <div th:replace="layout/menu :: menu"></div>
-<!--    Evaluationsbogen mit Namen anzeigen-->
+<!--    Evaluationsbogen mit Namen anzeigen -->
         <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
-<!--    Button zum Löschen hinzufügen (auf Höhe des Namens)-->
+<!--    Button zum Löschen hinzufügen (auf Höhe des Namens) -->
         <form th:action="@{/evaluationForms/{id}/delete(id=${evaluationForm.id})}" sec:authorize="hasRole('ADMIN')" method="post" class="form">
             <button type="submit" class="btn btn-danger">Löschen</button>
         </form>
