@@ -17,6 +17,7 @@ public class IndexController {
         return "redirect:/evaluationForms/";
     }
 
+// Funktion prüft ob Anwender eingeloggt ist, wenn der Anwender eingeloggt ist wird er zur Startseite weitergeleitet. Falls nicht kann er die Startseite nicht aufrufen
     @GetMapping("/login")
     public String login(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
