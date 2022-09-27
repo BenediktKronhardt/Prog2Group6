@@ -8,22 +8,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 @EnableWebSecurity
 @Configuration
 @Order(SecurityProperties.BASIC_AUTH_ORDER - 10)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+// Legt die Zugriffsberechtigungen für die Rollen (USER & ADMIN) fest
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/lectures/**").hasRole("ADMIN")
-                .antMatchers("/users/**").hasRole("ADMIN")
+                .antMatchers("/lectures/**").hasRole(de.hsba.bi.demo6.user.User.ADMIN_ROLE)
+                .antMatchers("/users/**").hasRole(de.hsba.bi.demo6.user.User.ADMIN_ROLE)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -31,35 +31,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll()
-                .and();
+                .permitAll();
     }
 
-
+// Datenbank (h2-console/) wird aktiv ausgeschlossen
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/h2-console/**");
-//        web.ignoring().antMatchers("/");
 
     }
 
+
+// Verschlüsselt das Passwort für die Datenbank
     @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails admin =
-                User.withDefaultPasswordEncoder()
-                        .username("admin")
-                        .password("su")
-                        .roles("ADMIN")
-                        .build();
-
-        UserDetails testUser =
-                User.withDefaultPasswordEncoder()
-                        .username("testUser")
-                        .password("su")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(admin, testUser);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

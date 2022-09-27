@@ -7,6 +7,7 @@ import de.hsba.bi.demo6.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,6 +17,7 @@ public class TestDataCreator {
    private final EvaluationFormService evaluationFormService;
    private final LectureService lectureService;
    private final UserService userService;
+   private final PasswordEncoder passwordEncoder;
 
 //  Soll automatisch nach dem Strat der Anwendung erledigt werden
     @EventListener(ApplicationStartedEvent.class)
@@ -38,9 +40,16 @@ public class TestDataCreator {
         lectureService.addEvaluationForm(evaluationForm,lecture);
         lectureService.save(lecture);
 
+        // Erstellt die vorher festgelegten Nutzer
+        createUser("Test", "su", User.USER_ROLE);
+        createUser("Admin", "su", User.ADMIN_ROLE);
 
-        User admin = new User();
-        admin.setName("Admin");
-        userService.save(admin);
+
+
  }
+ // Erstellt neuen Nutzer in Datenbank (nur für den Admin nötig)
+    private User createUser(String name, String password, String role){
+        return userService.save(new User(name, passwordEncoder.encode(password), role));
+    }
+
 }

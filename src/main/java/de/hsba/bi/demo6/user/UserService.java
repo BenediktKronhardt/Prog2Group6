@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class UserService {
@@ -15,16 +15,12 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
-
-    public void init() {
-        userRepository.save(new User("Admin"));
-    }
-
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public List<User> findUsers() {
+        return userRepository.findByRole(User.USER_ROLE);
     }
 
     public User save(User user) {
