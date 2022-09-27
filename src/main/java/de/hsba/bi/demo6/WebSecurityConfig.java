@@ -1,9 +1,7 @@
 package de.hsba.bi.demo6;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
+
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,8 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @EnableWebSecurity
-@Configuration
-@Order(SecurityProperties.BASIC_AUTH_ORDER - 10)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 // Legt die Zugriffsberechtigungen für die Rollen (USER & ADMIN) fest
