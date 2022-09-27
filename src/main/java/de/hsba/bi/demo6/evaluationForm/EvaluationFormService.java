@@ -1,6 +1,7 @@
 package de.hsba.bi.demo6.evaluationForm;
 
 
+import de.hsba.bi.demo6.web.NotFoundException;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -57,15 +58,37 @@ public class EvaluationFormService {
         repository.deleteById(id);
     }
 
+//  Eine bestimmte Frage mithilfe der Id suchen
+    public Question findQuestionById(EvaluationForm evaluationForm, int questionId){
+        Question question = new Question();
+//      Durch jedes Question-Element in der ArrayList wird durchiteriert. Wenn die Id mit der mitgegebenen questionId übereinstimmt, wird das entsprechende Element aus der ArrayList in der neu erstellten Variable question gespeichert
+        for (int i=0; i<evaluationForm.getQuestions().size(); i++){
+            if (evaluationForm.getQuestions().get(i).getId()==questionId){
+                question= evaluationForm.getQuestions().get(i);
+            }
+
+        }
+       return question;
+    }
+
 //  Eine Frage löschen
     public void deleteQuestion(EvaluationForm evaluationForm, int questionId){
-
 //      Durch jedes Question-Element in der ArrayList wird durchiteriert. Wenn die Id mit der mitgegebenen questionId übereinstimmt, wird das entsprechende Element aus der ArrayList gelöscht
         for (int i=0; i<evaluationForm.getQuestions().size(); i++){
               if (evaluationForm.getQuestions().get(i).getId()==questionId){
                 evaluationForm.getQuestions().remove(i);
                 }
             }
+    }
+
+//  Den Namen einer Frage ändern
+    public void changeQuestion(EvaluationForm evaluationForm, Question question){
+//      Durch jedes Question-Element in der ArrayList wird durchiteriert. Wenn die Id mit der mitgegebenen questionId übereinstimmt, wird der Name des entsprechenden Elements aus der ArrayList geändert
+        for (int i=0; i<evaluationForm.getQuestions().size(); i++){
+            if (evaluationForm.getQuestions().get(i).getId()==question.getId()){
+                evaluationForm.getQuestions().get(i).setText(question.getText());
+            }
+        }
     }
 
     }
