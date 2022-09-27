@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+// Name ist nicht "User", da dadurch ein Fehler mit der Datenbank entsteht
 @Table(name = "UserTable")
 public class User implements Comparable<User>{
 
