@@ -7,14 +7,17 @@
 <body>
 <h1>Login</h1>
 
+<!--    Aktion, wenn login fehlschägt -->
 <div class="mb-4" th:if="${param.error}">
     <strong class="text-danger">Login fehlgeschlagen</strong>
 </div>
 
+<!--    Aktion, wenn logout erfolgreich -->
 <div class="mb-4" th:if="${param.logout}">
     <strong>Sie haben sich erfolgreich abgemeldet</strong>
 </div>
 
+<!--    Formular zum einloggen -->
 <form method="post" th:action="@{/login}">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="inputUsername">Nutzername</label>
