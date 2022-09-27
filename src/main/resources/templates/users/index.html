@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div>
+
+  <div class="my-4">
+ 
+ <!--       Zeigt das Menü (Funktion zum Logout) an -->
+      <div th:replace="layout/menu :: menu"></div>
+
+
+  </div>
+
+  <ul class="list-unstyled">
+  
+<!-- Alle Nutzer werden in einer Liste angezeigt -->
+    <li th:each="user : ${users}" th:text="${user.name}" />
+  </ul>
+
+  <hr/>
+  <p class="small">
+    <a href="/evaluationForms/">Index</a>
+  </p>
+</div>
+</body>
+</html>
