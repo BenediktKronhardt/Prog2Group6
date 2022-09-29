@@ -1,6 +1,8 @@
 package de.hsba.bi.demo6.web.evaluationForm;
 
 
+import de.hsba.bi.demo6.lecture.Lecture;
+import de.hsba.bi.demo6.lecture.LectureService;
 import de.hsba.bi.demo6.user.User;
 import de.hsba.bi.demo6.user.UserService;
 import javassist.NotFoundException;
@@ -22,6 +24,7 @@ import java.util.List;
 public class EvaluationFormShowController {
 
     private final EvaluationFormService evaluationFormService;
+    private final LectureService lectureService;
     private final EvaluationFormFormConverter formConverter;
     private final UserService userService;
 
@@ -45,7 +48,18 @@ public class EvaluationFormShowController {
     public String show(@PathVariable("id") Long id, Model model){
         model.addAttribute("evaluationFormForm", formConverter.toForm(getEvaluationForm(id)));
         model.addAttribute("questionForm", new QuestionForm());
+        model.addAttribute("lecture",lectureService.getAll());
         return "evaluationForms/showEvaluationForm";
+    }
+
+//  Hier kann ein Lecture-Objekt, welches bisher noch keinem Evaluationsbogen zugeordnet ist, einem Evaluationsbogen zugeordnet werden.
+//  Zuerst wird das EvaluationForm-Objekt über die Id in showEvaluationForm definiert, dann das Lecture-Objekt über den Value im Form-Objekt definiert und dieses zu dem EvaluationForm-Objekt hinzugefügt
+    @PostMapping(path = "/addLecture")
+    public String addLectureToEvaluationForm(@PathVariable("id") Long id, Long lectureId){
+        EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
+        Lecture lecture = lectureService.getLecture(lectureId);
+        lectureService.addEvaluationForm(evaluationForm, lecture);
+        return "redirect:/evaluationForms/" +id;
     }
 
 //  Den Namen eines Evaluationsbogens ändern
