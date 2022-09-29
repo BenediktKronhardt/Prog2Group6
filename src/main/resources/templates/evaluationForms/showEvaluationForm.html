@@ -61,17 +61,6 @@
             </div>
         </form>
 
-        <table class="table">
-            <tr>
-
-                <th>Zugeordnete Lehrveranstaltung:</th>
-            </tr>
-            <tr>
-<!--                Durch die definierte toString Methode in "Lecture" wird nur der Name angezeigt-->
-                <td th:text="${evaluationForm.lecture}"></td>
-            </tr>
-        </table>
-
         <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
         <h2>Neue Frage</h2>
         <form th:action="@{/evaluationForms/{id}/questions(id=${evaluationForm.id})}" method="post" class="form-inline" th:object="${questionForm}">
@@ -79,6 +68,14 @@
             <p th:errors="*{name}"></p>
             <button type="submit" class="btn btn-primary">Eintragen</button>
         </form>
+
+
+        <!--Falls eine Lehrveranstaltung zugeordnet ist, diese anzeigen (die toString Methode dieser) und per Link auf diese zugreifen können-->
+        <a th:if="${evaluationForm.lecture != null}" th:href="${'/lectures/'+evaluationForm.lecture.id}" th:text="${evaluationForm.lecture}"></a>
+
+        <!--Falls keine Lehrveranstaltung zugeordnet ist, die Nachricht "Es gibt keine zugeordnete Lehrveranstaltung" anzeigen-->
+        <p th:if="${evaluationForm.lecture == null}">Es gibt keine zugeordnete Lehrveranstaltung. In der nachfolgenden Liste kann eine Lehrveranstaltung ausgewählt werden:</p>
+
     </div>
 
     <hr />
