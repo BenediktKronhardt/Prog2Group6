@@ -2,11 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bewertung</title>
 </head>
 <body>
 
-Hier kommen die Fragen und Bewertungsmöglichkeiten hin
+<!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
+<div th:replace="layout/menu :: menu"></div>
+<!--    Evaluationsbogen mit Namen anzeigen -->
+<h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
+
+<!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
+<table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
+    <tr>
+        <th>ID<th>
+        <th>Frage</th>
+
+    </tr>
+<!--Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
+    <tr th:each="question : ${evaluationForm.questions}">
+        <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
+        <td th:text="${question.text}"></td>
+
+    </tr>
+</table>
+
 
 </body>
 </html>
