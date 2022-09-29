@@ -1,6 +1,7 @@
 package de.hsba.bi.demo6.rating;
 
 import de.hsba.bi.demo6.evaluationForm.Question;
+import de.hsba.bi.demo6.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,8 @@ public class Rating {
     @ManyToOne
     private Question question;
 
-   // private User user;
+//  invers zu User
+    @ManyToOne
+    private User user;
 
 }
