@@ -48,9 +48,8 @@
         <hr />
 
 <!--    Den Namen eines Evaluationsbogens ändern-->
+
         <form method="post" th:action="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:object="${evaluationFormForm}">
-
-
 
             <div class="form-group">
                 <label>Neuer Name</label>
