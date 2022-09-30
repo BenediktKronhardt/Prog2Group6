@@ -11,20 +11,31 @@
 <!--    Evaluationsbogen mit Namen anzeigen -->
 <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
 
+<!--        Neues Form-Objekt zum Bewerten der einzelnen Frage-->
+<form th:action="${'/evaluationForms/' + evaluationForm.id +'/ratings'}" method="post" class="form">
+
 <!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
 <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
     <tr>
         <th>ID<th>
         <th>Frage</th>
+        <th>Antwort</th>
 
     </tr>
 <!--Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
     <tr th:each="question : ${evaluationForm.questions}">
         <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
         <td th:text="${question.text}"></td>
+        <td>
+                <input type="number"> </input>
+
+            </td>
 
     </tr>
+
 </table>
+<button type="submit">Bewerten</button>
+</form>
 
 <!-- Zurück auf den Evaluationsbogen kommen (Die showEvaluationForm-Seite) -->
 <a th:href="${'/evaluationForms/'+evaluationForm.id}">Zurück</a>
