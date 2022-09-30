@@ -3,11 +3,15 @@ package de.hsba.bi.demo6.web.rating;
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
 import de.hsba.bi.demo6.evaluationForm.EvaluationFormService;
+import de.hsba.bi.demo6.evaluationForm.Question;
 import de.hsba.bi.demo6.rating.RatingService;
+import de.hsba.bi.demo6.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/evaluationForms/{id}/ratings")
@@ -33,12 +37,16 @@ public class RatingController {
     public String index(@PathVariable("id") Long id, Model model){
         model.addAttribute("ratings", ratingService.getAll());
         model.addAttribute("evaluationForm", getEvaluationForm(id));
+
     return "ratings/index";
     }
 
-    @PostMapping
-    public String rate(@PathVariable("id") Long id){
-        //TODO: Bewertung (Logik, auch in Service Klasse)
+//  Füge ein Rating hinzu. Momentan gibt es für jede Frage einen einzelnen Button zum bewerten, daher muss die Id der Frage in der URL mitgegeben werden.
+    @PostMapping(path = "/{questionId}")
+    public String rate(@PathVariable("id") Long id, Integer score,@PathVariable("questionId") Long questionId){
+        //TODO: User bestimmen
+        EvaluationForm evaluationForm = getEvaluationForm(id);
+        ratingService.rateWithoutUser(evaluationFormService.findQuestionById(evaluationForm, questionId), score);
         return "redirect:/evaluationForms/"+id+"/ratings";
     }
 

@@ -59,7 +59,7 @@ public class EvaluationFormService {
     }
 
 //  Eine bestimmte Frage mithilfe der Id suchen
-    public Question findQuestionById(EvaluationForm evaluationForm, int questionId){
+    public Question findQuestionById(EvaluationForm evaluationForm, Long questionId){
         Question question = new Question();
 //      Durch jedes Question-Element in der ArrayList wird durchiteriert. Wenn die Id mit der mitgegebenen questionId übereinstimmt, wird das entsprechende Element aus der ArrayList in der neu erstellten Variable question gespeichert
         for (int i=0; i<evaluationForm.getQuestions().size(); i++){

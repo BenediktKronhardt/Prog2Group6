@@ -11,31 +11,33 @@
 <!--    Evaluationsbogen mit Namen anzeigen -->
 <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
 
-<!--        Neues Form-Objekt zum Bewerten der einzelnen Frage-->
-<form th:action="${'/evaluationForms/' + evaluationForm.id +'/ratings'}" method="post" class="form">
-
 <!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
 <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
     <tr>
         <th>ID<th>
         <th>Frage</th>
         <th>Antwort</th>
+        <th></th>
 
     </tr>
+<!-- TODO:Die Fragen gesamt bewerten, sodass es nur noch einen Button weiter unten gibt, nicht für jede Frage einen einzelnen Button -->
 <!--Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
     <tr th:each="question : ${evaluationForm.questions}">
         <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
         <td th:text="${question.text}"></td>
         <td>
-                <input type="number"> </input>
-
-            </td>
+<!--        Neues Form-Objekt zum Bewerten der einzelnen Frage. Am Ende wird noch die Id der angezeigten Frage mitgegeben-->
+            <form th:action="${'/evaluationForms/' + evaluationForm.id +'/ratings/'+question.id}" method="post" class="form">
+                <input name="score" type="number"></input>
+                <button type="submit">Bewerten</button>
+            </form>
+        </td>
 
     </tr>
 
 </table>
-<button type="submit">Bewerten</button>
-</form>
+
+
 
 <!-- Zurück auf den Evaluationsbogen kommen (Die showEvaluationForm-Seite) -->
 <a th:href="${'/evaluationForms/'+evaluationForm.id}">Zurück</a>

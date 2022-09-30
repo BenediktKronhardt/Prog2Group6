@@ -63,7 +63,7 @@ public class EvaluationFormShowController {
 
 //  Den Namen eines Question-Objektes löschen
     @PostMapping(path="/changeQuestion/{questionId}")
-    public String changeQuestion(Model model, @PathVariable("id") Long id, @PathVariable("questionId") int questionId, @ModelAttribute("questionForm") @Valid QuestionForm questionForm, BindingResult questionFormBinding){
+    public String changeQuestion(Model model, @PathVariable("id") Long id, @PathVariable("questionId") Long questionId, @ModelAttribute("questionForm") @Valid QuestionForm questionForm, BindingResult questionFormBinding){
         EvaluationForm evaluationForm = getEvaluationForm(id);
         //Wenn der neue Name leer ist oder kein Fragezeichen am Ende enthält, kann der Name nicht geändert werden
         if (questionFormBinding.hasErrors()){
