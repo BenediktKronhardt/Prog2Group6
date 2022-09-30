@@ -1,3 +1,4 @@
+//TODO: Umbau der Anwendung mit RatingForm, ...
 package de.hsba.bi.demo6.web.rating;
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;

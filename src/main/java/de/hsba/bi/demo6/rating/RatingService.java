@@ -1,5 +1,7 @@
 package de.hsba.bi.demo6.rating;
 
+import de.hsba.bi.demo6.evaluationForm.Question;
+import de.hsba.bi.demo6.user.User;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,4 +23,15 @@ public class RatingService {
         return repository.findAll();
     }
 
+    public Rating save(Rating rating){
+        return repository.save(rating);
+    }
+
+    public Rating rate(Question question, User user, Integer score){
+        Rating rating = new Rating();
+        rating.setQuestion(question);
+        rating.setUser(user);
+        rating.setScore(score);
+        return repository.save(rating);
+    }
 }

@@ -2,6 +2,7 @@ package de.hsba.bi.demo6.evaluationForm;
 
 import de.hsba.bi.demo6.lecture.Lecture;
 import de.hsba.bi.demo6.lecture.LectureService;
+import de.hsba.bi.demo6.rating.RatingService;
 import de.hsba.bi.demo6.user.User;
 import de.hsba.bi.demo6.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class TestDataCreator {
    private final EvaluationFormService evaluationFormService;
    private final LectureService lectureService;
    private final UserService userService;
+   private final RatingService ratingService;
    private final PasswordEncoder passwordEncoder;
 
 //  Soll automatisch nach dem Strat der Anwendung erledigt werden
@@ -39,6 +41,8 @@ public class TestDataCreator {
         Lecture lecture = lectureService.createLecture("Test-Lecture");
         lectureService.addEvaluationForm(evaluationForm,lecture);
         lectureService.save(lecture);
+
+        ratingService.rate(evaluationFormService.findQuestionById(evaluationForm,1),createUser("Otto","su", User.USER_ROLE),4);
 
         // Erstellt die vorher festgelegten Nutzer
         createUser("Test", "su", User.USER_ROLE);

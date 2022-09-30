@@ -22,11 +22,15 @@ public class Rating {
     private int score;
 
 //  invers zu Question
+    @Getter
+    @Setter
     @ManyToOne
     private Question question;
 
 //  invers zu User
     @ManyToOne
+    @Getter
+    @Setter
     private User user;
 
 }
