@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/{id}/ratings")
+@RequestMapping("/evaluationForms/{id}/ratings")
 @RequiredArgsConstructor
 public class RatingController {
 

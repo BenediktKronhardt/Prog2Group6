@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <div>
     <div class="my-4">
@@ -21,16 +21,17 @@
             <th></th>
             <th></th>
         </tr>
-<!--        Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
+<!--    Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
         <tr th:each="question : ${evaluationForm.questions}">
             <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
             <td th:text="${question.text}"></td>
-            <td><!--    Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
+            <td>
+<!--            Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
                 <form th:action="${'/evaluationForms/' + evaluationForm.id +'/deleteQuestion/'+ question.id}" method="post" class="form">
                     <button type="submit" class="btn btn-danger">Löschen</button>
                 </form></td>
             <td>
-                <!--    Den Namen einer Frage ändern-->
+<!--            Den Namen einer Frage ändern-->
                 <form method="post" th:action="${'/evaluationForms/' + evaluationForm.id + '/changeQuestion/'+ question.id}" th:object="${questionForm}">
                     <div class="form-group">
                         <label>Neuer Name</label>
@@ -66,12 +67,15 @@
                 <th>Zugeordnete Lehrveranstaltung:</th>
             </tr>
             <tr>
-<!--                Durch die definierte toString Methode in "Lecture" wird nur der Name angezeigt-->
+<!--            Durch die definierte toString Methode in "Lecture" wird nur der Name angezeigt-->
                 <td th:text="${evaluationForm.lecture}"></td>
             </tr>
         </table>
 
-        <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
+<!--    Evaluationsbogen bewerten. Der Link wird nur angezeigt, wenn Fragen zu dem Evaluationsbogen hinzugefügt wurden TODO:Den Link als Button anzeigen lassen;  TODO: Nur User können diesen Button sehen-->
+        <a th:if="${!evaluationForm.questions.empty}" th:href="${evaluationForm.id + '/ratings'}">Evaluationsbogen bewerten</a>
+
+<!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
         <h2>Neue Frage</h2>
         <form th:action="@{/evaluationForms/{id}/questions(id=${evaluationForm.id})}" method="post" class="form-inline" th:object="${questionForm}">
             <input th:field="*{name}" type="text" placeholder="Frage" class="form-control mr-2">
