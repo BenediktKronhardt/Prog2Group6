@@ -1,6 +1,7 @@
 package de.hsba.bi.demo6.lecture;
 
 import de.hsba.bi.demo6.evaluationForm.EvaluationForm;
+import de.hsba.bi.demo6.evaluationForm.Question;
 import org.apache.catalina.LifecycleState;
 import org.springframework.stereotype.Service;
 
@@ -66,5 +67,27 @@ public class LectureService {
     }
 
 
+    public List<Lecture> findLectures(String search) {
+        return search.isBlank() ? repository.findAll() : repository.findByEntryDescription(search.trim());
+    }
+
+
+        public void addQuestion(EvaluationForm evaluationForm, Question question) {
+//  Maximale Anzahl an Fragen die gestellt werden können
+            if (evaluationForm.getQuestions().size() < 10) {
+//     Wenn es noch keine Questions gibt, wird countQuestion=1 gesetzt
+                if (evaluationForm.getQuestions().isEmpty()) {
+                    question.setCountQuestion(1);
+                }
+//      Ansonsten ist countQuestion um den Wert 1 größer als die Anzahl der Questions
+                else {
+                    question.setCountQuestion(evaluationForm.getQuestions().size() + 1);
+                }
+//      Der Evaluationsbogen wird zu der Frage gesetzt und die Frage wird hinzugefügt
+                question.setEvaluationForm(evaluationForm);
+                evaluationForm.getQuestions().add(question);
+            }
+        }
 
 }
+

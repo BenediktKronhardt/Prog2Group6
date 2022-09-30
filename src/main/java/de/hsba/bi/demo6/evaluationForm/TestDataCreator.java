@@ -41,7 +41,7 @@ public class TestDataCreator {
         lectureService.save(lecture);
 
         // Erstellt die vorher festgelegten Nutzer
-        createUser("Test", "su", User.USER_ROLE);
+        createUser("Otto", "su", User.USER_ROLE);
         createUser("Admin", "su", User.ADMIN_ROLE);
 
 
