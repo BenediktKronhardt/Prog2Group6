@@ -26,8 +26,8 @@
         <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
         <td th:text="${question.text}"></td>
         <td>
-<!--        Neues Form-Objekt zum Bewerten der einzelnen Frage. Am Ende wird noch die Id der angezeigten Frage mitgegeben-->
-            <form th:action="${'/evaluationForms/' + evaluationForm.id +'/ratings/'+question.id}" method="post" class="form">
+<!--        Neues Form-Objekt zum Bewerten der einzelnen Frage. Danach wird noch die Id der angezeigten Frage mitgegeben, am Ende der eingeloggte User-->
+            <form th:action="${'/evaluationForms/' + evaluationForm.id +'/ratings/'+question.id+'/'+#httpServletRequest.remoteUser}" method="post" class="form">
                 <input name="score" type="number"></input>
                 <button type="submit">Bewerten</button>
             </form>
