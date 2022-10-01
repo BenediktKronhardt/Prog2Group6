@@ -35,10 +35,4 @@ public class RatingService {
         return repository.save(rating);
     }
 
-    public Rating rateWithoutUser(Question question, Integer score){
-        Rating rating = new Rating();
-        rating.setQuestion(question);
-        rating.setScore(score);
-        return repository.save(rating);
-    }
 }
