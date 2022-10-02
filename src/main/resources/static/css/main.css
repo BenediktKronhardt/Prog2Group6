@@ -1,0 +1,28 @@
+h1{
+    font-family: 'Dosis', sans-serif;
+}
+
+div {
+    font-family: 'Dosis', sans-serif;
+    border: 4px solid orange;
+
+}
+p{
+    font-family: 'Dosis', sans-serif;
+    border: 5px solid aqua;
+}
+form{
+    font-family: 'Dosis', sans-serif;
+    border: 5px solid aqua;
+}
+
+.my-4 {
+
+}
+
+.mainInfo{
+    max-width: 800px;
+    text-align: center;
+    padding-left: 200px;
+    padding-right: 200px;
+}

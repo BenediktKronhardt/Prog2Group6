@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Lehrveranstaltung anlegen</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+    </style>
+    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
-<h1>Lehrveranstaltung anlegen</h1>
 
-
-<div>
+<div class="mainInfo">
+    <h1>Lehrveranstaltung anlegen</h1>
 
     <!--Ein Lecture-Objekt anlegen-->
     <form th:action="@{/lectures}" method="post" class="form-inline" th:object="${lectureForm}">

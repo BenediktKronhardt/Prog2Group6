@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${lecture.name}"></title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+    </style>
+    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
+<div class="mainInfo">
 <!--Lehrveransaltung mit Namen anzeigen-->
 <h1 th:text="${lecture.name}"></h1>
 
@@ -69,6 +74,6 @@
     <a href="/evaluationForms/">Index</a>
 </p>
 
-
+</div>
 </body>
 </html>

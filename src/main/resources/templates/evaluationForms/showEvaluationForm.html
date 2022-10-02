@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${evaluationForm.name}"> anzeigen</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+    </style>
+    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
+</head>
 <body>
-<div>
-    <div class="my-4">
+<div class="mainInfo">
+    <div>
 <!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
         <div th:replace="layout/menu :: menu"></div>
 <!--    Evaluationsbogen mit Namen anzeigen -->
