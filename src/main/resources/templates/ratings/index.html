@@ -11,18 +11,29 @@
 <!--    Evaluationsbogen mit Namen anzeigen -->
 <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
 
+<p>Auf dieser Seite können Sie Fragen bewerten! Bitte geben Sie in das dafür bereitgestellte Feld einen Wert zwischen 1 und 5 ein.<br>
+1="Untertrifft erheblich die Erwartungen"<br>
+2="Untertrifft die Erwartungen"<br>
+3="Entspricht den Erwartungen"<br>
+4="Übertrifft die Erwartungen"<br>
+5="Übertrifft erheblich die Erwartungen"<br></p>
+
+<!-- TODO: th und td Objekte müssen noch untereinander angeordnet werden! -->
 <!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
 <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
+    <div>
     <tr>
-        <th>ID<th>
+        <th>Nummer<th>
         <th>Frage</th>
         <th>Antwort</th>
-        <th></th>
-
     </tr>
+    </div>
+
 <!-- TODO:Die Fragen gesamt bewerten, sodass es nur noch einen Button weiter unten gibt, nicht für jede Frage einen einzelnen Button -->
 <!--Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
+    <div>
     <tr th:each="question : ${evaluationForm.questions}">
+
         <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
         <td th:text="${question.text}"></td>
         <td>
@@ -33,9 +44,8 @@
                 <button type="submit">Bewerten</button>
             </form>
         </td>
-
     </tr>
-
+    </div>
 </table>
 
 
