@@ -8,7 +8,10 @@ import de.hsba.bi.demo6.lecture.LectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -53,6 +56,18 @@ public class LectureShowController {
     public String delete(@PathVariable("id") Long id){
         lectureService.delete(id);
         return "redirect:/evaluationForms/";
+    }
+
+//  Den Namen eines Lecture-Objektes ändern
+    @PostMapping(path = "/changeName")
+    public String changeName(@PathVariable("id") Long id, @ModelAttribute("lectureForm") @Valid LectureForm lectureForm, BindingResult lectureBinding){
+        //Wenn der neue Name leer ist, kann der Name nicht geändert werden
+        if (lectureBinding.hasErrors()){
+            return "lectures/showLecture";
+        }
+        Lecture lecture = getLecture(id);
+        lectureService.save(formConverter.update(lecture, lectureForm));
+        return "redirect:/lectures/" +id;
     }
 
 }
