@@ -23,6 +23,11 @@ public class UserService {
         return userRepository.findByRole(User.USER_ROLE);
     }
 
+//  User anhand des Namens finden
+    public User findUserByName (String userName){
+        return userRepository.findByName(userName);
+    }
+
     public User save(User user) {
         return userRepository.save(user);
     }
