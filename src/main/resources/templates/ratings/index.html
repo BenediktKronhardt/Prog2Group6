@@ -38,7 +38,7 @@
         <td th:text="${question.text}"></td>
         <td>
 <!--        Neues Form-Objekt zum Bewerten der einzelnen Frage. Danach wird noch die Id der angezeigten Frage mitgegeben, am Ende der eingeloggte User-->
-            <form th:object="${ratingForm}" th:action="${'/evaluationForms/' + evaluationForm.id +'/ratings/'+question.id+'/'+#httpServletRequest.remoteUser}" method="post" class="form">
+            <form th:object="${ratingForm}" th:action="@{/evaluationForms/{evaluationFormId}/ratings/{questionId}/{user}(evaluationFormId=${evaluationForm.id},questionId=${question.id}, user=${#httpServletRequest.remoteUser})}" method="post" class="form">
                 <input th:field="*{score}" name="score" type="number"></input>
                 <p th:errors="*{score}"></p>
                 <button type="submit">Bewerten</button>
@@ -51,7 +51,7 @@
 
 
 <!-- Zurück auf den Evaluationsbogen kommen (Die showEvaluationForm-Seite) -->
-<a th:href="${'/evaluationForms/'+evaluationForm.id}">Zurück</a>
+<a th:href="@{/evaluationForms/{evaluationFormId}(evaluationFormId=${evaluationForm.id})}">Zurück</a>
 
 </body>
 </html>

@@ -27,12 +27,13 @@
             <td th:text="${question.text}"></td>
             <td>
 <!--            Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
-                <form th:action="${'/evaluationForms/' + evaluationForm.id +'/deleteQuestion/'+ question.id}" method="post" class="form">
+
+                <form th:action="@{/evaluationForms/{evaluationFormId}/deleteQuestion/{questionId}(evaluationFormId=${evaluationForm.id}, questionId=${question.id})}" method="post" class="form">
                     <button type="submit" class="btn btn-danger">Löschen</button>
                 </form></td>
             <td>
 <!--            Den Namen einer Frage ändern-->
-                <form method="post" th:action="${'/evaluationForms/' + evaluationForm.id + '/changeQuestion/'+ question.id}" th:object="${questionForm}">
+                <form method="post" th:action="@{/evaluationForms/{evaluationFormId}/changeQuestion/{questionId}(evaluationFormId=${evaluationForm.id}, questionId=${question.id})}" th:object="${questionForm}">
                     <div class="form-group">
                         <label>Neuer Name</label>
                         <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
@@ -62,19 +63,8 @@
         </form>
 
 
-        <table class="table">
-            <tr>
-
-                <th>Zugeordnete Lehrveranstaltung:</th>
-            </tr>
-            <tr>
-<!--            Durch die definierte toString Methode in "Lecture" wird nur der Name angezeigt-->
-                <td th:text="${evaluationForm.lecture}"></td>
-            </tr>
-        </table>
-
 <!--    Evaluationsbogen bewerten. Der Link wird nur angezeigt, wenn Fragen zu dem Evaluationsbogen hinzugefügt wurden TODO:Den Link als Button anzeigen lassen;  TODO: Nur User können diesen Button sehen-->
-        <a th:if="${!evaluationForm.questions.empty}" th:href="${evaluationForm.id + '/ratings'}">Evaluationsbogen bewerten</a>
+        <a th:if="${!evaluationForm.questions.empty}" th:href="@{{evaluationFormId}/ratings(evaluationFormId=${evaluationForm.id})}">Evaluationsbogen bewerten</a>
 
 
 <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
@@ -87,7 +77,7 @@
 
 
 <!--    Falls eine Lehrveranstaltung zugeordnet ist, diese anzeigen (die toString Methode dieser) und per Link auf diese zugreifen können-->
-        <a th:if="${evaluationForm.lecture != null}" th:href="${'/lectures/'+evaluationForm.lecture.id}" th:text="${evaluationForm.lecture}"></a>
+        <a th:if="${evaluationForm.lecture != null}" th:href="@{/lectures/{evaluationFormLectureId}(evaluationFormLectureId=${evaluationForm.lecture.id})}" th:text="${evaluationForm.lecture}"></a>
 
 <!--    Falls keine Lehrveranstaltung zugeordnet ist, die Nachricht "Es gibt keine zugeordnete Lehrveranstaltung" anzeigen-->
         <p th:if="${evaluationForm.lecture == null}">Es gibt keine zugeordnete Lehrveranstaltung. In der nachfolgenden Liste kann eine Lehrveranstaltung ausgewählt werden:</p>
@@ -107,7 +97,7 @@
     <hr />
     <p class="small">
 <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
-        <a href="/evaluationForms/">Index</a>
+        <a th:href="@{/evaluationForms/}">Index</a>
     </p>
 </div>
 
