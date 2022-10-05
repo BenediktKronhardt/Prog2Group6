@@ -9,12 +9,12 @@
 <h1 th:text="${lecture.name}"></h1>
 
 <!--    Button zum Löschen hinzufügen-->
-<form th:action="${'/lectures/' + lecture.id + '/delete'}" method="post" class="form">
+<form th:action="@{/lectures/{lectureId}/delete(lectureId=${lecture.id})}" method="post" class="form">
     <button type="submit" class="btn btn-danger">Löschen</button>
 </form>
 
 <!--    Namen ändern    -->
-<form method="post" th:action="${'/lectures/' + lecture.id + '/changeName'}" th:object="${lectureForm}">
+<form method="post" th:action="@{/lectures/{lectureId}/changeName(lectureId=${lecture.id})}" th:object="${lectureForm}">
     <div class="form-group">
         <label>Neuer Name</label>
         <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
@@ -52,7 +52,7 @@
 <p th:if="${lecture.contactHours!=null}" th:text="${lecture.contactHours}"></p>
 
 <!--Falls ein Evaluationsbogen zugeordnet ist, diesen anzeigen (die toString Methode von diesem) und per Link auf diesen zugreifen können-->
-<a th:if="${lecture.evaluationForm != null}" th:href="${'/evaluationForms/'+lecture.evaluationForm.id}" th:text="${lecture.evaluationForm}"></a>
+<a th:if="${lecture.evaluationForm != null}" th:href="@{/evaluationForms/{lectureEvaluationFormId}(lectureEvaluationFormId=${lecture.evaluationForm.id})}" th:text="${lecture.evaluationForm}"></a>
 
 <!--Falls kein Evaluationsbogen zugeordnet ist, die Nachricht "Es gibt keinen zugeordneten Evaluationsbogen" anzeigen-->
 <p th:if="${lecture.evaluationForm == null}">Es gibt keinen zugeordneten Evaluationsbogen. In der nachfolgenden Liste kann ein Evaluationsbogen ausgewählt werden:</p>
@@ -72,14 +72,14 @@
 
 <div>
 <!--Attribute der angezeigten Lehrveranstaltung ändern -->
-    <a th:href="${'/lectures/'+ lecture.id + '/change'}">Attribute ändern</a>
+    <a th:href="@{/lectures/{lectureId}/change(lectureId=${lecture.id})}">Attribute ändern</a>
 </div>
 
 
 <hr />
 <p class="small">
     <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
-    <a href="/evaluationForms/">Index</a>
+    <a th:href="@{/evaluationForms/}">Index</a>
 </p>
 
 

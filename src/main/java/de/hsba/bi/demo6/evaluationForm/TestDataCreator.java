@@ -42,7 +42,7 @@ public class TestDataCreator {
         lectureService.addEvaluationForm(evaluationForm,lecture);
         lectureService.save(lecture);
 
-        ratingService.rate(evaluationFormService.findQuestionById(evaluationForm,1l),createUser("Otto","su", User.USER_ROLE),4);
+       // ratingService.rate(evaluationFormService.findQuestionById(evaluationForm,1l),createUser("Otto","su", User.USER_ROLE),4);
 
         // Erstellt die vorher festgelegten Nutzer
         createUser("Test", "su", User.USER_ROLE);

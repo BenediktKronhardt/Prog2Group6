@@ -45,12 +45,12 @@
         <p th:errors="*{contactHours}"></p>
         <!--Wenn das lecture-Objekt null (leer) ist, soll eine komplett neue Lehrveranstaltung angelegt werden. Wenn das Objekt gesetzt ist, wurde die Methode "changeGet" oder "changePost" im LectureIndexController aufgerufen und somit sollen die Attribute des Lecture-Objektes geändert werden -->
         <button th:if="${lecture == null}" type="submit" class="btn btn-primary">Anlegen</button>
-        <button th:if="${lecture != null}" type="submit" class="btn btn-primary" th:formaction="${'/lectures/' +lecture.id +'/change'}">Ändern</button>
+        <button th:if="${lecture != null}" type="submit" class="btn btn-primary" th:formaction="@{/lectures/{lectureId}/change(lectureId=${lecture.id})}">Ändern</button>
     </form>
 
     <p class="small">
         <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
-        <a href="/evaluationForms/">Zurück zur Übersicht</a>
+        <a th:href="@{/evaluationForms/}">Zurück zur Übersicht</a>
     </p>
 
 
