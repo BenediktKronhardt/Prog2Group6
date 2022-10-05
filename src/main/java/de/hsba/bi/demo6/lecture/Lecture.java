@@ -65,7 +65,7 @@ public class Lecture {
 
     @Override
     public String toString(){
-        return "Name: "+name+", Studienfach: "+course+", Jahrgang: "+startyear+", Kontaktstunden: "+contactHours+", Studententenanzahl: "+studentCount+", Dozent: "+lecturerName+", Aktiv?: "+status;
+        return name;
     }
 
 }
