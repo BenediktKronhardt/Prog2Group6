@@ -5,19 +5,26 @@
     <title>Registrierung</title>
 </head>
 <body>
-<h1></h1>
-<form action="/" th:object="${user}" method="POST" enctype="utf8">
+
+<h1>Registrierung</h1>
+
+<form th:action="@{/registration}" th:object="${user}" method="POST" enctype="utf8">
   <div>
-    <label>first</label>
+    <label th:text="#{label.user.name}">last</label>
     <input th:field="*{name}"/>
-    <p th:each="error: ${#fields.errors('Name')}" th:text="${error}">Validation error</p>
+    <p th:each="error : ${#fields.errors('name')}"
+       th:text="${error}">Validation error</p>
   </div>
   <div>
-    <label>password</label>
+    <label th:text="#{label.user.password}">password</label>
     <input type="password" th:field="*{password}"/>
-    <p th:each="error : ${#fields.errors('password')}" th:text="${error}">Validation error</p>
+    <p th:each="error : ${#fields.errors('password')}"
+       th:text="${error}">Validation error</p>
   </div>
-  <button type="submit" >submit</button> </form>
-<a th:href="@{/login}" >login</a>
+  <button type="submit" th:text="#{label.form.submit}">submit</button>
+</form>
+
+<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>
+
 </body>
 </html>
