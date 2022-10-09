@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <title>Benutzerübersicht</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
-    </style>
-    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
-</head>
-<body>
-<div class="mainInfo">
+    <head>
+        <title>Benutzerübersicht</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+        </style>
+        <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
+    </head>
+    <body>
+        <div class="mainInfo">
 
-  <div class="my-4">
- 
- <!--       Zeigt das Menü (Funktion zum Logout) an -->
-      <div th:replace="layout/menu :: menu"></div>
+          <div>
+
+         <!--       Zeigt das Menü (Funktion zum Logout) an -->
+              <div th:replace="layout/menu :: menu"></div>
 
 
-  </div>
+          </div>
 
-  <ul class="list-unstyled">
-  
-<!-- Alle Nutzer werden in einer Liste angezeigt -->
-    <li th:each="user : ${users}" th:text="${user.name}" />
-  </ul>
+          <ul class="list-unstyled">
 
-  <hr/>
-  <p class="small">
-    <a href="/evaluationForms/">Index</a>
-  </p>
-</div>
-</body>
+        <!-- Alle Nutzer werden in einer Liste angezeigt -->
+            <li th:each="user : ${users}" th:text="${user.name}" />
+          </ul>
+
+          <hr/>
+          <p class="small">
+            <a href="/evaluationForms/">Index</a>
+          </p>
+        </div>
+    </body>
 </html>

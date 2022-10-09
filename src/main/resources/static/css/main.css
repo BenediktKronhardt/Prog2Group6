@@ -19,12 +19,12 @@ form{
     font-family: 'Dosis', sans-serif;
 }
 
-.my-4 {
-
+.text-danger{
+ color: red;
 }
 
 .mainInfo{
-
+    font-family: 'Dosis', sans-serif;
 }
 
 .mainTitle{

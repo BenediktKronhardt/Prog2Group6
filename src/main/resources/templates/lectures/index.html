@@ -10,46 +10,45 @@
 </head>
 <body>
 
-<div class="mainInfo">
-    <h1>Lehrveranstaltung anlegen</h1>
+    <div class="mainInfo">
+        <h1>Lehrveranstaltung anlegen</h1>
 
-    <!--Ein Lecture-Objekt anlegen-->
-    <form th:action="@{/lectures}" method="post" class="form-inline" th:object="${lectureForm}">
-        <label for="name">Name der Lehrveranstaltung</label><br>
-        <input id="name" th:field="*{name}" type="text" placeholder="Name der Lehrveranstaltung" class="form-control mr-2"><br>
+        <!--Ein Lecture-Objekt anlegen-->
+        <form th:action="@{/lectures}" method="post" class="form-inline" th:object="${lectureForm}">
+            <label for="name">Name der Lehrveranstaltung</label><br>
+            <input id="name" th:field="*{name}" type="text" placeholder="Name der Lehrveranstaltung" class="form-control mr-2"><br>
 
-        <label for="startyear">Jahrgang</label><br>
-        <input id="startyear" th:field="*{startyear}" type="number" placeholder="Jahrgang" class="form-control mr-2"><br>
+            <label for="startyear">Jahrgang</label><br>
+            <input id="startyear" th:field="*{startyear}" type="number" placeholder="Jahrgang" class="form-control mr-2"><br>
 
-        <label for="course">Studienfach</label><br>
-        <input id="course" th:field="*{course}" type="text" placeholder="Studienfach" class="form-control mr-2"><br>
+            <label for="course">Studienfach</label><br>
+            <input id="course" th:field="*{course}" type="text" placeholder="Studienfach" class="form-control mr-2"><br>
 
-        <label for="studentCount">Studentenanzahl</label><br>
-        <input id="studentCount" th:field="*{studentCount}" type="number" placeholder="Studentenanzahl" class="form-control mr-2"><br>
+            <label for="studentCount">Studentenanzahl</label><br>
+            <input id="studentCount" th:field="*{studentCount}" type="number" placeholder="Studentenanzahl" class="form-control mr-2"><br>
 
-        <label for="lecturerName">Dozentname</label><br>
-        <input id="lecturerName" th:field="*{lecturerName}" type="text" placeholder="Dozentname" class="form-control mr-2"><br>
+            <label for="lecturerName">Dozentname</label><br>
+            <input id="lecturerName" th:field="*{lecturerName}" type="text" placeholder="Dozentname" class="form-control mr-2"><br>
 
-        <label for="contactHours">Kontaktstunden</label><br>
-        <input id="contactHours" th:field="*{contactHours}" type="number" placeholder="Kontaktstunden" class="form-control mr-2"><br>
+            <label for="contactHours">Kontaktstunden</label><br>
+            <input id="contactHours" th:field="*{contactHours}" type="number" placeholder="Kontaktstunden" class="form-control mr-2"><br>
 
-<!--        Hier muss noch das Freifeld für den Freitext hin-->
-        <p th:errors="*{name}"></p>
-        <p th:errors="*{startyear}"></p>
-        <p th:errors="*{course}"></p>
-        <p th:errors="*{studentCount}"></p>
-        <p th:errors="*{lecturerName}"></p>
-        <p th:errors="*{contactHours}"></p>
-        <button type="submit" class="btn btn-primary">Anlegen</button>
-    </form>
+    <!--        Hier muss noch das Freifeld für den Freitext hin-->
+            <p th:errors="*{name}"></p>
+            <p th:errors="*{startyear}"></p>
+            <p th:errors="*{course}"></p>
+            <p th:errors="*{studentCount}"></p>
+            <p th:errors="*{lecturerName}"></p>
+            <p th:errors="*{contactHours}"></p>
+            <button type="submit" class="btn btn-primary">Anlegen</button>
+        </form>
 
-    <p class="small">
-        <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
-        <a href="/evaluationForms/">Zurück zur Übersicht</a>
-    </p>
+        <p class="small">
+            <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
+            <a href="/evaluationForms/">Zurück zur Übersicht</a>
+        </p>
 
-
-</div>
+    </div>
 
 </body>
 </html>
