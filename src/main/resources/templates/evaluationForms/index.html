@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
+
+<div class="mainMenu">
+    <div th:replace="layout/menu :: menu"></div>
+</div>
+
 <div class="mainInfo">
     <div>
         <h1>Lehrveranstaltungen</h1>
@@ -24,10 +29,7 @@
 
     <hr>
 
-    <div class="my-4">
-            <div th:replace="layout/menu :: menu"></div>
-        <h1>Evaluationsbögen</h1>
-    </div>
+    <h1>Evaluationsbögen</h1>
 
 <!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
     <ul class="list-unstyled">

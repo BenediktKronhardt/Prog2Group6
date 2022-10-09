@@ -1,44 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:text="${evaluationForm.name}"> anzeigen</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
-    </style>
-    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
-</head>
-<body>
-<div class="mainInfo">
-    <div>
-<!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+    <head>
+        <title th:text="${evaluationForm.name}"> anzeigen</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+        </style>
+        <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
+    </head>
+    <body>
+        <!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
         <div th:replace="layout/menu :: menu"></div>
-<!--    Evaluationsbogen mit Namen anzeigen -->
-        <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
-<!--    Button zum Löschen hinzufügen (auf Höhe des Namens) -->
-        <form th:action="@{/evaluationForms/{id}/delete(id=${evaluationForm.id})}" sec:authorize="hasRole('ADMIN')" method="post" class="form">
-            <button type="submit" class="btn btn-danger">Löschen</button>
-        </form>
-    </div>
-
-<!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
-    <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
-        <tr>
-            <th>ID<th>
-            <th>Frage</th>
-            <th></th>
-            <th></th>
-        </tr>
-<!--        Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
-        <tr th:each="question : ${evaluationForm.questions}">
-            <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
-            <td th:text="${question.text}"></td>
-            <td><!--    Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
-                <form th:action="${'/evaluationForms/' + evaluationForm.id +'/deleteQuestion/'+ question.id}" method="post" class="form">
+        <div class="mainInfo">
+            <div>
+        <!--    Evaluationsbogen mit Namen anzeigen -->
+                <h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
+        <!--    Button zum Löschen hinzufügen (auf Höhe des Namens) -->
+                <form th:action="@{/evaluationForms/{id}/delete(id=${evaluationForm.id})}" sec:authorize="hasRole('ADMIN')" method="post" class="form">
                     <button type="submit" class="btn btn-danger">Löschen</button>
-                </form></td>
-            <td>
-                <!--    Den Namen einer Frage ändern-->
-                <form method="post" th:action="${'/evaluationForms/' + evaluationForm.id + '/changeQuestion/'+ question.id}" th:object="${questionForm}">
+                </form>
+            </div>
+
+        <!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
+            <table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
+                <tr>
+                    <th>ID<th>
+                    <th>Frage</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+        <!--        Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
+                <tr th:each="question : ${evaluationForm.questions}">
+                    <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
+                    <td th:text="${question.text}"></td>
+                    <td><!--    Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
+                        <form th:action="${'/evaluationForms/' + evaluationForm.id +'/deleteQuestion/'+ question.id}" method="post" class="form">
+                            <button type="submit" class="btn btn-danger">Löschen</button>
+                        </form></td>
+                    <td>
+                        <!--    Den Namen einer Frage ändern-->
+                        <form method="post" th:action="${'/evaluationForms/' + evaluationForm.id + '/changeQuestion/'+ question.id}" th:object="${questionForm}">
+                            <div class="form-group">
+                                <label>Neuer Name</label>
+                                <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Ändern</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+            <div>
+                <hr />
+
+        <!--    Den Namen eines Evaluationsbogens ändern-->
+                <form method="post" th:action="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:object="${evaluationFormForm}">
+
+
+
                     <div class="form-group">
                         <label>Neuer Name</label>
                         <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
@@ -47,54 +67,31 @@
                         <button class="btn btn-primary" type="submit">Ändern</button>
                     </div>
                 </form>
-            </td>
-        </tr>
-    </table>
 
-    <div>
-        <hr />
+                <table class="table">
+                    <tr>
+                        <th>Zugeordnete Lehrveranstaltung:</th>
+                    </tr>
+                    <tr>
+        <!--        Durch die definierte toString Methode in "Lecture" wird nur der Name angezeigt-->
+                        <td th:text="${evaluationForm.lecture}"></td>
+                    </tr>
+                </table>
 
-<!--    Den Namen eines Evaluationsbogens ändern-->
-        <form method="post" th:action="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:object="${evaluationFormForm}">
-
-
-
-            <div class="form-group">
-                <label>Neuer Name</label>
-                <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
+                <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
+                <h2>Neue Frage</h2>
+                <form th:action="@{/evaluationForms/{id}/questions(id=${evaluationForm.id})}" method="post" class="form-inline" th:object="${questionForm}">
+                    <input th:field="*{name}" type="text" placeholder="Frage" class="form-control mr-2">
+                    <p th:errors="*{name}"></p>
+                    <button type="submit" class="btn btn-primary">Eintragen</button>
+                </form>
             </div>
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit">Ändern</button>
-            </div>
-        </form>
 
-        <table class="table">
-            <tr>
-
-                <th>Zugeordnete Lehrveranstaltung:</th>
-            </tr>
-            <tr>
-<!--                Durch die definierte toString Methode in "Lecture" wird nur der Name angezeigt-->
-                <td th:text="${evaluationForm.lecture}"></td>
-            </tr>
-        </table>
-
-        <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
-        <h2>Neue Frage</h2>
-        <form th:action="@{/evaluationForms/{id}/questions(id=${evaluationForm.id})}" method="post" class="form-inline" th:object="${questionForm}">
-            <input th:field="*{name}" type="text" placeholder="Frage" class="form-control mr-2">
-            <p th:errors="*{name}"></p>
-            <button type="submit" class="btn btn-primary">Eintragen</button>
-        </form>
-    </div>
-
-    <hr />
-    <p class="small">
-<!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
-        <a href="/evaluationForms/">Index</a>
-    </p>
-</div>
-
-
-</body>
+            <hr />
+            <p class="small">
+        <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
+                <a href="/evaluationForms/">Index</a>
+            </p>
+        </div>
+    </body>
 </html>
