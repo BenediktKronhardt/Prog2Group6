@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="${lecture.name}"></title>
@@ -9,12 +9,12 @@
 <h1 th:text="${lecture.name}"></h1>
 
 <!--    Button zum Löschen hinzufügen-->
-<form th:action="@{/lectures/{lectureId}/delete(lectureId=${lecture.id})}" method="post" class="form">
+<form sec:authorize="hasRole('ADMIN')" th:action="@{/lectures/{lectureId}/delete(lectureId=${lecture.id})}" method="post" class="form">
     <button type="submit" class="btn btn-danger">Löschen</button>
 </form>
 
 <!--    Namen ändern    -->
-<form method="post" th:action="@{/lectures/{lectureId}/changeName(lectureId=${lecture.id})}" th:object="${lectureForm}">
+<form sec:authorize="hasRole('ADMIN')" method="post" th:action="@{/lectures/{lectureId}/changeName(lectureId=${lecture.id})}" th:object="${lectureForm}">
     <div class="form-group">
         <label>Neuer Name</label>
         <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
@@ -59,7 +59,7 @@
 
 
 <!--    Im Select Element können alle EvaluationsBögen ohne verknüpftes Lecture Objekt ausgewählt und zu angezeigtem Lecture Objekt hinzugefügt werden -->
-<form th:if="${lecture.evaluationForm == null}" th:action="@{/lectures/{id}(id=${lecture.id})}" method="post" class="form-inline">
+<form sec:authorize="hasRole('ADMIN')" th:if="${lecture.evaluationForm == null}" th:action="@{/lectures/{id}(id=${lecture.id})}" method="post" class="form-inline">
     <select th:if="${lecture.evaluationForm == null}" name="evaluationFormId">
         <!--Es werden alle Evaluationsbögen angezeigt, welchen noch kein Lecture-Objekt haben-->
         <option disabled="disabled" selected="selected">Evaluationsbogen</option>
@@ -72,7 +72,7 @@
 
 <div>
 <!--Attribute der angezeigten Lehrveranstaltung ändern -->
-    <a th:href="@{/lectures/{lectureId}/change(lectureId=${lecture.id})}">Attribute ändern</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/lectures/{lectureId}/change(lectureId=${lecture.id})}">Attribute ändern</a>
 </div>
 
 

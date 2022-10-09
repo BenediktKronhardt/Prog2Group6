@@ -65,7 +65,7 @@ public class Lecture {
 
     @Override
     public String toString(){
-        return name;
+        return "Lehrveranstaltung: " +name;
     }
 
 }

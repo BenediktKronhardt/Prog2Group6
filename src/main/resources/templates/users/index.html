@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html
-      xmlns:th="http://www.thymeleaf.org">
+<sec:html
+        xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+        sec:authorize="hasRole('ADMIN')">
 <body>
 <div>
 
@@ -24,4 +25,4 @@
   </p>
 </div>
 </body>
-</html>
+</sec:html>
