@@ -67,11 +67,11 @@ public class TestDataCreator {
         lectureService.addEvaluationForm(microeconomics,microenconomicsLecture);
         lectureService.save(microenconomicsLecture);
 
-        Lecture projektmanagementLecture = lectureService.createLecture("Microeconomics 20A-BI WiSe 2020");
+        Lecture projektmanagementLecture = lectureService.createLecture("Projektmanagement 20A-BI WiSe 2021");
         lectureService.changeStatus(projektmanagementLecture);
         lectureService.save(projektmanagementLecture);
 
-        Lecture rechnungswesenLecture = lectureService.createLecture("Microeconomics 20A-BI WiSe 2020");
+        Lecture rechnungswesenLecture = lectureService.createLecture("Rechnungswesen 20A-BI WiSe 2020");
         lectureService.save(rechnungswesenLecture);
 
        // ratingService.rate(evaluationFormService.findQuestionById(evaluationForm,1l),createUser("Otto","su", User.USER_ROLE),4);
