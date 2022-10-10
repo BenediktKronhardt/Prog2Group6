@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" sec:authorize="hasRole('USER')" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Bewertung</title>
+</head>
+<body>
+
+<!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
+<div th:replace="layout/menu :: menu"></div>
+<!--    Evaluationsbogen mit Namen anzeigen -->
+<h1 th:text="${'Evaluationsbogen ' + evaluationForm.name}"></h1>
+
+<p>Auf dieser Seite können Sie Fragen bewerten! Bitte geben Sie in das dafür bereitgestellte Feld einen Wert zwischen 1 und 5 ein.<br>
+1="Untertrifft erheblich die Erwartungen"<br>
+2="Untertrifft die Erwartungen"<br>
+3="Entspricht den Erwartungen"<br>
+4="Übertrifft die Erwartungen"<br>
+5="Übertrifft erheblich die Erwartungen"<br></p>
+
+<!-- TODO: th und td Objekte müssen noch untereinander angeordnet werden! -->
+<!--Wenn Fragen vorhanden sind, diese anzeigen mit der ID und dem Text der Frage-->
+<table th:if="${evaluationForm != null and !evaluationForm.questions.empty}" class="table">
+    <div>
+    <tr>
+        <th>Nummer<th>
+        <th>Frage</th>
+        <th>Antwort</th>
+    </tr>
+    </div>
+
+<!-- TODO:Die Fragen gesamt bewerten, sodass es nur noch einen Button weiter unten gibt, nicht für jede Frage einen einzelnen Button -->
+<!--Jede Frage wird im Format [Id von Evaluationsbogen]-[Nummer der Frage] angezeigt-->
+    <div>
+    <tr th:each="question : ${evaluationForm.questions}">
+
+        <td th:text="${evaluationForm.id} + '-' +  ${question.countQuestion}"></td>
+        <td th:text="${question.text}"></td>
+        <td>
+<!--        Neues Form-Objekt zum Bewerten der einzelnen Frage. Danach wird noch die Id der angezeigten Frage mitgegeben, am Ende der eingeloggte User-->
+            <form th:object="${ratingForm}" th:action="@{/evaluationForms/{evaluationFormId}/ratings/{questionId}/{user}(evaluationFormId=${evaluationForm.id},questionId=${question.id}, user=${#httpServletRequest.remoteUser})}" method="post" class="form">
+                <input th:field="*{score}" name="score" type="number"></input>
+                <p th:errors="*{score}"></p>
+                <button type="submit">Bewerten</button>
+            </form>
+        </td>
+    </tr>
+    </div>
+</table>
+
+
+
+<!-- Zurück auf den Evaluationsbogen kommen (Die showEvaluationForm-Seite) -->
+<a th:href="@{/evaluationForms/{evaluationFormId}(evaluationFormId=${evaluationForm.id})}">Zurück</a>
+
+</body>
+</html>

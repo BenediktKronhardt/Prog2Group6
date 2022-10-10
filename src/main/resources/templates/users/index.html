@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<sec:html
+        xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+        sec:authorize="hasRole('ADMIN')">
     <head>
         <title>Benutzerübersicht</title>
         <style>
@@ -26,8 +29,9 @@
 
           <hr/>
           <p class="small">
-            <a href="/evaluationForms/">Index</a>
+            <a th:href="@{/evaluationForms/}">Index</a>
           </p>
         </div>
     </body>
-</html>
+</sec:html>
+
