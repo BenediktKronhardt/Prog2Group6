@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Bewertung</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+    </style>
+    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
-
+<div class="mainInfo">
 <!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
 <div th:replace="layout/menu :: menu"></div>
 <!--    Evaluationsbogen mit Namen anzeigen -->
@@ -52,6 +56,6 @@
 
 <!-- Zurück auf den Evaluationsbogen kommen (Die showEvaluationForm-Seite) -->
 <a th:href="@{/evaluationForms/{evaluationFormId}(evaluationFormId=${evaluationForm.id})}">Zurück</a>
-
+</div>
 </body>
 </html>

@@ -9,92 +9,89 @@
     </head>
     <body>
         <div class="mainInfo">
-<!--Lehrveransaltung mit Namen anzeigen-->
-<h1 th:text="${lecture.name}"></h1>
+            <!--Lehrveransaltung mit Namen anzeigen-->
+            <h1 th:text="${lecture.name}"></h1>
 
-<!--    Button zum Löschen hinzufügen-->
-<form sec:authorize="hasRole('ADMIN')" th:action="@{/lectures/{lectureId}/delete(lectureId=${lecture.id})}" method="post" class="form">
-    <button type="submit" class="btn btn-danger">Löschen</button>
-</form>
+            <!--    Button zum Löschen hinzufügen-->
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/lectures/{lectureId}/delete(lectureId=${lecture.id})}" method="post" class="form">
+                <button type="submit" class="btn btn-danger">Löschen</button>
+            </form>
 
-<!--    Namen ändern. Dies kann nur ein Admin machen. Ebenfalls ist dies nur möglich, wenn die Lehrveranstaltung aktiv ist    -->
-<form sec:authorize="hasRole('ADMIN')" method="post" th:if="${lecture.status==true}"
-      th:action="@{/lectures/{lectureId}/changeName(lectureId=${lecture.id})}" th:object="${lectureForm}">
-    <div class="form-group">
-        <label>Neuer Name</label>
-        <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
-    </div>
-    <div class="form-group">
-        <p th:errors="*{name}"></p>
-        <button class="btn btn-primary" type="submit">Ändern</button>
-    </div>
-</form>
+            <!--    Namen ändern. Dies kann nur ein Admin machen. Ebenfalls ist dies nur möglich, wenn die Lehrveranstaltung aktiv ist    -->
+            <form sec:authorize="hasRole('ADMIN')" method="post" th:if="${lecture.status==true}"
+                  th:action="@{/lectures/{lectureId}/changeName(lectureId=${lecture.id})}" th:object="${lectureForm}">
+                <div class="form-group">
+                    <label>Neuer Name</label>
+                    <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <p th:errors="*{name}"></p>
+                    <button class="btn btn-primary" type="submit">Ändern</button>
+                </div>
+            </form>
 
-<!--Den Status der Lehrveranstaltung anzeigen-->
-<p th:if="${lecture.status==true}">Aktiv</p> <p th:if="${lecture.status!=true}">Inaktiv</p>
+            <!--Den Status der Lehrveranstaltung anzeigen-->
+            <p th:if="${lecture.status==true}">Aktiv</p> <p th:if="${lecture.status!=true}">Inaktiv</p>
 
-<!-- Button, um den Status einer Lehrveranstaltung zu ändern -->
-<form sec:authorize="hasRole('ADMIN')" method="post" th:action="@{/lectures/{lectureId}/changeStatus(lectureId=${lecture.id})}">
-        <button class="btn btn-primary" type="submit">Status ändern</button>
-</form>
-
-
-<!--Wenn Attribut gesetzt ist, dann dieses anzeigen, ansonsten ein - anzeigen-->
-<!--Kann in Datenbank nur null sein, wenn nicht gesetzt-->
-<p>Jahrgang:</p>
-<p th:if="${lecture.startyear==null}">-</p>
-<p th:if="${lecture.startyear!=null}" th:text="${lecture.startyear}"></p>
-
-<!--initial anlegen (Test-Data-Creator): null in Datenbank, daher muss auf null und leeren String geprüft werden-->
-<p>Studienfach:</p>
-<p th:if="${lecture.course==null or lecture.course==''}">-</p>
-<p th:if="${lecture.course!=null and lecture.course!=''}" th:text="${lecture.course}"></p>
-
-<p>Studentenanzahl:</p>
-<p th:if="${lecture.studentCount==null}">-</p>
-<p th:if="${lecture.studentCount!=null}" th:text="${lecture.studentCount}"></p>
-
-<p>Dozentname:</p>
-<p th:if="${lecture.lecturerName==null or lecture.lecturerName==''}">-</p>
-<p th:if="${lecture.lecturerName!=null and lecture.lecturerName!=''}"  th:text="${lecture.lecturerName}"></p>
-
-<p>Kontaktstunden:</p>
-<p th:if="${lecture.contactHours==null}">-</p>
-<p th:if="${lecture.contactHours!=null}" th:text="${lecture.contactHours}"></p>
-
-<!--Falls ein Evaluationsbogen zugeordnet ist, diesen anzeigen (die toString Methode von diesem) und per Link auf diesen zugreifen können-->
-<a th:if="${lecture.evaluationForm != null}" th:href="@{/evaluationForms/{lectureEvaluationFormId}(lectureEvaluationFormId=${lecture.evaluationForm.id})}" th:text="${lecture.evaluationForm}"></a>
-
-<!--Falls kein Evaluationsbogen zugeordnet ist, die Nachricht "Es gibt keinen zugeordneten Evaluationsbogen" anzeigen-->
-<p th:if="${lecture.evaluationForm == null}">Es gibt keinen zugeordneten Evaluationsbogen. In der nachfolgenden Liste kann ein Evaluationsbogen ausgewählt werden:</p>
+            <!-- Button, um den Status einer Lehrveranstaltung zu ändern -->
+            <form sec:authorize="hasRole('ADMIN')" method="post" th:action="@{/lectures/{lectureId}/changeStatus(lectureId=${lecture.id})}">
+                    <button class="btn btn-primary" type="submit">Status ändern</button>
+            </form>
 
 
-<!--    Im Select Element können alle EvaluationsBögen ohne verknüpftes Lecture Objekt ausgewählt und zu angezeigtem Lecture Objekt hinzugefügt werden -->
-<form sec:authorize="hasRole('ADMIN')" th:if="${lecture.evaluationForm == null and lecture.status==true}" th:action="@{/lectures/{id}(id=${lecture.id})}" method="post" class="form-inline">
-    <select th:if="${lecture.evaluationForm == null}" name="evaluationFormId">
-        <!--Es werden alle Evaluationsbögen angezeigt, welchen noch kein Lecture-Objekt haben-->
-        <option disabled="disabled" selected="selected">Evaluationsbogen</option>
-        <option th:if="${evaluationForm.lecture==null}" th:each="evaluationForm : ${evaluationForm}" th:text="${evaluationForm.name}" th:value="${evaluationForm.id}"></option>
-    </select>
-    <button type="submit" class="btn btn-primary">Evaluationsbogen hinzufügen</button>
-</form>
+            <!--Wenn Attribut gesetzt ist, dann dieses anzeigen, ansonsten ein - anzeigen-->
+            <!--Kann in Datenbank nur null sein, wenn nicht gesetzt-->
+            <p>Jahrgang:</p>
+            <p th:if="${lecture.startyear==null}">-</p>
+            <p th:if="${lecture.startyear!=null}" th:text="${lecture.startyear}"></p>
+
+            <!--initial anlegen (Test-Data-Creator): null in Datenbank, daher muss auf null und leeren String geprüft werden-->
+            <p>Studienfach:</p>
+            <p th:if="${lecture.course==null or lecture.course==''}">-</p>
+            <p th:if="${lecture.course!=null and lecture.course!=''}" th:text="${lecture.course}"></p>
+
+            <p>Studentenanzahl:</p>
+            <p th:if="${lecture.studentCount==null}">-</p>
+            <p th:if="${lecture.studentCount!=null}" th:text="${lecture.studentCount}"></p>
+
+            <p>Dozentname:</p>
+            <p th:if="${lecture.lecturerName==null or lecture.lecturerName==''}">-</p>
+            <p th:if="${lecture.lecturerName!=null and lecture.lecturerName!=''}"  th:text="${lecture.lecturerName}"></p>
+
+            <p>Kontaktstunden:</p>
+            <p th:if="${lecture.contactHours==null}">-</p>
+            <p th:if="${lecture.contactHours!=null}" th:text="${lecture.contactHours}"></p>
+
+            <!--Falls ein Evaluationsbogen zugeordnet ist, diesen anzeigen (die toString Methode von diesem) und per Link auf diesen zugreifen können-->
+            <a th:if="${lecture.evaluationForm != null}" th:href="@{/evaluationForms/{lectureEvaluationFormId}(lectureEvaluationFormId=${lecture.evaluationForm.id})}" th:text="${lecture.evaluationForm}"></a>
+
+            <!--Falls kein Evaluationsbogen zugeordnet ist, die Nachricht "Es gibt keinen zugeordneten Evaluationsbogen" anzeigen-->
+            <p th:if="${lecture.evaluationForm == null}">Es gibt keinen zugeordneten Evaluationsbogen. In der nachfolgenden Liste kann ein Evaluationsbogen ausgewählt werden:</p>
 
 
+            <!--    Im Select Element können alle EvaluationsBögen ohne verknüpftes Lecture Objekt ausgewählt und zu angezeigtem Lecture Objekt hinzugefügt werden -->
+            <form sec:authorize="hasRole('ADMIN')" th:if="${lecture.evaluationForm == null and lecture.status==true}" th:action="@{/lectures/{id}(id=${lecture.id})}" method="post" class="form-inline">
+                <select th:if="${lecture.evaluationForm == null}" name="evaluationFormId">
+                    <!--Es werden alle Evaluationsbögen angezeigt, welchen noch kein Lecture-Objekt haben-->
+                    <option disabled="disabled" selected="selected">Evaluationsbogen</option>
+                    <option th:if="${evaluationForm.lecture==null}" th:each="evaluationForm : ${evaluationForm}" th:text="${evaluationForm.name}" th:value="${evaluationForm.id}"></option>
+                </select>
+                <button type="submit" class="btn btn-primary">Evaluationsbogen hinzufügen</button>
+            </form>
 
-<div>
-<!--Attribute der angezeigten Lehrveranstaltung ändern. Dies kann nur gemacht werden, wenn der Status der Lehrveranstaltung aktiv ist -->
-    <a sec:authorize="hasRole('ADMIN')" th:if="${lecture.status==true}"
-       th:href="@{/lectures/{lectureId}/change(lectureId=${lecture.id})}">Attribute ändern</a>
-</div>
 
+            <div>
+            <!--Attribute der angezeigten Lehrveranstaltung ändern. Dies kann nur gemacht werden, wenn der Status der Lehrveranstaltung aktiv ist -->
+                <a sec:authorize="hasRole('ADMIN')" th:if="${lecture.status==true}"
+                   th:href="@{/lectures/{lectureId}/change(lectureId=${lecture.id})}">Attribute ändern</a>
+            </div>
 
-<hr />
-<p class="small">
-    <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
-    <a th:href="@{/evaluationForms/}">Index</a>
-</p>
-
-</div>
-</body>
+            <hr />
+            <p class="small">
+                <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
+                <a th:href="@{/evaluationForms/}">Index</a>
+            </p>
+        </div>
+    </body>
 
 </html>
