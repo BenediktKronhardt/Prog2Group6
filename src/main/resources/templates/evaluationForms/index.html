@@ -4,17 +4,32 @@
 <body>
 <div>
     <div>
-        <h1>Lehrveranstaltungen</h1>
-
         <a sec:authorize="hasRole('ADMIN')" th:href="@{/lectures/}">Lehrveranstaltung anlegen</a>
     </div>
 
-    <!--In einer Liste die verschiedenen Lectures anzeigen-->
+    <!--Div-Element um alle aktiven Lehrveranstaltungen anzuzeigen-->
+    <div>
+
+    <h1>Aktive Lehrveranstaltungen:</h1>
+
     <ul class="list-unstyled">
-        <li th:each="lecture : ${lecture}">
+        <li th:each="lecture : ${lecture}" th:if="${lecture.status == true}">
             <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
         </li>
     </ul>
+    </div>
+
+    <!--Div-Element um alle inaktiven Lehrveranstaltungen anzuzeigen-->
+    <div>
+
+        <h1>Inaktive Lehrveranstaltungen:</h1>
+
+        <ul class="list-unstyled">
+            <li th:each="lecture : ${lecture}" th:if="${lecture.status != true}">
+                <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
+            </li>
+        </ul>
+    </div>
 
     <hr>
 

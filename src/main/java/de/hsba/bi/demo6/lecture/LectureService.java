@@ -65,6 +65,15 @@ public class LectureService {
         repository.deleteById(id);
     }
 
-
+//Den Status einer Lehrveranstaltung ändern
+    public void changeStatus(Lecture lecture){
+        boolean i = lecture.getStatus();
+        if (i==true) {
+            lecture.setStatus(false);
+        }
+        else if (i==false){
+            lecture.setStatus(true);
+        }
+    }
 
 }

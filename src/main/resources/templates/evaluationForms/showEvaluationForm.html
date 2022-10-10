@@ -64,8 +64,8 @@
         </form>
 
 
-<!--    Evaluationsbogen bewerten. Der Link wird nur angezeigt, wenn Fragen zu dem Evaluationsbogen hinzugefügt wurden TODO:Den Link als Button anzeigen lassen;-->
-        <a sec:authorize="hasRole('USER')" th:if="${!evaluationForm.questions.empty}" th:href="@{{evaluationFormId}/ratings(evaluationFormId=${evaluationForm.id})}">Evaluationsbogen bewerten</a>
+<!--    Evaluationsbogen bewerten. Der Link wird nur angezeigt, wenn Fragen zu dem Evaluationsbogen hinzugefügt wurden. Ebenfalls nur, wenn ein aktives Lecture-Objekt mit dem Evaluationsbogen verbunden ist-->
+        <a sec:authorize="hasRole('USER')" th:if="${!evaluationForm.questions.empty and evaluationForm.lecture!=null and evaluationForm.lecture.status == true}" th:href="@{{evaluationFormId}/ratings(evaluationFormId=${evaluationForm.id})}">Evaluationsbogen bewerten</a>
 
 
 <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
@@ -84,11 +84,12 @@
         <p th:if="${evaluationForm.lecture == null}">Es gibt keine zugeordnete Lehrveranstaltung. In der nachfolgenden Liste kann eine Lehrveranstaltung ausgewählt werden:</p>
 
 <!--    Im Select Element können alle Lehrveranstaltungen ohne verknüpften Evaluationsbogen ausgewählt und zu angezeigtem Evaluationsbogen hinzugefügt werden -->
-        <form sec:authorize="hasRole('ADMIN')" th:if="${evaluationForm.lecture == null}" th:action="@{/evaluationForms/{id}/addLecture(id=${evaluationForm.id})}" method="post" class="form-inline">
+        <form sec:authorize="hasRole('ADMIN')" th:if="${evaluationForm.lecture == null }" th:action="@{/evaluationForms/{id}/addLecture(id=${evaluationForm.id})}" method="post" class="form-inline">
             <select th:if="${evaluationForm.lecture == null}" name="lectureId">
-<!--            Es werden alle Lehrveranstaltungen angezeigt, welchen noch kein EvaluationForm-Objekt haben-->
+<!--            Es werden alle Lehrveranstaltungen angezeigt, welchen noch kein EvaluationForm-Objekt haben und aktiv sind-->
                 <option disabled="disabled" selected="selected">Lehrveranstaltung</option>
-                <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
+                <option th:if="${lecture.evaluationForm==null and lecture.status==true}"
+                        th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
             </select>
             <button type="submit" class="btn btn-primary">Lehrveranstaltung hinzufügen</button>
         </form>
