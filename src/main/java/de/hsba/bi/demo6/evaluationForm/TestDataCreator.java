@@ -58,7 +58,7 @@ public class TestDataCreator {
         evaluationFormService.addQuestion(evaluationForm2,new Question(4, "Wie zufrieden sind Sie mit diesem Modul insgesamt?"));
         evaluationFormService.save(evaluationForm2);
 
-        Lecture programmierungLecture = lectureService.createLecture("Projektmanagement 20A-BI WiSe 2021");
+        Lecture programmierungLecture = lectureService.createLecture("Programmierung 2 20A-BI WiSe 2021");
         lectureService.changeStatus(programmierungLecture);
         lectureService.addEvaluationForm(projektmanagement,programmierungLecture);
         lectureService.save(programmierungLecture);
