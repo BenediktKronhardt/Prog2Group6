@@ -70,4 +70,11 @@ public class LectureShowController {
         return "redirect:/lectures/" +id;
     }
 
+    //  Den Status eines Lecture-Objektes ändern
+    @PostMapping(path = "/changeStatus")
+    public String changeStatus(@PathVariable("id") Long id){
+        Lecture lecture = getLecture(id);
+        lectureService.changeStatus(lecture);
+        return "redirect:/lectures/" +id;
+    }
 }
