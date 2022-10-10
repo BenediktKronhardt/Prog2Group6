@@ -1,6 +1,7 @@
 package de.hsba.bi.demo6;
 
 
+import de.hsba.bi.demo6.user.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -19,6 +20,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/users/**").hasRole(de.hsba.bi.demo6.user.User.ADMIN_ROLE)
+                .antMatchers("/evaluationForms/{id}/delete").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/evaluationForms/{evaluationFormId}/deleteQuestion/**").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/evaluationForms/{evaluationFormId}/changeQuestion/**").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/evaluationForms/{id}/questions").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/lectures").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/lectures/").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/lectures/{lectureId}/delete").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/lectures/{lectureId}/changeName").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/lectures/{lectureId}/change").hasRole(User.ADMIN_ROLE)
+                .antMatchers("/{evaluationFormId}/ratings").hasRole(User.USER_ROLE)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

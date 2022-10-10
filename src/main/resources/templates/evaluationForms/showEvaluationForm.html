@@ -28,14 +28,14 @@
             <td>
 <!--            Button zum Löschen der jeweiligen Frage hinzufügen. Hier wird sowohl die id des Evaluationsbogens in der Mitte, als auch der id der zu löschenden Question am Ende mitgegeben-->
 
-                <form th:action="@{/evaluationForms/{evaluationFormId}/deleteQuestion/{questionId}(evaluationFormId=${evaluationForm.id}, questionId=${question.id})}" method="post" class="form">
+                <form sec:authorize="hasRole('ADMIN')" th:action="@{/evaluationForms/{evaluationFormId}/deleteQuestion/{questionId}(evaluationFormId=${evaluationForm.id}, questionId=${question.id})}" method="post" class="form">
                     <button type="submit" class="btn btn-danger">Löschen</button>
                 </form></td>
             <td>
 <!--            Den Namen einer Frage ändern-->
-                <form method="post" th:action="@{/evaluationForms/{evaluationFormId}/changeQuestion/{questionId}(evaluationFormId=${evaluationForm.id}, questionId=${question.id})}" th:object="${questionForm}">
+                <form sec:authorize="hasRole('ADMIN')" method="post" th:action="@{/evaluationForms/{evaluationFormId}/changeQuestion/{questionId}(evaluationFormId=${evaluationForm.id}, questionId=${question.id})}" th:object="${questionForm}">
                     <div class="form-group">
-                        <label>Neuer Name</label>
+                        <label>Neuer Text:</label>
                         <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
                     </div>
                     <div class="form-group">
@@ -51,31 +51,32 @@
 
 <!--    Den Namen eines Evaluationsbogens ändern-->
 
-        <form method="post" th:action="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:object="${evaluationFormForm}">
+        <form method="post" sec:authorize="hasRole('ADMIN')" th:action="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:object="${evaluationFormForm}">
 
             <div class="form-group">
                 <label>Neuer Name</label>
                 <input class="form-control form-control-sm" th:field="*{name}" type="text"/>
             </div>
             <div class="form-group">
+                <p th:errors="*{name}"></p>
                 <button class="btn btn-primary" type="submit">Ändern</button>
             </div>
         </form>
 
 
-<!--    Evaluationsbogen bewerten. Der Link wird nur angezeigt, wenn Fragen zu dem Evaluationsbogen hinzugefügt wurden TODO:Den Link als Button anzeigen lassen;  TODO: Nur User können diesen Button sehen-->
-        <a th:if="${!evaluationForm.questions.empty}" th:href="@{{evaluationFormId}/ratings(evaluationFormId=${evaluationForm.id})}">Evaluationsbogen bewerten</a>
+<!--    Evaluationsbogen bewerten. Der Link wird nur angezeigt, wenn Fragen zu dem Evaluationsbogen hinzugefügt wurden TODO:Den Link als Button anzeigen lassen;-->
+        <a sec:authorize="hasRole('USER')" th:if="${!evaluationForm.questions.empty}" th:href="@{{evaluationFormId}/ratings(evaluationFormId=${evaluationForm.id})}">Evaluationsbogen bewerten</a>
 
 
 <!--    Neue Frage zu dem Evaluationsbogen hinzufügen-->
-        <h2>Neue Frage</h2>
-        <form th:action="@{/evaluationForms/{id}/questions(id=${evaluationForm.id})}" method="post" class="form-inline" th:object="${questionForm}">
+        <h2 sec:authorize="hasRole('ADMIN')">Neue Frage</h2>
+        <form sec:authorize="hasRole('ADMIN')" th:action="@{/evaluationForms/{id}/questions(id=${evaluationForm.id})}" method="post" class="form-inline" th:object="${questionForm}">
             <input th:field="*{name}" type="text" placeholder="Frage" class="form-control mr-2">
             <p th:errors="*{name}"></p>
             <button type="submit" class="btn btn-primary">Eintragen</button>
         </form>
 
-
+        <br>
 <!--    Falls eine Lehrveranstaltung zugeordnet ist, diese anzeigen (die toString Methode dieser) und per Link auf diese zugreifen können-->
         <a th:if="${evaluationForm.lecture != null}" th:href="@{/lectures/{evaluationFormLectureId}(evaluationFormLectureId=${evaluationForm.lecture.id})}" th:text="${evaluationForm.lecture}"></a>
 
@@ -83,7 +84,7 @@
         <p th:if="${evaluationForm.lecture == null}">Es gibt keine zugeordnete Lehrveranstaltung. In der nachfolgenden Liste kann eine Lehrveranstaltung ausgewählt werden:</p>
 
 <!--    Im Select Element können alle Lehrveranstaltungen ohne verknüpften Evaluationsbogen ausgewählt und zu angezeigtem Evaluationsbogen hinzugefügt werden -->
-        <form th:if="${evaluationForm.lecture == null}" th:action="@{/evaluationForms/{id}/addLecture(id=${evaluationForm.id})}" method="post" class="form-inline">
+        <form sec:authorize="hasRole('ADMIN')" th:if="${evaluationForm.lecture == null}" th:action="@{/evaluationForms/{id}/addLecture(id=${evaluationForm.id})}" method="post" class="form-inline">
             <select th:if="${evaluationForm.lecture == null}" name="lectureId">
 <!--            Es werden alle Lehrveranstaltungen angezeigt, welchen noch kein EvaluationForm-Objekt haben-->
                 <option disabled="disabled" selected="selected">Lehrveranstaltung</option>
