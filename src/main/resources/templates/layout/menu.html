@@ -12,12 +12,12 @@
             <th:block th:fragment="menu">
                 <div class="mainTitle">
                     <form class="float-right" method="post" th:action="@{/logout}">
-                        <button class="btn btn-sm btn-link" type="submit">
+                        <button type="submit">
                             <span th:text="${#httpServletRequest.remoteUser}" />
                             abmelden
                         </button>
                     </form>
-                    <a class="btn btn-sm btn-link float-right" sec:authorize="hasRole('ADMIN')" th:href="@{/users/}">Nutzerübersicht</a>
+                    <a class="float-right" sec:authorize="hasRole('ADMIN')" th:href="@{/users/}">Nutzerübersicht</a>
                 </div>
             </th:block>
         </div>

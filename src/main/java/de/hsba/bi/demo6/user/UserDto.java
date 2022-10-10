@@ -6,11 +6,12 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+
 @Getter
 @Setter
-
 public class UserDto {
 
+//  Stellt die Validierung und die Variablen für die Registrierung
     @NotNull
     @NotEmpty
     private String name;
@@ -18,6 +19,4 @@ public class UserDto {
     @NotNull
     @NotEmpty
     private String password;
-
-
 }

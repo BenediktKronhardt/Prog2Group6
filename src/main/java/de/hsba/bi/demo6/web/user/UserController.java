@@ -24,6 +24,7 @@ public class UserController {
 
     private final UserService userService;
 
+//  Standard User Ansicht
     @GetMapping
     public String index(Model model) {
         model.addAttribute("users", userService.findAll());
@@ -36,10 +37,11 @@ public class UserController {
         return "users/registration";
     }
 
+//  Nach der Registrierung wird man auf die zuletzt besuchte Seite zurückgebracht
     @PostMapping("/registration")
-    public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto,
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto,
     HttpServletRequest request) {
             User registered = userService.registerNewUserAccount(userDto);
-        return new ModelAndView("successRegister", "user", userDto);
+        return "redirect:/";
     }
 }

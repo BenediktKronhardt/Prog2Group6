@@ -1,61 +1,55 @@
 <!DOCTYPE html>
 <html   xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Evaluationsbögen Übersicht</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
-    </style>
-    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
-</head>
-<body>
+    <head>
+        <title>Evaluationsbögen Übersicht</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+        </style>
+        <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
+    </head>
+    <body>
 
-<div class="mainMenu">
-    <div th:replace="layout/menu :: menu"></div>
-</div>
+        <div class="mainMenu">
+            <div th:replace="layout/menu :: menu"></div>
+        </div>
 
-<div class="mainInfo">
-    <div>
-        <h1>Lehrveranstaltungen</h1>
-        <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
-        <a href="/lectures/">Lehrveranstaltung anlegen</a>
-    </div>
+        <div class="mainInfo">
+            <div>
+                <h1>Lehrveranstaltungen</h1>
+                <!--    Link zu der "index-Seite, dort Auflistung von allen Evaluationsbögen-->
+                <a href="/lectures/">Lehrveranstaltung anlegen</a>
+            </div>
 
-    <!--In einer Liste die verschiedenen Lectures anzeigen-->
-    <ul class="list-unstyled">
-        <li th:each="lecture : ${lecture}">
-            <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
-        </li>
-    </ul>
+            <!--In einer Liste die verschiedenen Lectures anzeigen-->
+            <ul class="list-unstyled">
+                <li th:each="lecture : ${lecture}">
+                    <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
+                </li>
+            </ul>
 
-    <hr>
+            <hr>
 
-    <h1>Evaluationsbögen</h1>
+            <h1>Evaluationsbögen</h1>
 
-<!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
-    <ul class="list-unstyled">
-        <li th:each="evaluationForm : ${evaluationForm}">
-            <a th:href="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:text="${evaluationForm.name}"></a>
-        </li>
-    </ul>
+        <!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
+            <ul class="list-unstyled">
+                <li th:each="evaluationForm : ${evaluationForm}">
+                    <a th:href="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:text="${evaluationForm.name}"></a>
+                </li>
+            </ul>
 
-<!--Neue Evaluationsbögen anlegen-->
-    <!-- Durch th:object wird das evaluationFormForm verknüpft -->
-    <form th:action="@{/evaluationForms}" method="post" class="form-inline" th:object="${evaluationFormForm}">
-        <input th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
-        <select name ="lecture_id">
-<!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
-            <option disabled="disabled" selected="selected">Lehrveranstaltung</option>
-            <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
-        </select>
-        <span class="text-danger" th:errors="*{name}"/>
-        <button type="submit" class="btn btn-primary">Anlegen</button>
-    </form>
-
-
-    <div>
-        <!--Zeigt den aktuell eingeloggten Nutzer an-->
-        <span th:text="${#httpServletRequest.remoteUser}"/>
-    </div>
-</div>
-</body>
+        <!--Neue Evaluationsbögen anlegen-->
+            <!-- Durch th:object wird das evaluationFormForm verknüpft -->
+            <form th:action="@{/evaluationForms}" method="post" class="form-inline" th:object="${evaluationFormForm}">
+                <input th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
+                <select name ="lecture_id">
+        <!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
+                    <option disabled="disabled" selected="selected">Lehrveranstaltung</option>
+                    <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
+                </select>
+                <span class="text-danger" th:errors="*{name}"/>
+                <button type="submit" class="btn btn-primary">Anlegen</button>
+            </form>
+        </div>
+    </body>
 </html>

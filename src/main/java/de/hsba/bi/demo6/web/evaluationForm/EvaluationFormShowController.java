@@ -25,6 +25,7 @@ public class EvaluationFormShowController {
     private final EvaluationFormFormConverter formConverter;
     private final UserService userService;
 
+//  Gibt den exakten Bewertungsbogen wieder
     @ModelAttribute("evaluationForm")
     public EvaluationForm getEvaluationForm(@PathVariable("id")Long id){
         EvaluationForm evaluationForm = evaluationFormService.getEvaluationForm(id);
@@ -34,7 +35,7 @@ public class EvaluationFormShowController {
         return evaluationForm;
     }
 
-
+//  Es können alle User aus der Liste gefunden werden
     @ModelAttribute("users")
     public List<User> getUsers() {
         return userService.findUsers();
@@ -107,6 +108,7 @@ public class EvaluationFormShowController {
         return "redirect:/evaluationForms/"+id;
     }
 
+//  Wenn ein Evaluationsbogen (id) nicht gefunden werden kann, wird eine NotFoundExeption geworfen
     @ExceptionHandler(NotFoundException.class)
     public String notFound(){
         return "/notFound/";

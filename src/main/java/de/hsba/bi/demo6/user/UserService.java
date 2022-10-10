@@ -32,10 +32,7 @@ public class UserService implements IUserService {
 
     @Override
     public User registerNewUserAccount(UserDto userDto){
-
-
         User user = new User(userDto.getName(), passwordEncoder.encode(userDto.getPassword()), "USER");
-
         return userRepository.save(user);
     }
 }

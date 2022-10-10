@@ -27,11 +27,6 @@ public class UserAdapterService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        boolean enabled = true;
-        boolean accountNonExpired = true;
-        boolean credentialsNonExpired = true;
-        boolean accountNonLocked = true;
-
         return new UserAdapter(user);
     }
 

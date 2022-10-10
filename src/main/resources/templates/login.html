@@ -3,40 +3,48 @@
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+        </style>
     </head>
     <body>
-        <h1>Login</h1>
+        <div class="mainInfo" style="font-family: 'Dosis', sans-serif; max-width: 800px; margin: auto;">
+            <h1>Login</h1>
 
-        <!--    Aktion, wenn login fehlschägt -->
-        <div th:if="${param.error}">
-            <strong class="text-danger">Login fehlgeschlagen</strong>
+            <!--    Aktion, wenn login fehlschägt -->
+            <div th:if="${param.error}">
+                <strong class="text-danger">Login fehlgeschlagen</strong>
+            </div>
+
+            <!--    Aktion, wenn logout erfolgreich -->
+            <div th:if="${param.logout}">
+                <strong>Sie haben sich erfolgreich abgemeldet</strong>
+            </div>
+
+            <!--    Formular zum einloggen -->
+            <form method="post" th:action="@{/login}">
+                <div>
+                    <label for="inputUsername">Nutzername</label>
+                    <div>
+                        <input id="inputUsername" name="username" type="text" />
+                    </div>
+                </div>
+                <div>
+                    <label for="inputPassword">Passwort</label>
+                    <div>
+                        <input id="inputPassword" name="password" type="password" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <button type="submit">Anmelden</button>
+                    </div>
+                </div>
+            </form>
+            <div>
+                Wenn Sie noch keinen Account haben, dann registrieren Sie sich
+                <a href="/users/registration">hier!</a>
+            </div>
         </div>
-
-        <!--    Aktion, wenn logout erfolgreich -->
-        <div class="mb-4" th:if="${param.logout}">
-            <strong>Sie haben sich erfolgreich abgemeldet</strong>
-        </div>
-
-        <!--    Formular zum einloggen -->
-        <form method="post" th:action="@{/login}">
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="inputUsername">Nutzername</label>
-                <div class="col-sm-10">
-                    <input class="form-control" id="inputUsername" name="username" type="text" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="inputPassword">Passwort</label>
-                <div class="col-sm-10">
-                    <input class="form-control" id="inputPassword" name="password" type="password" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-primary" type="submit">Anmelden</button>
-                </div>
-            </div>
-        </form>
-
     </body>
 </html>
