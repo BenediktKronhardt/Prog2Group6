@@ -9,70 +9,65 @@
     </head>
     <body>
 
-    <div>
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/lectures/}">Lehrveranstaltung anlegen</a>
-    </div>
+
+        <div class="mainInfo">
+
+                <!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
+                <div th:replace="layout/menu :: menu"></div>
+
+            <!--Div-Element um alle aktiven Lehrveranstaltungen anzuzeigen-->
+            <div>
+
+            <h1>Aktive Lehrveranstaltungen:</h1>
+
+                <div>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/lectures/}">Lehrveranstaltung anlegen</a>
+                </div>
+
+                <ul class="list-unstyled">
+                <li th:each="lecture : ${lecture}" th:if="${lecture.status == true}">
+                    <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
+                </li>
+            </ul>
+            </div>
+
+            <!--Div-Element um alle inaktiven Lehrveranstaltungen anzuzeigen-->
+            <div>
+
+                <h1>Inaktive Lehrveranstaltungen:</h1>
+
+                <ul class="list-unstyled">
+                    <li th:each="lecture : ${lecture}" th:if="${lecture.status != true}">
+                        <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
+                    </li>
+                </ul>
+            </div>
 
 
-    <div class="mainInfo">
-    
-    <!--Div-Element um alle aktiven Lehrveranstaltungen anzuzeigen-->
-    <div>
+        <!--Div-Element, welches die Evaluationsbögen einschließt. Diese kann nur ein Admin sehen -->
+            <div sec:authorize="hasRole('ADMIN')">
+            <h1>Evaluationsbögen</h1>
+        <!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
+            <ul class="list-unstyled">
+                <li th:each="evaluationForm : ${evaluationForm}">
+                    <a th:href="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:text="${evaluationForm.name}"></a>
+                </li>
+            </ul>
 
-    <h1>Aktive Lehrveranstaltungen:</h1>
-
-
-    <ul class="list-unstyled">
-        <li th:each="lecture : ${lecture}" th:if="${lecture.status == true}">
-            <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
-        </li>
-    </ul>
-    </div>
-
-    <!--Div-Element um alle inaktiven Lehrveranstaltungen anzuzeigen-->
-    <div>
-
-        <h1>Inaktive Lehrveranstaltungen:</h1>
-
-        <ul class="list-unstyled">
-            <li th:each="lecture : ${lecture}" th:if="${lecture.status != true}">
-                <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
-            </li>
-        </ul>
-    </div>
-
- 
-<!--Div-Element, welches die Evaluationsbögen einschließt. Diese kann nur ein Admin sehen -->
-    <div sec:authorize="hasRole('ADMIN')">
-    <h1>Evaluationsbögen</h1>
-<!--In einer Liste die verschiedenen Evaluationsbögen anzeigen-->
-    <ul class="list-unstyled">
-        <li th:each="evaluationForm : ${evaluationForm}">
-            <a th:href="@{/evaluationForms/{id}(id=${evaluationForm.id})}" th:text="${evaluationForm.name}"></a>
-        </li>
-    </ul>
-
-        <!--Neue Evaluationsbögen anlegen-->
-            <!-- Durch th:object wird das evaluationFormForm verknüpft -->
-            <form th:action="@{/evaluationForms}" method="post" class="form-inline" th:object="${evaluationFormForm}">
-                <input th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
-                <select name ="lecture_id">
-        <!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
-                    <option disabled="disabled" selected="selected">Lehrveranstaltung</option>
-                    <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
-                </select>
-                <span class="text-danger" th:errors="*{name}"/>
-                <button type="submit" class="btn btn-primary">Anlegen</button>
-            </form>
+                <!--Neue Evaluationsbögen anlegen-->
+                    <!-- Durch th:object wird das evaluationFormForm verknüpft -->
+                    <form th:action="@{/evaluationForms}" method="post" class="form-inline" th:object="${evaluationFormForm}">
+                        <input th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
+                        <select name ="lecture_id">
+                <!--        Es werden alle Lectures angezeigt, welchen noch kein evaluationsBogen zugeordnet ist-->
+                            <option disabled="disabled" selected="selected">Lehrveranstaltung</option>
+                            <option th:if="${lecture.evaluationForm==null}" th:each="lecture : ${lecture}" th:text="${lecture.name}" th:value="${lecture.id}"></option>
+                        </select>
+                        <span class="text-danger" th:errors="*{name}"/>
+                        <button type="submit" class="btn btn-primary">Anlegen</button>
+                    </form>
+                </div>
         </div>
     </body>
-
-</div>
-</div>
-<div>
-    <!--Zeigt den aktuell eingeloggten Nutzer an-->
-    <span th:text="${#httpServletRequest.remoteUser}"/>
-</div>
-</body>
 
 </html>
