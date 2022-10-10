@@ -21,6 +21,7 @@
 
     <h1>Aktive Lehrveranstaltungen:</h1>
 
+
     <ul class="list-unstyled">
         <li th:each="lecture : ${lecture}" th:if="${lecture.status == true}">
             <a th:href="@{/lectures/{id}(id=${lecture.id})}" th:text="${lecture.name}"></a>
