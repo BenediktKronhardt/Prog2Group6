@@ -14,7 +14,11 @@
     <body>
 
         <div class="mainInfo">
-    <!--Wenn das lecture-Objekt null (leer) ist, soll eine komplett neue Lehrveranstaltung angelegt werden. Dann wird "anlegen" gezeigt. Wenn das Objekt gesetzt ist, wurde die Methode "changeGet" oder "changePost" im LectureIndexController aufgerufen und somit sollen die Attribute des Lecture-Objektes geändert werden -->
+
+            <!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
+            <div th:replace="layout/menu :: menu"></div>
+
+            <!--Wenn das lecture-Objekt null (leer) ist, soll eine komplett neue Lehrveranstaltung angelegt werden. Dann wird "anlegen" gezeigt. Wenn das Objekt gesetzt ist, wurde die Methode "changeGet" oder "changePost" im LectureIndexController aufgerufen und somit sollen die Attribute des Lecture-Objektes geändert werden -->
         <h1 th:if="${lecture == null}">Lehrveranstaltung anlegen</h1>
         <h1 th:if="${lecture != null}">Lehrveranstaltung ändern</h1>
 

@@ -9,6 +9,10 @@
     </head>
     <body>
         <div class="mainInfo">
+
+            <!--    Zeigt das Menü an (Funktion zum Ausloggen) -->
+            <div th:replace="layout/menu :: menu"></div>
+
             <!--Lehrveransaltung mit Namen anzeigen-->
             <h1 th:text="${lecture.name}"></h1>
 
