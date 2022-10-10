@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
-  <body>
-  <div>
-      <div class="my-4">
-    <h1>Zutritt verboten</h1>
- </div>
-  <p><strong>Bitte gehen Sie <a th:href="@{/}">zurück</a> auf Startseite.</strong></p>
-</div>
- </body>
- </html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Error 403</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+        </style>
+        <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
+    </head>
+    <body>
+        <div class="mainInfo">
+            <h1>Zutritt verboten</h1>
+            <p><strong>Bitte gehen Sie <a href="/">zurück</a> auf Startseite.</strong></p>
+        </div>
+    </body>
+</html>

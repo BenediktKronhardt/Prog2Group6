@@ -46,6 +46,7 @@ public class LectureService {
         return repository.findAll();
     }
 
+//  Speichert die lectures 
     public Lecture save(Lecture lecture) {
         return repository.save(lecture);
     }

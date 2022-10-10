@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EvaluationFormFormConverter {
 
+//  Convertiert die Eingabe des Forms
     EvaluationFormForm toForm(EvaluationForm evaluationForm){
         EvaluationFormForm form = new EvaluationFormForm();
         form.setName(evaluationForm.getName());

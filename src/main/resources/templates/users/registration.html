@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Registrierung</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+    </style>
+    <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
+  </head>
+  <body>
+    <div class="mainInfo" style="font-family: 'Dosis', sans-serif; max-width: 800px; margin: auto;">
+      <h1>Registrierung</h1>
+      <!-- Eingaben für die Registrierung  -->
+      <form th:action="@{/users/registration}" th:object="${user}" method="POST" enctype="utf8">
+        <div>
+          <label>Benutzername</label>
+          <input th:field="*{name}"/>
+          <p th:each="error : ${#fields.errors('name')}"
+             th:text="${error}">Validation error</p>
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" th:field="*{password}"/>
+          <p th:each="error : ${#fields.errors('password')}"
+             th:text="${error}">Validation error</p>
+        </div>
+        <button type="submit">submit</button>
+      </form>
+
+      <a th:href="@{/login.html}">login</a>
+    </div>
+  </body>
+</html>

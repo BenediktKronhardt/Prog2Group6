@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Error 404</title>
-</head>
-<body>
-  <div>
-    <h1>Error 404 - Seite wurde nicht gefunden</h1>
-  </div>
-  <div>
-    <a th:href="@{/}">Zurück</a>
-
-  </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Error 404</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
+        </style>
+        <link rel="stylesheet" href="/static/css/main.css" th:href="@{/css/main.css}">
+    </head>
+    <body>
+        <div class="mainInfo">
+          <div>
+            <h1>Error 404 - Seite wurde nicht gefunden</h1>
+          </div>
+          <div>
+            <a href="/">Zurück</a>
+            <a href="/evaluationForms">Bogen</a>
+          </div>
+        </div>
+    </body>
 </html>
